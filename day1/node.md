@@ -23,20 +23,13 @@
     }
 }
 
+<link rel="stylesheet" media="mediatype and|not|only (media feature)" href="mystylesheet.css">
+
 
 @media mediatype and|not|only (media feature) {
     CSS-Code;
 }
 
-
-<link rel="stylesheet" media="mediatype and|not|only (media feature)" href="mystylesheet.css">
-
-
-
-
-@media (orientation: portrait) {
-    .box{height: 100px;width: 100px;background-color: lightgreen; }       
-}
 
 方向指定了设备处于横屏（宽度大于宽度）模式还是竖屏（高度大于宽度）模式
 
