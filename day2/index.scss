@@ -1,0 +1,13 @@
+
+
+
+
+@function rem($font) {  //  iphone 678  37.5px;
+  @return $font / 37.5px * 1rem;
+}
+
+
+
+.box {
+  width: rem(100px); // rem  100px / 37.5px * 1rem;
+}
