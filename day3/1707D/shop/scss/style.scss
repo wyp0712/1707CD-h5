@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+
+  -webkit-appearance: none; // 去除按钮的默认样式
+  text-size-adjust: 100%; // 解决ios 下手机横屏的字体显示问题；
+  user-select: none; // 禁止用户选中文本
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+@mixin widthHeight($w:100%, $h:100%) {
+  width: $w;
+  height: $h;
+}
+
+// rem 函数
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+// 1px 细线伪元素
+@mixin setTopBorder($color:#ccc) {
+  & { // 父元素
+    position: relative;
+  }
+  &::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background:$color;
+    position: absolute;
+    left:0;
+    top:0;
+  }
+}
+
+@mixin setBottomBorder($color:#ccc) {
+  & { // 父元素
+    position: relative;
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background:$color;
+    position: absolute;
+    left:0;
+    bottom:0;
+  }
+}
+
+
+%juzhong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+html,
+body {
+  @include widthHeight;
+}
+
+.wrap {
+  @include widthHeight;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: rem(90px);
+  // background: #eee;
+  display: flex;
+  // border-bottom:1px solid black;
+
+  .left {
+    flex: 2;
+    @extend %juzhong;
+    flex-direction: column;
+    li:nth-child(1) {
+      width: rem(50px);
+      height: rem(50px);
+      @extend %juzhong;
+    }
+    .icon-yingyuana {
+      font-size: rem(30px);
+    }
+
+    li:nth-child(2) {
+      width: rem(50px);
+      height: rem(20px);
+      @extend %juzhong;
+    }
+  }
+
+  .right {
+    flex: 8;
+    @extend %juzhong;
+    .input-box {
+      @include widthHeight(95%, 80%);
+      border-radius: 30px;
+      position: relative;
+      .font {
+        position: absolute;
+        left: 4%;
+        font-size: rem(30px);
+        top: 25%;
+      }
+
+      input {
+        border:none;
+        @include widthHeight;
+        border-radius: 30px;
+        background: #eee;
+      }
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  flex: 1; // 把头和尾部撑开
+  overflow: auto; // 让中间出现滚动条
+
+  scroll-behavior: smooth;
+}
+
+.content {
+  width: 100%;
+}
+
+
+// lunbo
+
+.swiper-container {
+  width: 100%;
+  height: rem(300px);
+  .swiper-wrapper {
+    @include widthHeight;
+    .swiper-slide {
+      @include widthHeight;
+      img {
+        @include widthHeight;
+      }
+    }
+  }
+}
+
+// box1
+
+.box1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  .left{
+    width: rem(350px);
+    height: rem(188px);
+    background: #EC6E79;
+    border-radius: 10px;
+  }
+  .mid {
+    width: rem(170px);
+    height: rem(188px);
+    background: #EDCA4E;
+    border-radius: 10px;
+  }
+  .right{
+    width: rem(170px);
+    height: rem(188px);
+    background: #A67EF7;
+    border-radius: 10px;
+  }
+}
+
+.nav {
+  width: 100%;
+  height: rem(80px);
+  background: red;
+  position: sticky;
+  position: -webkit-sticky;
+  left:0;
+  top:0;
+}
+
+.sec {
+  width: 100%;
+  height: rem(300px);
+  margin-bottom: rem(10px);
+  background: rgb(128, 240, 156);
+}
+
+.back {
+  width: rem(100px);
+  height: rem(100px);
+  border-radius: 50%;
+  background: rgb(177, 173, 230);
+  position: fixed;
+  right: 10%;
+  bottom: 15%; 
+}
+
+
+.footer {
+  width: 100%;
+  height: rem(90px);
+  display: flex;
+  @include setTopBorder;
+
+  .item {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    li:nth-child(1) {
+      flex:8;
+     @extend %juzhong;
+    }
+    .icon-shouye {
+      font-size: rem(30px);
+    }
+    li:nth-child(2) {
+      flex:2;
+      @extend %juzhong;
+    }
+  }
+}

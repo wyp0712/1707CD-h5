@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+
+  -webkit-appearance: none; // 取消按钮默认样式
+  -webkit-tap-highlight-color: transparent; // 取消按钮默认样式
+  user-select: none; // 取消默认选中文字
+  outline: none;
+  text-size-adjust: 100%; // 解决ios下手机横屏的字体大小问题；
+}
+
+@mixin widthHeight($w: 100%, $h:100%) {
+  width: $w;
+  height: $h;
+}
+
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+%juzhong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html,
+body {
+  @include widthHeight;
+}
+
+.wrap {
+  @include widthHeight;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: rem(90px);
+  background: #fff;
+  display: flex;
+  border-bottom: 1px solid black;
+
+  .left {
+    flex: 2;
+    @extend %juzhong;
+    flex-direction: column;
+    li:nth-child(1) {
+      width: rem(51px);
+      height: rem(41px);
+      @extend %juzhong;
+      font-size: rem(25px);
+
+    }
+
+    li:nth-child(2) {
+      width: rem(51px);
+      height: rem(16px);
+      @extend %juzhong;
+    }
+  }
+
+  .right {
+    flex: 8;
+    @extend %juzhong;
+
+    .input-box {
+      width: 95%;
+      height: 90%;
+      background: #eee;
+      border-radius: 30px;
+      position: relative;
+      .font {
+        position: absolute;
+        left: 4%;
+        top: 23%;
+        font-size: 30px;
+      }
+      input {
+        border:none;
+        @include widthHeight;
+        border-radius: 30px;
+        background: #eee;
+      }
+    }
+  }
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.content {
+  width: 100%;
+}
+
+// lunbo
+.swiper-container {
+  width: 100%;
+  height: rem(300px);
+  .swiper-wrapper {
+    width: 100%;
+    height: rem(300px);
+    .swiper-slide {
+      width: 100%;
+      height: rem(300px);
+      img {
+        width: 100%;
+        height: rem(300px);
+      }
+    }
+  }
+}
+
+.box1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  
+  .left {
+    width: rem(352px);
+    height: rem(188px);;
+    background: #EC6E79;
+    border-radius: 4px;
+  }
+  .mid {
+    width: rem(170px);
+    height: rem(188px);;
+    background: #EECA4E;
+    border-radius: 4px;
+  }
+  .right{
+    width: rem(170px);
+    height: rem(188px);;
+    background: navy;
+    border-radius: 4px;
+  }
+}
+
+.footer {
+  width: 100%;
+  height: rem(80px);
+  display: flex;
+  font-size: rem(25px);
+  .item {
+    flex:1;
+    @extend %juzhong;
+    flex-direction: column;
+    li:nth-child(1) {
+       
+    }
+    li:nth-child(2) {
+      
+    }
+  }
+}

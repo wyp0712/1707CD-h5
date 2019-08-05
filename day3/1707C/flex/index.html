@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+   
+   .box {
+     width: 100%;
+     height: 300px;
+     display: flex;
+     border:1px solid black;
+     /* flex-start： 居左， center 中， flex-end 右 */
+     /* justify-content: flex-end;  */
+     /* flex-start： 居上， center 中， flex-end 下 */
+     /* align-items: center; */
+     /* 改变弹性盒子放向 */
+     /* flex-direction: column;  */
+     /* space-between   space-around */
+     justify-content: space-around; 
+   }
+
+   .box span {
+     /* width: 50px;
+     height: 50px;
+     background: red; */
+     flex: 1;
+     background: red;
+   }
+
+   
+
+
+  
+  
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <span>1</span>
+    <span>1</span>
+  </div>
+  
+</body>
+</html>

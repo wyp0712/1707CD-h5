@@ -1,0 +1,60 @@
+@charset "UTF-8";
+/*
+ 1. 嵌套  一般不超过三层；
+*/
+.box {
+  width: 100px;
+}
+
+.box span {
+  width: 10px;
+}
+
+.box span a {
+  color: red;
+}
+
+.box span a span {
+  text-align: center;
+}
+
+/*
+ 2. 变量  $变量名字：变量值；
+*/
+.box1 {
+  width: 100px;
+}
+
+/*
+
+3. 混合宏（继承）
+
+*/
+.box2 {
+  width: 100px;
+  height: 100px;
+}
+
+.box3 {
+  width: 20px;
+  height: 20px;
+}
+
+/*
+ 4. 占位继承 %名字 { }
+*/
+.box4 {
+  text-align: center;
+  line-height: 40px;
+}
+
+/* 函数  做运算 */
+.box5 {
+  font-size: 120px;
+}
+
+/* 
+  
+  循环  判断
+
+*/

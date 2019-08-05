@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script src="./lib/flexible.js"></script>
+  <link rel="stylesheet" href="./font_yz0o4qqvm4q/iconfont.css">
+  <link rel="stylesheet" href="./scss/style.css">
+
+  <link rel="stylesheet" href="./lib/swiper.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+
+    <header class="header">
+
+      <ul class="left">
+        <li class="iconfont icon-yingyuana"></li>
+        <li>签到</li>
+      </ul>
+
+      <div class="right">
+        <div class="input-box">
+          <span class="font iconfont icon-fangdajing">寻找宝贝店铺</span>
+          <input type="text">
+        </div>
+      </div>
+    </header>
+    
+    <main class="main">
+      <div class="content">
+
+        <!-- canrousel -->
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="./img/屏幕快照 2019-08-05 下午2.33.17.png" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/屏幕快照 2019-08-05 下午2.33.17.png" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/屏幕快照 2019-08-05 下午2.33.17.png" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- box1 -->
+        <div class="box1">
+          <div class="left">
+
+          </div>
+          <div class="mid">
+
+          </div>
+          <div class="right">
+
+          </div>
+        </div>
+
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <nav class="nav"></nav>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+
+        <div class="back"></div>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <ul class="item">
+        <li class="iconfont icon-shouye"> </li>
+        <li>首页</li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont icon-shouye"> </li>
+        <li>首页</li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont icon-shouye"> </li>
+        <li>首页</li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont icon-shouye"> </li>
+        <li>首页</li>
+      </ul>
+    </footer>
+  </div>
+
+
+
+  <script src="./lib/swiper.js"></script>
+
+  <script>
+
+    var back = document.querySelector('.back');
+    var main = document.querySelector('.main');
+
+    back.onclick = function () {
+      main.scrollTop = 0;
+    }
+
+    new Swiper('.swiper-container', {})
+
+
+  </script>
+
+
+</body>
+
+</html>

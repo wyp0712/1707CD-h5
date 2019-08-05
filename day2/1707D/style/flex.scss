@@ -1,0 +1,24 @@
+@import './reset.scss';
+
+
+/* 
+
+父：  
+  display: flex; // 开启弹性盒子 默认横排
+  flex-direction: column;
+子： 
+flexx:1;
+*/ 
+// .wrap {
+//   width: 100%;
+//   height: 200px;
+//   display: flex; // 开启弹性盒子 默认横排
+//   flex-direction: column;
+//   span {
+//     flex: 1;
+//     border: 1px solid black;
+//   }
+//   span:nth-child(2) {
+//     flex: 2;
+//   }
+// }

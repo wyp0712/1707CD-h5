@@ -1,0 +1,79 @@
+
+@import './reset.scss'; // 末尾必须加分号
+
+
+
+/* 1. 嵌套 */
+.wrap {
+  width: 100px;
+
+  span {
+    width: 20px;
+
+    a {
+      color: red;
+
+      span {
+        height: 10px;
+        ;
+      }
+    }
+  }
+}
+
+/* 
+  变量  $变量名：变量值；
+*/
+
+$width: 100px;
+$height: 100px;
+$color: red;
+$fontSize: 20px;
+
+.box1 {
+  width: $width;
+  height: $height;
+  color: $color;
+}
+
+
+/* 
+混合宏：继承 传参数（且有默认值）   不传参数 
+*/
+
+@mixin widthHeight($w:100px, $h:100px) {
+  width: $w;
+  height: $h;
+}
+
+
+.box2 {
+  @include widthHeight(10px, 20px);
+}
+
+.bo3 {
+  @include widthHeight(30px, 40px);
+}
+
+/* 
+占位继承
+*/ 
+
+%juzhong {
+  text-align: center;
+  line-height: 40px;
+}
+
+.box5 {
+  @extend %juzhong;
+}
+
+/* 函数 */
+
+@function rem($font) {
+  @return $font * 10
+};
+
+.box6 {
+  font-size: rem(10px);
+}

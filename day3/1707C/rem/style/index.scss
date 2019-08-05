@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+  text-decoration: none;
+
+  user-select: none;
+  appearance: none;
+  text-size-adjust: 100%;
+  // 点击按钮灰色背景问题
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+@function rem($font) {
+  // 45px / 75px
+  @return $font * 2 / 75px * 1rem;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: rem(40px);
+  background: red;
+  font-size: rem(20px);
+}
+
+.main { // main 不能开弹性盒子 一旦开了弹性盒子就出不了滚动条了
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+.content {
+  width: 100%;
+}
+
+// swiper
+.swiper-container {
+  width: 100%;
+  height: rem(150px);
+
+  .swiper-wrapper {
+    width: 100%;
+    height: 100%;
+
+    .swiper-slide {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// icon
+.icon-box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .icon-item {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    li:nth-child(1) {
+       width: rem(61px);
+       height: rem(48px);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       img {
+         width: 100%;
+         height: 100%;
+       }
+    }
+    li:nth-child(2) {
+      width: rem(61px);
+      height: rem(14px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+//sec
+.sec {
+  width: 100%;
+  height: rem(100px);
+  margin: 0 auto;
+  margin-bottom: rem(5px);
+  background: lightblue;
+  border-radius: 4px;
+}
+
+.nav {
+  width: 100%;
+  height: rem(40px);
+  background: lightsalmon;
+  position: sticky;
+  left: 0;
+  top: 0;
+}
+
+.back {
+  width: rem(50px);
+  height: rem(50px);
+  position: fixed;
+  right: 10%;;
+  bottom: 20%;
+  background: lightcoral;
+  border-radius: 50%;
+}
+
+.footer {
+  width: 100%;
+  height: rem(40px);
+  background: red;
+}

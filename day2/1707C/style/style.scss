@@ -1,0 +1,85 @@
+/*
+ 1. 嵌套  一般不超过三层；
+*/
+
+.box {
+  width: 100px;
+
+  span {
+    width: 10px;
+
+    a {
+      color: red;
+
+      span {
+        text-align: center;
+      }
+    }
+  }
+}
+
+/*
+ 2. 变量  $变量名字：变量值；
+*/
+
+$width: 100px;
+$height: 100px;
+
+.box1 {
+  width: $width;
+}
+
+/*
+
+3. 混合宏（继承）
+
+*/
+
+@mixin name {
+  width: $width;
+  height: $height;
+}
+
+.box2 {
+  @include name;
+}
+
+@mixin widthHeight($w:20px, $h:20px) {
+  width: $w;
+  height: $h;
+}
+
+.box3 {
+  @include widthHeight;
+}
+
+/*
+ 4. 占位继承 %名字 { }
+*/
+
+%juzhong {
+  text-align: center;
+  line-height: 40px;
+}
+
+.box4 {
+  @extend %juzhong;
+}
+
+/* 函数  做运算 */
+
+@function rem($font) {
+  @return $font * 3;
+}
+
+.box5 {
+  font-size: rem(40px);
+}
+
+
+
+/* 
+  
+  循环  判断
+
+*/

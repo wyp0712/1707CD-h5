@@ -43,6 +43,7 @@
 </style>
 
 #meta
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 这句话在于对响应式网页做一个初始化设置，主要包括：

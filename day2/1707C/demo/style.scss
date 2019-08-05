@@ -1,0 +1,56 @@
+
+/* 
+ 嵌套
+*/
+
+.wrap {
+  width: 100px;
+  span {
+    width: 20px;
+    a {
+      color: red;
+      span {
+        width: 10px;
+      }
+    }
+  }
+}
+
+/*  变量 */
+
+$width: 10px;
+
+.box1 {
+  width: $width;
+}
+
+/* 混合宏 */
+
+@mixin name {
+  width: $width;
+  height: 10px;;
+}
+
+.box2 {
+  @include  name;
+}
+
+/* 占位继承 */
+%juzhong {
+  text-align: center;
+  line-height: 40px;
+}
+
+.box3 {
+  @extend %juzhong;
+}
+
+/* function */
+
+@function rem($font) {
+  @return $font * 2;
+}
+
+.box4 {
+  font-size: rem(40px);
+}

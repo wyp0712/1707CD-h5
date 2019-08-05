@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
+  text-size-adjust: 100%;
+}
+
+.header .left, .header .left li:nth-child(1), .header .left li:nth-child(2), .header .right, .footer .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: 1.2rem;
+  background: #fff;
+  display: flex;
+  border-bottom: 1px solid black;
+}
+
+.header .left {
+  flex: 2;
+  flex-direction: column;
+}
+
+.header .left li:nth-child(1) {
+  width: 0.68rem;
+  height: 0.54667rem;
+  font-size: 0.33333rem;
+}
+
+.header .left li:nth-child(2) {
+  width: 0.68rem;
+  height: 0.21333rem;
+}
+
+.header .right {
+  flex: 8;
+}
+
+.header .right .input-box {
+  width: 95%;
+  height: 90%;
+  background: #eee;
+  border-radius: 30px;
+  position: relative;
+}
+
+.header .right .input-box .font {
+  position: absolute;
+  left: 4%;
+  top: 23%;
+  font-size: 30px;
+}
+
+.header .right .input-box input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: #eee;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.content {
+  width: 100%;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 4rem;
+}
+
+.swiper-container .swiper-wrapper {
+  width: 100%;
+  height: 4rem;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide {
+  width: 100%;
+  height: 4rem;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide img {
+  width: 100%;
+  height: 4rem;
+}
+
+.box1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.box1 .left {
+  width: 4.69333rem;
+  height: 2.50667rem;
+  background: #EC6E79;
+  border-radius: 4px;
+}
+
+.box1 .mid {
+  width: 2.26667rem;
+  height: 2.50667rem;
+  background: #EECA4E;
+  border-radius: 4px;
+}
+
+.box1 .right {
+  width: 2.26667rem;
+  height: 2.50667rem;
+  background: navy;
+  border-radius: 4px;
+}
+
+.footer {
+  width: 100%;
+  height: 1.06667rem;
+  display: flex;
+  font-size: 0.33333rem;
+}
+
+.footer .item {
+  flex: 1;
+  flex-direction: column;
+}

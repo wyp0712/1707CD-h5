@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/* 
+ 嵌套
+*/
+.wrap {
+  width: 100px;
+}
+
+.wrap span {
+  width: 20px;
+}
+
+.wrap span a {
+  color: red;
+}
+
+.wrap span a span {
+  width: 10px;
+}
+
+/*  变量 */
+.box1 {
+  width: 10px;
+}
+
+/* 混合宏 */
+.box2 {
+  width: 10px;
+  height: 10px;
+}
+
+/* 占位继承 */
+.box3 {
+  text-align: center;
+  line-height: 40px;
+}
+
+/* function */
+.box4 {
+  font-size: 80px;
+}

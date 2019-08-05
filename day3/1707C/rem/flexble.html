@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="./flexible.js"></script>
+  <link rel="stylesheet" href="./style/index.css">
+
+  <link rel="stylesheet" href="./libs/swiper.css">
+
+</head>
+
+<body>
+
+  <div class="wrap">
+
+    <header class="header">
+
+    </header>
+    <main class="main">
+
+      <div class="content">
+
+        <!-- canrousel -->
+
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="./img/banner.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/banner2.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="./img/banner.jpg" alt="">
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="icon-box">
+          <ul class="icon-item">
+            <li><img src="./img/icon.png" alt=""></li>
+            <li>天猫</li>
+          </ul>
+          <ul class="icon-item">
+            <li><img src="./img/icon.png" alt=""></li>
+            <li>天猫</li>
+          </ul>
+          <ul class="icon-item">
+            <li><img src="./img/icon.png" alt=""></li>
+            <li>天猫</li>
+          </ul>
+          <ul class="icon-item">
+            <li><img src="./img/icon.png" alt=""></li>
+            <li>天猫</li>
+          </ul>
+          <ul class="icon-item">
+              <li><img src="./img/icon.png" alt=""></li>
+              <li>天猫</li>
+            </ul>
+            <ul class="icon-item">
+              <li><img src="./img/icon.png" alt=""></li>
+              <li>天猫</li>
+            </ul>
+            <ul class="icon-item">
+              <li><img src="./img/icon.png" alt=""></li>
+              <li>天猫</li>
+            </ul>
+            <ul class="icon-item">
+              <li><img src="./img/icon.png" alt=""></li>
+              <li>天猫</li>
+            </ul>
+        </div>
+
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <nav class="nav">tab</nav>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+         
+      </div>
+      <div class="back"></div>
+
+    </main>
+    <div class="footer"></div>
+  </div>
+
+
+  <script src="./libs/swiper.js"></script>
+
+  <script>
+
+    new Swiper('.swiper-container', {})
+    
+
+    var back = document.querySelector('.back');
+    var main = document.querySelector('.main');
+
+    back.onclick = function() {
+      main.scrollTop = 0;
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>

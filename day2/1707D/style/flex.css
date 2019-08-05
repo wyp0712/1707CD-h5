@@ -1,0 +1,16 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+/* 
+
+父：  
+  display: flex; // 开启弹性盒子 默认横排
+  flex-direction: column;
+子： 
+flexx:1;
+*/
