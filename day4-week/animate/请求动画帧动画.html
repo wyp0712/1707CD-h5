@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+   
+   .pro {
+     width: 0;
+     height: 50px;
+     background: red;
+   }
+  
+  </style>
+</head>
+<body>
+    
+
+
+  <div class="pro">
+
+  </div>
+
+  <script>
+    var pro = document.querySelector('.pro');
+    
+    var timer = null;
+    var j = 0;
+
+    // timer = setInterval(function() {
+
+
+    // }, 10)
+
+    var id = 0;
+    function animte() {
+      j++;
+      pro.style.width = j + 'px'; 
+      var id = requestAnimationFrame(animte)
+      if (j > 300) {
+        // 取消动画帧，根据id取消
+        cancelAnimationFrame(id)
+      }
+    }
+   
+     // 请求动画帧 返回值是一个id
+    requestAnimationFrame(animte)
+
+
+
+
+
+  
+  
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+     
+    /* 媒体查询技术  适配手机， 平板 适配电脑 */
+
+
+    /* 最大宽度为600px */
+    /* @media screen  and (max-width: 600px) {
+       body {
+         background: red;
+       }
+    } */
+
+    /* 
+      
+      手机： 竖着
+      平板：
+      pc： 
+      */
+
+    @media screen  and (min-width: 400px) and (max-width: 800px) {
+      .wrap {
+         width: 100%;
+         height: 100px;
+         display: flex;
+         flex-wrap: wrap;
+         background: red;
+       }
+       .wrap .item {
+         width: 50%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         /* border:1px solid black; */
+       }
+    }
+
+    @media screen  and (max-width: 400px) {
+      .wrap {
+         width: 100%;
+         height: 100px;
+         display: flex;
+         flex-direction: column;
+       }
+       .wrap .item {
+         flex:1;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border:1px solid black;
+       }
+    }
+
+    @media screen  and (min-width: 800px) {
+       .wrap {
+         width: 100%;
+         height: 100px;
+         display: flex;
+       }
+       .wrap .item {
+         flex:1;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border:1px solid black;
+       }
+    }
+
+
+  
+  
+  </style>
+</head>
+<body>
+
+ <div class="wrap">
+     
+  <div class="item">item1</div>
+  <div class="item">item1</div>
+  <div class="item">item1</div>
+  <div class="item">item1</div>
+
+
+ </div>
+  
+</body>
+</html>

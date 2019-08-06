@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    /* 
+    
+    pc:
+    
+    pad:
+
+    phone:
+    
+    
+    */
+
+    /* iphone */
+    @media screen and (max-width:400px) {
+      .wrap {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      span {
+        flex:1;
+        height: 50px;;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+
+    /* pc */
+    @media screen and (min-width:800px) {
+      .wrap {
+        width: 100%;
+        height: 300px;
+        display: flex;
+      }
+
+      span {
+        flex:1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+
+    /* 400px    800px */
+
+    @media screen and (max-width:800px) and (min-width:400px) {
+
+      .wrap {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      span {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <span>tab1</span>
+    <span>tab2</span>
+    <span>tab3</span>
+    <span>tab4</span>
+  </div>
+
+</body>
+
+</html>

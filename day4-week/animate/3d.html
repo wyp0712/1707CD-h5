@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+   .box {
+     width: 300px;
+     height: 300px;
+     text-align: center;
+     line-height: 300px;
+     border:1px solid black;
+     font-size: 40px;
+     
+     /* 翻转不可见 */
+     backface-visibility:hidden;
+     /* transform: rotateY(30deg) */
+   }
+  
+  </style>
+</head>
+<body>
+    
+
+
+  <div class="box">
+     飞雪连天射白鹿
+  </div>
+
+  <button class="btns">点击</button>
+ 
+  <script>
+    
+
+    var btns = document.querySelector('.btns');
+    var box = document.querySelector('.box');
+
+    var j = 0;
+    btns.onclick = function() {
+      j +=20;
+      box.style.transform = `rotateY(${j}deg)`
+    }
+
+  
+  
+  </script>
+</body>
+</html>

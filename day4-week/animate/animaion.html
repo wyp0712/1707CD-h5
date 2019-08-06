@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    
+
+    .box {
+      width: 300px;
+      height: 300px;
+      /* margin: 0 auto; */
+      border: 1px solid black;
+      /* border-radius: 50%; */
+      text-align: center;
+      line-height: 300px;
+      /* animation: rotateStyle 1s linear 0s infinite;  */
+      /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+
+      /* 动画名称 */
+      animation-name: rotateStyle;
+      /* 动画时长 */
+      animation-duration: 1s;
+      /* 动画轨迹 */
+      animation-timing-function: linear;
+      /* 动画延迟时间， 规定固定动画从何时开始  animation-fill-mode: 失效*/
+      animation-delay: 1s;
+      /* 动画次数  当他为无限次的时候，*/
+      animation-iteration-count: infinite;
+      /* 动画循环运动 */
+      animation-direction: alternate;
+      /* 规定动画结束后的状态  backwards  初使状态  forwards*/
+      animation-fill-mode: forwards;
+
+      /* 单独属性： 控制动画运动与否 paused 暂停 running ：运动*/
+      animation-play-state: running;
+    }
+    /*   */
+    @keyframes rotateStyle {
+      0% {
+        position: absolute;
+        left: 0px;
+      }
+      100% {
+        position: absolute;
+        left: 500px;
+      }
+    }
+  
+  
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    hello world
+  </div>
+  
+</body>
+</html>

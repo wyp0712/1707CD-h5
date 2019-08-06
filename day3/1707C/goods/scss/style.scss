@@ -18,7 +18,7 @@
 }
 
 @function rem($font) {
-  @return $font / 75px * 1rem;
+  @return $font  / 75px * 1rem;
 }
 
 %juzhong {
