@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .content {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all .5s;
+    }
+
+    .left {
+      flex: 1;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      background: red;
+    }
+
+    .right {
+      flex: 1;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      background: blueviolet;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+  </div>
+
+
+  <script>
+
+    var wrap = document.querySelector('.wrap');
+    var content = document.querySelector('.content');
+    var left = document.querySelector('.left');
+    var right = document.querySelector('.right');
+
+    var leftWidth = left.offsetWidth;
+
+
+    var startx, starty, endx, endy;
+
+    content.addEventListener('touchstart', function (e) {
+      startx = e.touches[0].pageX;
+      starty = e.touches[0].pageY;
+    })
+    content.addEventListener('touchmove', function (e) {
+      endx = e.touches[0].pageX;
+      endy = e.touches[0].pageY;
+    })
+    content.addEventListener('touchend', function (e) {
+      console.log(startx - endx)
+      if (startx - endx > 0) {
+        content.style.transform = `translate(-${leftWidth}px)`
+      } else {
+        content.style.transform = `translate(${0}px)`
+      }
+    })
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .content {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all .5s;
+    }
+
+    .left {
+      flex: 1;
+      background: lightblue;
+    }
+
+    .right {
+      flex: 1;
+      background: lightcoral;
+      /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    }
+
+    @keyframes name {
+      0% {}
+
+      5% {}
+
+      100% {}
+    }
+
+    .page {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 5%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page span {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #eee;
+      text-align: center;
+      line-height: 25px;
+      margin-left: 5%;
+    }
+
+    .page .active {
+      background: lightseagreen;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="box">
+    <div class="content">
+      <div class="left">
+
+      </div>
+      <div class="right">
+
+      </div>
+    </div>
+
+    <div class="page">
+      <span class="active">1</span>
+      <span>2</span>
+    </div>
+  </div>
+
+
+
+  <script src="./touch.js"></script>
+  <script>
+
+    // 回调函数： 
+
+
+    var content = document.querySelector('.content');
+    var left = document.querySelector('.left');
+    var right = document.querySelector('.right');
+    var spans = document.querySelectorAll('.page span');
+    $('.content').swipe(function (e, dir) {
+      if (dir === 'left') {
+        content.style.transform = `translate(${-375}px)`
+        spans[1].classList.add('active')
+        spans[0].classList.remove('active')
+      } else if (dir === 'right') {
+        content.style.transform = `translate(${-0}px)`
+        spans[0].classList.add('active')
+        spans[1].classList.remove('active')
+      }
+    })
+
+    // 有事件的配合js使用的  transition: all .5s;
+    var content = document.querySelector('.content');
+    var left = document.querySelector('.left');
+    var right = document.querySelector('.right');
+    var spans = document.querySelectorAll('.page span');
+
+    var startx, starty, endx,endy;
+    content.addEventListener('touchstart', function (e) {
+      console.log(e.changedTouches)
+      startx = e.touches[0].pageX;
+      starty = e.touches[0].pageY;
+    })
+
+    content.addEventListener('touchmove', function (e) {
+      endx = e.touches[0].pageX;
+      endy = e.touches[0].pageY;
+    })
+    content.addEventListener('touchend', function () {
+      if (Math.abs(endx - startx) > Math.abs(endy - starty) && startx - endx >= 25) {
+         console.log('left')
+        content.style.transform = `translate(${-375}px)`
+        spans[1].classList.add('active')
+        spans[0].classList.remove('active')
+      }
+
+      if (Math.abs(endx - startx) > Math.abs(endy - starty) && startx - endx <= -25) {
+         console.log('right')
+        content.style.transform = `translate(${-0}px)`
+        spans[0].classList.add('active')
+        spans[1].classList.remove('active')
+      }
+
+    })
+
+
+
+    // var Dom = function() {
+
+    // }
+    // Dom.prototype = {
+
+    // }
+    // var p = new Dom()
+
+    // console.log(p, 'p')
+
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

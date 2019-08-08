@@ -1,0 +1,34 @@
+@import './reset.scss';
+
+
+@function rem($font) {
+  @return $font / 75px * 1rem
+};
+
+
+
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: rem(90px);
+  background: lightblue;
+}
+
+.main {
+  width: 100%;
+  flex:1;
+  overflow: auto;
+}
+
+.footer {
+  width: 100%;
+  height: rem(90px);
+  background: lightblue;
+}

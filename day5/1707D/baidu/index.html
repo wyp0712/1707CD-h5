@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./scss/index.css">
+  <script src="./lib/flexible.js"></script>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <button class="btns">点击展开</button>
+    <!-- <nav class="nav">
+      <span>tab1</span>
+      <span>tab1</span>
+      <span>tab1</span>
+    </nav> -->
+    <main class="main">
+      <div class="content">
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+        <div class="sec">1</div>
+      </div>
+    </main>
+    <div class="footer">
+
+    </div>
+
+
+
+
+    <div class="dialog hide">
+      <div class="mask"></div>
+      <div class="tip">
+        <button class="back">点击back</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var btns = document.querySelector('.btns');
+    var dialog = document.querySelector('.dialog');
+    var mask = document.querySelector('.mask');
+    var tip = document.querySelector('.tip');
+    var back = document.querySelector('.back');
+    var main = document.querySelector('.main');
+    // var nav = document.querySelector('.nav');
+
+    // main.addEventListener('scroll', function () {
+    //   console.log(this.scrollTop)
+    //   if (this.scrollTop > 410) {
+    //     console.log('jinru scrolltop')
+    //     nav.classList.add('opcity')
+    //   } else {
+    //     nav.classList.remove('opcity')
+    //   }
+    // })
+
+
+    btns.addEventListener('click', function () {
+      dialog.classList.remove('hide')
+      setTimeout(function () {
+        tip.style.left = `0%`;
+      }, 10)
+    })
+
+    back.addEventListener('click', function () {
+      tip.style.left = `-60%`;
+      setTimeout(function () {
+        dialog.classList.add('hide')
+      }, 400)
+    })
+
+
+
+
+  </script>
+
+</body>
+
+</html>

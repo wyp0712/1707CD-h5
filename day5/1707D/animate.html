@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 400px;
+      height: 400px;
+      /* border: 1px solid black; */
+      margin: 50px auto;
+      position: relative;
+    }
+
+    .box span {
+      display: block;
+      width: 300px;
+      height: 300px;
+      /* border: 1px solid black; */
+      position: absolute;
+      transform: rotate(45deg);
+      left: 12%;
+      top: 12%;
+      animation: circleStyle 2s infinite 0s ease;
+      z-index: 5;
+    }
+
+    @keyframes circleStyle {
+      0% {}
+
+      20% {
+        transform: rotate(45deg);
+      }
+
+      100% {
+        transform: rotate(405deg);
+      }
+    }
+
+    span::before {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: red;
+    }
+
+    span:nth-child(2) {
+      animation-delay: 200ms;
+      z-index: 4;
+    }
+    span:nth-child(2)::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgb(0, 4, 255);
+    }
+
+    span:nth-child(3) {
+      animation-delay: 350ms;
+      z-index: 2;
+    }
+    span:nth-child(3)::before {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgb(255, 0, 170);
+    }
+
+    span:nth-child(4) {
+      animation-delay: 450ms;
+      z-index: 1;
+    }
+    span:nth-child(4)::before {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgb(123, 255, 0);
+    }
+
+    .box1 {
+      width: 600px;
+      height: 300px;;
+      margin: 0 auto;
+    }
+    .box1 div {
+      margin: 50px 50px;
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #000;
+      /* animation: rotateStyle  1s; */
+      transition: all .5s;
+      
+    }
+
+    @keyframes rotateStyle {
+      0% {
+
+      }
+      100% {
+        transform: scale(2);
+      }
+    }
+
+    .box1 div:nth-child(1) {
+      animation-delay: 100ms;
+    }
+    .box1 div:nth-child(2) {
+      animation-delay: 400ms;
+    }
+    .box1 div:nth-child(3) {
+      animation-delay: 700ms;
+    }
+
+
+
+  </style>
+</head>
+
+<body>
+
+
+<!-- 
+  <div class="box">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div> -->
+
+
+  <div class="box1">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+
+  
+</body>
+
+</html>

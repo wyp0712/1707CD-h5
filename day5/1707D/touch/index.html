@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .box {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all .5s;
+    }
+
+    .box .left {
+      flex: 1;
+      background: red;
+    }
+
+    .box .right {
+      flex: 1;
+      background: rgb(89, 0, 255);
+    }
+    .drag {
+      width: 100px;
+      height: 100px;
+      background: lightcoral;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="box">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+    <div class="box">
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+      <div class="box">
+          <div class="left"></div>
+          <div class="right"></div>
+        </div>
+        <div class="box">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+  </div>
+
+
+  <div class="drag">
+
+  </div>
+
+
+  <script src="./touch.js"></script>
+  <script>
+
+     
+    // 回调函数  一个函数  作为参数  传递到其他函数中， 并且执行
+    var box = document.querySelector('.box');
+    
+    $('.box').swipeLeft(function() {
+      box.style.transform = `translate(-${375}px)`
+    })
+
+      // .swipeLeft(function() {})
+
+    // var box = document.querySelector('.box');
+    // var drag = document.querySelector('.drag');
+    // var left = document.querySelector('.left');
+
+    // var leftWidth = left.offsetWidth;
+    // var startx, starty, endx, endy;
+    // box.addEventListener('touchstart', function (e) { // 按下
+    //   startx = e.touches[0].pageX;
+    //   starty = e.touches[0].pageY;
+    // })
+
+    // box.addEventListener('touchmove', function (e) { // 移动
+    //   endx = e.touches[0].pageX;
+    //   endy = e.touches[0].pageY;
+    // })
+
+    // box.addEventListener('touchend', function (e) { // 抬起
+    //   var movex = endx - startx;
+    //   console.log(endx, startx)
+    //   if (Math.abs(endx - startx) > Math.abs(endy - starty) && startx - endx >= 25) {
+    //     console.log('左滑动', 'movex')
+    //   } else {
+    //     console.log('you滑动', 'movex')
+    //   }
+    // })
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    
+    *{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    html,body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .header {
+      width: 100%;
+      height: 65px;
+      background: red;
+    }
+    .main {
+      width: 100%;
+      flex:1;
+      /* overflow: auto; */
+    }
+    .icon-box {
+      width: 100%;
+      display:flex;
+      flex-wrap: wrap;
+    }
+    .icon-box .item {
+      width: 20%;
+      height: 60px;
+      border-radius: 50%;
+      border:1px solid black;
+      text-align: center;
+      line-height: 60px;
+      margin: 5px 5px;
+      transition: all .5s;
+    }
+    .left {
+      width: 50px;
+      height: 50px;
+      background: red;
+      position: fixed;
+      left:40%;
+      top:40%;
+      animation-delay: 100ms;
+    }
+
+    .mid {
+      width: 150px;
+      height: 50px;
+      background: rgb(98, 0, 255);
+      position: fixed;
+      left:40%;
+      top:50%;
+      animation-delay: 300ms;
+      
+    }
+
+    .right {
+      width: 150px;
+      height: 50px;
+      background: rgb(0, 255, 21);
+      position: fixed;
+      left:40%;
+      top:60%;
+
+      animation-delay: 800ms;
+    }
+
+    
+
+  
+  </style>
+
+  <link rel="stylesheet" href="./animate.css">
+</head>
+<body>
+  
+  
+  <div class="wrap">
+    <header class="header"></header>
+
+    <div class="main">
+
+      <!-- bounceInLeft bounceInRight bounceInUp bounceInDown -->
+      <div class="left animated bounceInRight"></div>
+      <div class="mid animated bounceInRight"></div>
+      <div class="right animated bounceInRight"></div>
+
+      <!-- <div class="icon-box"> -->
+        <!-- <div class="item animated bounceInDown">1</div>
+        <div class="item animated bounceInLeft">2</div>
+        <div class="item animated bounceInRight">3</div>
+        <div class="item animated bounceOutUp">4</div>
+        <div class="item animated swing">1</div> -->
+        <!-- <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div> -->
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <script>
+
+    //  var item = document.querySelectorAll('.item');
+    //  item.forEach(item => {
+    //    item.onclick = function() {
+    //      item.style.transform = `translate(${0}px, ${400}px)`;
+    //    }
+    //  })
+
+
+
+  
+  
+  </script>
+
+</body>
+</html>

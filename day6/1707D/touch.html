@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .content {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all .5s;
+    }
+
+    .left {
+      flex: 1;
+      background: lightblue;
+    }
+
+    .right {
+      flex: 1;
+      background: red;
+    }
+
+    .page {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 5%;
+
+      /* 居中代码 */
+      display: flex;
+      justify-content: center;
+      /* flex-direction: column; */
+      align-items: center;
+    }
+
+    .page span {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #eee;
+      text-align: center;
+      line-height: 25px;
+      margin-left: 5px;
+    }
+
+    .page .active {
+      background: lightcoral;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="box">
+    <div class="content">
+      <div class="left">
+
+      </div>
+      <div class="right">
+
+      </div>
+    </div>
+
+    <div class="page">
+      <span class="active">1</span>
+      <span>2</span>
+    </div>
+  </div>
+
+
+  <script src="./touch.js"></script>
+  <script>
+    var box = document.querySelector('.box')
+    var content = document.querySelector('.content')
+    var left = document.querySelector('.left')
+    var spans = document.querySelectorAll('.page span')
+
+    var leftWidth = left.offsetWidth;
+
+    $('.content').swipe(function (e, dir) {
+
+      console.log(dir, 'dir')
+      if (dir === 'left') {
+        content.style.transform = `translate(${-leftWidth}px)`
+        spans[0].classList.remove('active')
+        spans[1].classList.add('active')
+      } else if (dir === 'right') {
+        content.style.transform = `translate(${0}px)`
+        spans[0].classList.add('active')
+        spans[1].classList.remove('active')
+      }
+
+    })
+
+    // var startx, starty, endx, endy;
+    // content.addEventListener('touchstart', function (e) {
+
+    //   console.log(e.changedTouches)
+    //   startx = e.touches[0].pageX;
+    //   starty = e.touches[0].pageY;
+    // })
+
+    // content.addEventListener('touchmove', function (e) {
+    //   endx = e.touches[0].pageX;
+    //   endy = e.touches[0].pageY;
+    // })
+
+    // content.addEventListener('touchend', function (e) {
+    //   if ( Math.abs(endx - startx) > Math.abs(endy - starty) && startx - endx >= 25 ) {
+    //       content.style.transform = `translate(${-leftWidth}px)`
+    //       spans[0].classList.remove('active')
+    //       spans[1].classList.add('active')
+    //   }
+
+    //   console.log(startx - endx, '----------')
+
+    //   if ( Math.abs(endx - startx) > Math.abs(endy - starty) && startx - endx <= -25 ) {
+    //       content.style.transform = `translate(${0}px)`
+    //       spans[0].classList.add('active')
+    //       spans[1].classList.remove('active')
+    //   }
+
+    // })
+
+
+  </script>
+
+</body>
+
+</html>

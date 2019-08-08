@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+
+
+    //  for(var i = 0; i< 5; i++) {
+    //    setTimeout(function() {
+    //      console.log(i)
+    //    }, 0)
+    //  }
+
+    // 
+    function getData(callback) {
+      var arr = ['item1', 'item2', 'item2', 'item5', 'item6'];
+      setTimeout(function () { // 异步数据
+        if (arr.length >=5) {
+          callback && callback(arr, 'len > 5')
+        } else {
+          callback && callback(arr, 'len < 5')
+        }
+      }, 3000)
+    }
+    // 函数在执行的过程中会把 实参 传递给 形参
+    getData(function (res, dir) {
+      console.log(res, dir)
+    })
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

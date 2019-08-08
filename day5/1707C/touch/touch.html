@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .content {
+      width: 200%;
+      height: 100%;
+      display: flex;
+      transition: all .5s;
+    }
+
+    .left {
+      flex: 1;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      background: red;
+    }
+
+    .right {
+      flex: 1;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      background: blueviolet;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div class="content">
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+
+  </div>
+
+
+
+  <script src="./touch.js"></script>
+  <script>
+    console.log($('.content'))
+    var left = document.querySelector('.left');
+    var leftWidth = left.offsetWidth;
+    var content = document.querySelector('.content');
+    // $('.content').swipeLeft(function(e) {
+    //   console.log('左边滑动')
+    //   content.style.transform = `translate(-${leftWidth}px)`
+    // })
+
+
+    content.ontouchstart = function (e) {
+      // console.log(e.changedTouches, 'start')
+      // console.log(e.touches, 'start')
+    }
+    
+    // content.ontouchmove = function (e) {
+    //   console.log(e.changedTouches ,'move')
+    //   console.log(e.touches, 'move')
+    // }
+
+    content.ontouchend = function (e) {
+      // 手指离开之后还能保持最后一个手指列表
+      console.log(e.changedTouches, 'end')
+      // touches 一旦手指离开就获取不到手指列表了
+      console.log(e.touches, 'end')
+    }
+
+
+
+    // 一个函数 作为参数 传递到其他函数中，并且执行 回调函数
+    // $('.content').swipeLeft(function() {
+    //    content.style.transform = `translate(-${leftWidth}px)`
+    // })
+
+    // $('.content').swipeRight(function() {
+    //    content.style.transform = `translate(-${0}px)`
+    // })
+
+    // var wrap = document.querySelector('.wrap');
+    // var content = document.querySelector('.content');
+    // var left = document.querySelector('.left');
+    // var right = document.querySelector('.right');
+
+    // var leftWidth = left.offsetWidth;
+
+
+    // var startx, starty, endx, endy;
+
+    // content.addEventListener('touchstart', function (e) {
+    //   startx = e.touches[0].pageX;
+    //   starty = e.touches[0].pageY;
+    // })
+    // content.addEventListener('touchmove', function (e) {
+    //   endx = e.touches[0].pageX;
+    //   endy = e.touches[0].pageY;
+    // })
+    // content.addEventListener('touchend', function (e) {
+    //   console.log(startx - endx)
+    //   if (startx - endx > 0) {
+    //     content.style.transform = `translate(-${leftWidth}px)`
+    //   } else {
+    //     content.style.transform = `translate(${0}px)`
+    //   }
+    // })
+
+
+  </script>
+
+</body>
+
+</html>
