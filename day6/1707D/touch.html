@@ -96,9 +96,11 @@
 
     var leftWidth = left.offsetWidth;
 
-    $('.content').swipe(function (e, dir) {
+    $('.content').tap(function() {
+      console.log('我是tap事件') 
+    })
 
-      console.log(dir, 'dir')
+    $('.content').swipe(function (e, dir) {
       if (dir === 'left') {
         content.style.transform = `translate(${-leftWidth}px)`
         spans[0].classList.remove('active')

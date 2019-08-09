@@ -1,0 +1,71 @@
+@import './reset.scss';
+
+
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+.wrap  {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+
+.header {
+  width: 100%;
+  height: rem(160px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+  overflow: hidden;
+  transition: height .5s;
+  .item {
+    width: rem(120px);
+    height: rem(120px);
+    margin-left: rem(25px);
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.active {
+  background: lightcoral;
+}
+
+.headerHeight {
+  height: rem(160px);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  .wrapper {
+    width: 500%;
+    height: 100%;
+    display: flex;
+    transition: all .5s;
+    .slide {
+       flex:1;
+       position: relative;
+       .box {
+         width: rem(100px);
+         height: rem(100px);
+         border-radius: 50%;
+         background: rgb(178, 90, 32);
+         position: absolute;
+         left: 10%;;
+         top: 20%;
+       }
+       img {
+        width: 100%;
+        height: 100%;
+       }
+    }
+  }
+}

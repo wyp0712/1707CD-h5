@@ -63,10 +63,30 @@
     },
     /**
      * @function [单击事件]
-     * @fun { 解决移动端300ms 延迟问题 }
+     * @fun { click 解决移动端300ms 延迟问题 }
      */
-    tap: function () {
+    tap: function (fn) {
 
+      for (var i = 0; i < this.length; i++) {
+        this[i].addEventListener('touchstart', myTouch)
+        this[i].addEventListener('touchend', myTouch)
+      }
+      var startTime, endTime;
+      function myTouch(e) {
+        switch (e.type) {
+          case "touchstart":
+            // 获取开始时间戳
+            startTime = Date.now()
+            break
+          case "touchend":
+            // 获取结束时间戳
+            endTime = Date.now()
+            if (endTime - startTime <=300) {
+              fn.call(this, e)
+            }
+            break
+        }
+      }
     }
   }
 

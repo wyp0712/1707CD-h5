@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./style/index.css">
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <script src="./lib/flexible.js"></script>
+
+</head>
+
+<body>
+
+
+  <div class="wrap">
+
+    <div class="header">
+      猫眼电影
+    </div>
+
+    <nav class="nav">
+      <span>北京</span>
+      <span class="nav-btn nav-active">正在热映</span>
+      <span class="nav-btn">即将上映</span>
+      <span class="search-btn iconfont"> &#xe6e4; </span>
+    </nav>
+    <main class="main">
+      <div class="content">
+        <!-- start -->
+        <dl class="content-item">
+          <dt class="left-img">
+            <img src="https://p0.meituan.net/128.180/movie/f75fcb7696d55452e32794b2219700b9840805.jpg" alt="">
+          </dt>
+          <dd class="mid-msg">
+            <div class="title">烈火英雄</div>
+            <div class="sc">观众评分：<span> 9.0</span></div>
+            <div class="star">主演：</div>
+            <div class="cinema">主演：</div>
+          </dd>
+          <dd class="right-btn">
+            <span class="right-active">购票</span>
+          </dd>
+        </dl>
+        <!-- end -->
+
+      </div>
+    </main>
+
+    <div class="footer">
+      <ul class="item">
+        <li class="iconfont">&#xe604;</li>
+        <li>电影</li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe60e;</li>
+        <li>影院</li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe65c;</li>
+        <li>我的</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+
+    var CatEye = function (opt) {
+      var defaults = {
+      }
+      this.opts = Object.assign({}, defaults, opt)
+      this.contentEl = document.querySelector(this.opts.contentEl)
+      this.navBtns = document.querySelectorAll(this.opts.navBtns)
+      this.searchBtn = document.querySelector(this.opts.searchBtn);
+      this.init()
+    }
+
+    CatEye.prototype = {
+      init: function () {
+         
+        // 已进入页面 请求数据 并且进行渲染函数
+        this.getData((res) => { // 请求数据
+          this.render(res) // 渲染数据
+        })
+
+        // this.getData()
+        // .then(res => {
+        //   console.log(res)
+        // }) 
+
+        this.tabEvent() // tab
+        this.searchEvent() // search
+      },
+      // 获取数据  异步数据  引入了回调函数，解决异步的第一种方案，第二种方案叫promise
+      getData: function (fn) {
+        // 第一个参数写数据路径  第二参数写获取数据的回调函数 
+        ajax('./mock/data.json', (res) => {
+          fn && fn(res)
+        })
+
+        // return new Promise((resolve, reject) => {
+        //   // 第一个参数写数据路径  第二参数写获取数据的回调函数 
+        //   ajax('./mock/data.json', (res) => {
+        //     // fn && fn(res)
+        //     resolve(res)
+        //   })
+        // })
+
+      },
+      // 渲染数据  (index = 0) 默认值
+      render: function (list, index = 0) {
+        // 需要将按钮的下标index 和数据关联起来。
+        var datas = list.movieList.map(item => {
+          if (index === 0 && item.globalReleased) {
+            return `<dl class="content-item">
+              <dt class="left-img">
+                <img src="${item.img}" alt="">
+              </dt>
+              <dd class="mid-msg">
+                <div class="title">${item.nm}</div>
+                <div class="sc">观众评分：<span> ${item.sc}</span></div>
+                <div class="star">主演：${item.star}</div>
+                <div class="cinema">影院：${item.showInfo}</div>
+              </dd>
+              <dd class="right-btn">
+                <span class="right-active">购票</span>
+              </dd>
+            </dl>`
+          } else if (index === 1 && !item.globalReleased) {
+            return `<dl class="content-item">
+              <dt class="left-img">
+                <img src="${item.img}" alt="">
+              </dt>
+              <dd class="mid-msg">
+                <div class="title">${item.nm}</div>
+                <div class="sc">观众评分：<span> ${item.sc}</span></div>
+                <div class="star">主演：${item.star}</div>
+                <div class="cinema">影院：${item.showInfo}</div>
+              </dd>
+              <dd class="right-btn">
+                <span class="right-active right-color">想要</span>
+              </dd>
+            </dl>`
+          }
+
+        }).join("")
+
+        this.contentEl.innerHTML = datas;
+      },
+      // tab 事件
+      tabEvent: function () {
+        // 点击tab切换渲染不同的数据 index用来区分tab切换的按钮
+        this.navBtns.forEach((item, index) => {
+          item.onclick = () => {
+            for (var i = 0; i < this.navBtns.length; i++) {
+              this.navBtns[i].classList.remove('nav-active')
+            }
+            item.classList.add('nav-active');
+            this.getData((res) => {
+              this.render(res, index)
+            })
+          }
+        })
+      },
+      searchEvent: function () {
+        this.searchBtn.onclick = function () {
+          window.location.href = 'search.html'
+        }
+      }
+    }
+
+    new CatEye({
+      contentEl: '.content',
+      navBtns: '.nav-btn',
+      searchBtn: '.search-btn'
+    })
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

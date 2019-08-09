@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  账号：<input type="text" class="user"><br>
+  密码：<input type="password" class="pwd">
+
+  <button id="btn">提交</button>
+
+
+  <a href="./city.html">选择城市</a>
+
+
+  <script>
+
+    var stroage = window.localStorage;
+    var user = document.querySelector('.user')
+    var pwd = document.querySelector('.pwd')
+    var btn = document.querySelector('#btn')
+
+    console.log(stroage)
+    // 进入页面先判断有没有数据，有的话就取出来，并且赋值
+    if (stroage.msg) {
+      user.value = JSON.parse(stroage.getItem('msg')).user
+      pwd.value = JSON.parse(stroage.getItem('msg')).pwd
+    }
+
+
+
+    btn.onclick = function () {
+      // 获取账号密码
+      var msg = {
+        user: user.value.trim(),
+        pwd: pwd.value.trim()
+      }
+      // 存对象的时候，通过JSON.stringify（）转成 JSON字符串
+      stroage.setItem('msg',JSON.stringify(msg))
+      // 取的时候把json字符串改成对象-通过JSON.parse()
+
+    }
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style/index.css">
+  <script src="./lib/flexible.js"></script>
+  <link rel="stylesheet" href="./lib/animate.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="header">
+      <div class="header-wrapper">
+        <div class="header-slide">
+          <span class="item active" data-index=0>1</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=1>2</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=2>3</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=3>4</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=4>5</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="slide" data-index=0>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated"></div>
+        </div>
+        <div class="slide" data-index=1>
+          <img src="./img/2.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=2>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=3>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=4>
+          <img src="./img/2.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./touch.js"></script>
+  <script>
+
+    var header = document.querySelector('.header')
+    var slide = document.querySelectorAll('.slide')
+    var headerSlide = document.querySelectorAll('.header-slide')
+    var wrapper = document.querySelector('.wrapper')
+    var items = document.querySelectorAll('.item')
+    var animateBox = document.querySelectorAll('.animate-box')
+    var slideWidth = slide[0].offsetWidth;
+
+    items.forEach(el => {
+      el.onclick = function () {
+        var ind = el.dataset.index;
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.remove('active')
+        }
+        wrapper.style.transform = `translate(-${slideWidth * ind}px)`
+        el.classList.add('active')
+      }
+    })
+
+    $('.wrapper').swipe(function (e, dir) {
+      var index = e.target.parentNode.dataset.index * 1;
+      if (dir === 'bottom') {
+        header.style.height = `${160}px`
+      } else if (dir === 'top') {
+        header.style.height = `${0}px`
+      }
+      // 往左滑 或者 右滑 是 当前的宽度 * 当前的下标
+      if (dir === 'left') {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.remove('active')
+          animateBox[i].classList.remove('bounce');
+        }
+        if (index >= 4) {
+          index = 3;
+        }
+        animateBox[index + 1].classList.add('bounce');
+        items[index + 1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index + 1)}px)`
+
+      } else if (dir === 'right') {
+        for (var i = 0; i < items.length; i++) {
+          items[i].classList.remove('active')
+          animateBox[i].classList.remove('bounce');
+        }
+        if (index <= 1) {
+          index = 1;
+        }
+        animateBox[index - 1].classList.add('bounce');
+        items[index - 1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index - 1)}px)`
+      }
+    })
+    /*
+
+    0:  -375px * 1
+    1:  -375 *2
+
+
+    0: 375px * 0
+    1: 375px * 1;
+    */
+
+
+  </script>
+</body>
+
+</html>

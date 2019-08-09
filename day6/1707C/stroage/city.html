@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>我是citypage</h1>
+
+   
+  <h4>北京</h4>
+  <h4>上海</h4>
+  <h4>南京</h4>
+  <h4>武汉</h4>
+  <h4>天津</h4>
+
+
+  <script>
+     
+     var h4 = document.querySelectorAll('h4');
+     var storage = window.localStorage;
+
+     h4.forEach(item => {
+       item.onclick = function() {
+        storage.setItem('city', item.innerHTML)
+
+        window.location.href = './index.html'
+       }
+     })
+
+  
+  
+  </script>
+
+</body>
+</html>

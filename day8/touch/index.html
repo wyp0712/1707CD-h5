@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./style/index.css">
+  <script src="./lib/flexible.js"></script>
+
+  <link rel="stylesheet" href="./lib/animate.css">
+
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="header">
+      <div class="item active" data-index="0">1</div>
+      <div class="item" data-index="1">2</div>
+      <div class="item" data-index="2">3</div>
+      <div class="item" data-index="3">4</div>
+      <div class="item" data-index="4">5</div>
+    </div>
+
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="slide" data-index="0">
+          <img src="./img/1.png" alt="">
+
+          <div class="box animated"></div>
+        </div>
+        <div class="slide" data-index="1">
+          <img src="./img/2.png" alt="">
+          <div class="box animated"></div>
+        </div>
+        <div class="slide" data-index="2">
+          <img src="./img/1.png" alt="">
+          <div class="box animated"></div>
+        </div>
+        <div class="slide" data-index="3">
+          <img src="./img/2.png" alt="">
+          <div class="box animated"></div>
+        </div>
+        <div class="slide" data-index="4">
+          <img src="./img/1.png" alt="">
+          <div class="box animated"></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script src="./touch.js"></script>
+  <script>
+
+    var slide = document.querySelectorAll('.slide');
+    var wrapper = document.querySelector('.wrapper');
+    var header = document.querySelector('.header');
+    var headerItems = document.querySelectorAll('.item');
+
+    var box = document.querySelectorAll('.box')
+    var slideWidth = slide[0].offsetWidth;
+
+    // 头部事件
+    headerItems.forEach((item, index) => {
+      item.onclick = function() {
+
+        for(var i = 0; i < headerItems.length;i++) {
+          headerItems[i].classList.remove('active')
+        }
+        item.classList.add('active')
+        wrapper.style.transform = `translate(-${slideWidth * index}px)`
+      }
+    })
+
+    $('.wrapper').swipe(function(e, dir) {
+      
+      /*
+        获取自定义属性的新方法：
+
+       */
+      var index = e.target.parentNode.dataset.index * 1;
+       
+      if (dir === 'bottom') {
+        console.log('bottom')
+        header.classList.add('headerHeight')
+      }
+      if (dir === 'top') {
+        header.classList.remove('headerHeight')
+      }
+    
+      if (dir === 'left') {
+        if (index >=4 ) {
+          index = 3;
+        }
+        for(var i = 0; i < headerItems.length;i++) {
+          headerItems[i].classList.remove('active')
+          box[i].classList.remove('bounceInDown')
+        }
+        box[index+1].classList.add('bounceInDown')
+        headerItems[index + 1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index + 1)}px)`
+      }
+
+      if (dir === 'right') {
+        if (index <=0 ){
+          index = 1
+        }
+        for(var i = 0; i < headerItems.length;i++) {
+          headerItems[i].classList.remove('active')
+          box[i].classList.remove('bounceInDown')
+        }
+        box[index - 1].classList.add('bounceInDown')
+        headerItems[index - 1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index - 1)}px)`
+      }
+
+    })
+
+
+
+
+  </script>
+</body>
+
+</html>

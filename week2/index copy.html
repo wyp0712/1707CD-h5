@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style/index.css">
+  <script src="./lib/flexible.js"></script>
+  <link rel="stylesheet" href="./lib/animate.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="header">
+      <div class="header-wrapper">
+        <div class="header-slide">
+          <span class="item active" data-index=0>1</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=1>2</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=2>3</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=3>4</span>
+        </div>
+        <div class="header-slide">
+          <span class="item" data-index=4>5</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="wrapper">
+        <div class="slide" data-index=0>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated"></div>
+        </div>
+        <div class="slide" data-index=1>
+          <img src="./img/2.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=2>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=3>
+          <img src="./img/1.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+        <div class="slide" data-index=4>
+          <img src="./img/2.png" alt="">
+          <div class="animate-box animated "></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./touch.js"></script>
+  <script>
+
+    var obj = {
+      a: 1,
+      b:function() {
+
+      }
+    }
+
+
+    $('.slide')
+      .fn1()
+      .fn2()
+
+    /*
+     
+    1. 判断
+      左滑  
+      Math.abs(endx - startx) > Math.abs(endy - starty)  && startx - endx >= 25
+      右滑 
+      Math.abs(endx - startx) > Math.abs(endy - starty)  && startx - endx <= -25
+    
+      if (Math.abs(endx - startx) < Math.abs(endy - starty) && starty - endy <= -25) {
+        fn.call(this, e, 'bottom')
+      }
+
+      if (Math.abs(endx - startx) < Math.abs(endy - starty) && starty - endy >= 25) {
+        fn.call(this, e, 'top')
+      }
+    */
+
+    var header = document.querySelector('.header')
+    var slide = document.querySelectorAll('.slide')
+    var headerSlide = document.querySelectorAll('.header-slide')
+    var wrapper = document.querySelector('.wrapper')
+    var items = document.querySelectorAll('.item')
+    var animateBox = document.querySelectorAll('.animate-box')
+    var slideWidth = slide[0].offsetWidth;
+
+    items.forEach((val, index) => {
+      val.onclick = function() {
+        for(var i = 0; i < items.length;i++) {
+          items[i].classList.remove('active')
+        }
+        wrapper.style.transform = `translate(-${slideWidth * index}px)`
+        val.classList.add('active')
+      }
+    })
+    $('.wrapper').swipe(function (e, dir) {
+      var index = e.target.parentNode.dataset.index * 1;
+      if (dir === 'bottom') {
+        header.style.height = `${160}px`
+      } else if (dir === 'top') {
+        header.style.height = `${0}px`
+      }
+      // 往左滑 或者 右滑 是 当前的宽度 * 当前的下标 +1 -1
+      if (dir === 'left') { 
+        // 边界判断
+        if (index >=4) {
+          index = 3;
+        }
+        // 左边滑动，头部添加类名
+        for(var i = 0; i < items.length;i++) {
+          items[i].classList.remove('active')
+          animateBox[i].classList.remove('bounceInUp');
+        }
+        animateBox[index + 1].classList.add('bounceInUp');
+        items[index+1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index + 1)}px)`
+      } else if (dir === 'right') {
+        // console.log(index, 'inddex') /
+         // 右边滑动，头部添加类名
+         for(var i = 0; i < items.length;i++) {
+          items[i].classList.remove('active')
+          animateBox[i].classList.remove('bounceInUp');
+        }
+        if (index <=0) {
+          index = 1;
+        }
+        animateBox[index - 1].classList.add('bounceInUp');
+        items[index-1].classList.add('active');
+        wrapper.style.transform = `translate(-${slideWidth * (index - 1)}px)`
+      }
+    })
+    /*
+
+    0:  -375px * 1
+    1:  -375 *2
+
+
+    0: 375px * 0
+    1: 375px * 1;
+    */
+
+
+  </script>
+</body>
+
+</html>

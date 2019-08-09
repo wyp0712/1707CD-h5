@@ -1,3 +1,8 @@
+/**
+ * @function [XMLHttpRequest: ]
+ * @param {*} url 
+ * @param {*} callback 
+ */
 function ajax(url, callback) {
   var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP")
   xhr.open("get", url, true);

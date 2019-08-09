@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+  账号：<input type="text" class="user"><br>
+  密码： <input type="text" class="pwd"><br>
+  <button class="btn">提交</button>
+  <button id="remove">remove</button>
+  <button id="clear"> 清除</button>
+  <hr>
+  <a class="city" href="./city.html">选择城市</a>
+  <script>
+  var storage = window.localStorage;
+  var btn = document.querySelector('.btn')
+  var pwd = document.querySelector('.pwd')
+  var user = document.querySelector('.user')
+  var city = document.querySelector('.city')
+
+  // 获取城市数据并且渲染在当前页面上；
+
+  if (storage.city) {
+    city.innerHTML = storage.getItem('city')
+  }
+
+  remove.onclick = function() {
+    storage.removeItem('msg')
+  }
+  clear.onclick = function() {
+    storage.clear()
+  }
+
+  console.log(storage, 'storage')
+  // 刚进入页面就取出数据并且赋值
+  if (storage.msg) {
+    user.value = JSON.parse(storage.getItem('msg')).user;
+    pwd.value = JSON.parse(storage.getItem('msg')).pwd
+  }
+
+  btn.onclick = function() {
+   var msg = {
+     user: user.value.trim(),
+     pwd: pwd.value.trim()
+   }
+   storage.setItem('msg', JSON.stringify(msg))
+   storage.setItem('msg1', JSON.stringify(msg))
+   storage.setItem('msg2', JSON.stringify(msg))
+
+  
+
+   console.log(JSON.parse(storage.getItem('msg')))
+  }
+  
+  
+  </script>
+</body>
+</html>
