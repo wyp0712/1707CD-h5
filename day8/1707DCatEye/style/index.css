@@ -337,7 +337,7 @@ textarea {
 }
 
 .footer .item li:nth-child(1) {
-  flex: 1;
+  flex: 7;
 }
 
 .footer .item .iconfont {
@@ -345,5 +345,5 @@ textarea {
 }
 
 .footer .item li:nth-child(2) {
-  flex: 1;
+  flex: 3;
 }
