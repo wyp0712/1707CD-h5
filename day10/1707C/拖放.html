@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>高级拖放</title>
+  <style>
+    * {
+      user-select: none;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background: red;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .wrap {
+      width: 500px;
+      height: 400px;
+      display: flex;
+      border: 1px solid black;
+    }
+
+    .left {
+      flex: 4;
+      border-right: 1px solid black;
+      text-align: center;
+      line-height: 400px;
+      font-size: 30px;
+    }
+
+    .right {
+      flex: 6;
+    }
+
+    .right span {
+      display: block;
+      width: 200px;
+      height: 60px;
+      margin: 10px 20px;
+      background: red;
+      text-align: center;
+      line-height: 60px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <!-- pc -->
+  <!-- pic -->
+  <!-- <img src="./1.png" draggable="false" alt="">
+  <a href="">hello world</a>
+
+  <div class="box" draggable="true"> -->
+
+  <!-- 拖拽垃圾桶 -->
+
+  <div class="wrap">
+    <div class="left">
+      垃圾桶
+    </div>
+    <div class="right">
+
+      <span draggable="true">1</span>
+      <span draggable="true">2</span>
+      <span draggable="true">3</span>
+      <span draggable="true">4</span>
+
+    </div>
+  </div>
+
+  </div>
+
+  <script>
+    /*
+      1. draggable="true" 拖拽属性
+      2. 图片和带href的a标签 默认带有默认拖拽属性
+      3. 给所有的东西，只要加上draggable = true 就可以拖拽
+
+      1. 源物体  dragstart
+                 设置数据
+                e.dataTransfer.setData('text', e.target.innerHTML) 
+      2. 目标物体  dragover
+                    e.preventDefault();
+                  drop
+                    获取数据
+                    var domInner = e.dataTransfer.getData('text')
+    */
+
+    // 拖拽垃圾桶
+    var left = document.querySelector('.left')
+    var right = document.querySelector('.right')
+    var span = document.querySelectorAll('span')
+    var item = null;
+
+    // 源物体: dragstart 
+    this.ondragstart = function (e) {
+      // 设置数据类型 text 属于：MIME：中的一种
+      e.dataTransfer.setData('text', e.target.innerHTML)
+      item = e.target;
+
+    }
+
+    // 目标物体:  dragover  drop
+    left.ondragover = function (e) {
+      // 取消默认行为：
+      e.preventDefault();
+      // copy  move link
+      e.dataTransfer.dropEffect = "copy";
+    }
+
+    // 放下
+    left.ondrop = function (e) {
+      var domInner = e.dataTransfer.getData('text')
+      console.log(domInner, 'domInner')
+      // item.remove()
+      left.appendChild(item);
+    }
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

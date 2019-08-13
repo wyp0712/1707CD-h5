@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    img {
+      width: 200px;
+      height: 200px;
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      background: red;
+    }
+    .wrap {
+      width: 500px;
+      height: 500px;
+      border:1px solid black;
+      display: flex;
+    }
+    .left {
+      flex:4;
+      border-right: 1px dashed black;
+      text-align: center;
+      line-height: 500px;
+    }
+    .right {
+      flex: 6;
+
+    }
+    .right span {
+      display: block;
+      width: 200px;
+      height: 60px;
+      margin: 10px 20px;
+      background: lightcoral;
+      text-align: center;
+      line-height: 60px;
+    }
+  
+  </style>
+</head>
+<body>
+  
+  <!-- <img src="../1707C/1.png" draggable="false" alt=""> <br>
+
+  <hr>
+
+  <a href="" draggable="false">hello world</a>
+
+  <hr>
+
+  <div class="box" draggable="true">
+
+  </div> -->
+
+  <div class="wrap">
+     
+    <div class="left">
+      垃圾桶
+    </div>
+    <div class="right">
+       <span draggable="true">1</span>
+       <span draggable="true">2</span>
+       <span draggable="true">3</span>
+       <span draggable="true">4</span>
+       <span draggable="true">5</span>
+    </div>
+
+  </div>
+
+  <script>
+     
+    /*
+    
+    pc：
+
+    1. img  带href的a标签自带拖拽属性 draggable="true"
+    2. 所有物体，只要加上draggable="true" 可具有可拖拽的特性
+    3. 配合js使用 的三个函数：
+      源物体：    dragstart 
+              设置数据类型
+      目标物体：  dragover
+               取消默认行为
+      目标物体：  drop
+              获取数据类型并且操作
+    */  
+
+
+    var left = document.querySelector('.left') // 目标物体
+    var right = document.querySelector('.right')
+    var item = null;
+
+    // 源物体  拖起来
+    this.ondragstart = function(e) {
+       // 设置数据  MIME类型: text  
+       e.dataTransfer.setData('text', e.target.innerHTML); 
+       item = e.target;
+    }
+
+    // 目标物体函数  盘旋在上空
+    left.ondragover = function(e) {
+      // 取消默认行为
+      e.preventDefault();
+      // move copy link
+      e.dataTransfer.dropEffect = 'link'
+    }
+    
+    // 放下
+    left.ondrop = function(e) {
+      // 获取数据
+      var text = e.dataTransfer.getData('text');
+      // console.log(text, 'text')
+      // item.remove()
+      left.appendChild(item)
+    }
+    
+    
+  </script>
+</body>
+</html>

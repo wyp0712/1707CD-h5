@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  
+
+  .wrap {
+    width: 100%;
+    display: flex;
+
+  }
+  .imgbox {
+    flex:3;
+    /* display: inline-block; */
+    border:1px solid black;
+  }
+  .imgbox img {
+    width: 200px;
+    height: 45px;
+    display: block;
+    margin: 5px 5px;
+  }
+  .box {
+    flex:7;
+    /* display: inline-block; */
+    border:1px solid black;
+  }
+  
+  </style>
+</head>
+
+<body>
+
+
+  <!-- <video src="blob:https://iqiyi.qq-zuidazy.com/643e60ab-48d6-4a9c-928e-091222035b86" controls></video> -->
+
+
+  <!-- <div class="wrap">
+     <div class="header">
+        <span>选择文件</span>  <span>上传</span> <span>删除</span>
+     </div>
+     <div class="tip">
+       提示：最多上传5个文件，支持格式为doc,pdf,jpg;
+     </div>
+
+     <div class="content">
+       <div class="left">
+        
+       </div>
+       <div class="right">
+
+       </div>
+     </div>
+   </div> -->
+
+
+
+
+  <input type="file" id="inputFile" multiple >
+
+
+  <hr>
+
+  <div class="wrap">
+      <div class="imgbox">
+
+        </div>
+        <div class="box">
+          
+        </div>
+  </div>
+
+
+
+  <script>
+    // accept=".png,.jpg"
+    var inputFile = document.getElementById('inputFile');
+    var box = document.querySelector('.box');
+    var imgbox = document.querySelector('.imgbox');
+    inputFile.onchange = function(e) {
+      // 监听获取 描述信息
+      var fileItems = [...e.target.files]
+      console.log(fileItems, 'file') 
+      var count = 0; 
+      fileItems.forEach(item => {
+        
+        // 生成上传实例
+        var fr = new FileReader();
+        // 读
+        fr.readAsDataURL(item);
+        // 监听
+        fr.onabort = function() {
+          console.log('abort')
+        }
+        fr.onerror = function() {
+          console.log('errpr')
+        }
+        fr.onload = function(e) {
+          console.log(e)
+          console.log(this.result)
+          var imgStr = `<div><img src=${this.result}> <span>${item.name}</span></div>`;
+          imgbox.innerHTML += imgStr;
+        }
+        // 读取进度
+        fr.onprogress = function(e) {
+          // e.loaded 读取进度  item.size 文件总大小 
+           var str = `<div style="margin:5px 15px;width:${e.loaded / item.size * 100}%;height:35px;text-align:center;line-height:35px;color:#fff;font-size:20px;background:red">${e.loaded / item.size * 100}%</div>`  
+           box.innerHTML += str;
+        }
+        fr.onloadstart = function() {
+          console.log('读取开始')
+        }
+        fr.onloadend = function() {
+          console.log('读取结束')
+        }
+      })
+    }
+
+
+
+
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      outline: none;
+    }
+
+    .box {
+      width: 400px;
+      height: 300px;
+      border: 1px dashed black;
+      border-radius: 6px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 300px;
+      font-size: 45px;
+    }
+
+    input {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="box">
+    <input type="file" id="input" multiple>
+    请拖拽到此处
+  </div>
+  <img src="" id="imgs" alt="">
+
+  <script>
+    /*
+      图片预览功能：
+      利用这个函数： 放在onchange 函数中
+      var fr = new FileReader()
+      fr.readAsDataURL(fileitem)  以url的方式读一下这个图片或者其他东西
+      fr.onload = function() {
+        // 监听读取数据结果，base64码的图片；可以当成src使用
+        img.src = this.result;
+      }
+    */
+
+    var inputFile = document.getElementById('input')
+    var imgs = document.getElementById('imgs')
+    var box = document.querySelector('.box');
+    inputFile.onchange = function(e) {
+        // 描述信息 
+        var fileitem = e.target.files[0];
+        // 上传预览
+        var fr = new FileReader()
+        // 把描述信息放在这个函数中  以url的方式读一下这个图片或者其他东西
+        fr.readAsDataURL(fileitem)
+        fr.onload = function(e) {
+           imgs.src = this.result
+        }
+        fr.onprogress = function(e) {
+          console.log(e.loaded)
+        }
+      
+    } 
+
+
+    box.ondragover = function (e) {
+      e.preventDefault();
+    }
+
+    box.ondrop = function (e) {
+     var file =  e.dataTransfer.files
+    //  console.log(file, 'file')
+      this.style.background = ''
+      // this.innerHTML = '请拖拽到此处'
+    }
+
+
+
+  </script>
+
+
+</body>
+
+</html>

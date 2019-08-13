@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+
+  <link rel="stylesheet" href="./style/search.css">
+  <script src="./lib/flexible.js"></script>
+
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="header">
+      <span class="back">
+        <</span> <span>猫眼电影
+      </span>
+    </div>
+    <nav class="nav">
+      <input type="text" class="inputBox"> <span class="close">X</span>
+    </nav>
+    <!-- <nav class="nav">
+      <span>北京</span>
+      <span class="nav-btn nav-active">正在热映</span>
+      <span class="nav-btn">即将上映</span>
+      <span class="search-btn iconfont">&#xe6e4;</span>
+    </nav>
+     -->
+    <div class="main">
+      <div class="content">
+
+        <ul class="content-list">
+          <li></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+    /*
+      1. input事件， 出现close按钮 消失
+      2. 点击按钮事件 把当前input框的内容存在本地存储中；
+      3. 渲染 点击按钮的时候，渲染页面
+      4. 删除事件  保证 页面数据和本地存储数据同步删除
+    */
+
+    var StorageCatEye = function () {
+      this.inputBox = document.querySelector('.inputBox');
+      this.closeBtn = document.querySelector('.close');
+      this.contentList = document.querySelector('.content-list');
+
+      this.storage = window.localStorage;
+      // 定义一个数组 存在本地存储中；
+      this.movieArr = []
+      this.init()
+    }
+
+    StorageCatEye.prototype = {
+      init: function () {
+        // 刚进入页面渲染电影数据 通过回调函数拿到的数据
+        this.getData((list) => {
+          this.renderHtml(list.movieList, 'search')
+        })
+        // input事件
+        this.inputEvent()
+        // close 事件
+        this.closeEvent()
+        // 本地存储
+        this.storageFn()
+        // 删除历史记录
+        this.removeItem()
+      },
+      // ajax请求数据 记得开服务
+      getData: function (fn) {
+        ajax('./mock/data.json', (res) => {
+          fn && fn(res);
+        }) 
+      },
+      // 一进入页面就取出本地存储的数据 跟 this.movieArr 匹配
+      storageFn: function () {
+        if (this.storage.movieList) {
+          // console.log(JSON.parse(this.storage.movieList).movie)
+          this.movieArr = JSON.parse(this.storage.movieList).movie
+          // 已进入页面渲染本地存储数据
+          this.renderHtml(this.movieArr) // 
+        }
+      },
+      // 渲染页面函数  传了两个参数 list 数据，  dir 规定渲染哪个数据
+      renderHtml: function (list, dir) {
+        this.contentList.innerHTML = list.map((item, index) => {
+          return `<li data-index=${index}> ${ dir === 'search' ? item.nm : item } </li>`
+        }).join('')
+      },
+      // input 模糊搜索功能
+      inputEvent: function () {
+        this.inputBox.oninput = () => {
+          var vals = this.inputBox.value.trim();
+          if (vals) {
+            this.closeBtn.classList.add('show');
+            this.getData((list) => {
+             var arr = list.movieList.filter(item => {
+                return item.nm.includes(vals)
+              })
+              this.renderHtml(arr, 'search')
+            })
+
+          } else {
+            this.closeBtn.classList.remove('show');
+          }
+        }
+      },
+      closeEvent: function () {
+        this.closeBtn.onclick = () => {
+          var vals = this.inputBox.value.trim();
+          if (vals) {
+            // 存数据
+            this.movieArr.unshift(vals)
+
+            // es6数组去重 new set去重变成对象， 再转成数组；
+            this.movieArr = Array.from(new Set(this.movieArr))
+            this.storage.setItem('movieList', JSON.stringify({
+              movie: this.movieArr,
+              cinima: []
+            }))
+            // 数据存储之后清空input的value值；
+            this.inputBox.value = '';
+            // 渲染搜索的列表
+            this.renderHtml(this.movieArr);
+          }
+        }
+      },
+      /* 
+        删除每一个
+        通过数据删除： 数据截取； 然后重新渲染
+      */ 
+      removeItem: function () {
+        this.contentList.onclick = (e) => {
+          if (e.target.nodeName === 'LI') {
+            // 取自定义属性下标 
+            var ind = e.target.dataset.index;
+            this.movieArr.splice(ind, 1);
+            this.renderHtml(this.movieArr)
+
+            // 把删除后的数组重新保存到本地存储中；
+            this.storage.setItem('movieList', JSON.stringify({
+              movie: this.movieArr,
+              cinima: []
+            }))
+          }
+        }
+      },
+    }
+
+    new StorageCatEye({ })
+
+
+  </script>
+</body>
+
+</html>

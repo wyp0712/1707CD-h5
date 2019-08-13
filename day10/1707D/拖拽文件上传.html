@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 500px;
+      height: 300px;
+      border: 1px dashed black;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .files {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="box">
+
+    <input type="file" class="files" id="files" multiple>
+
+  </div>
+  <img src="" id="imgs" alt="">
+
+  <script>
+
+    var files = document.getElementById('files')
+    var box = document.querySelector('.box');
+    files.onchange = function (e) {
+      // 描述信息
+      var itemFile = e.target.files[0]
+      // 上传文件域
+      var fr = new FileReader();
+      // 把数据当前url读取
+      fr.readAsDataURL(itemFile);
+      fr.onload = function () {
+        // data:image/png;base64
+        console.log(this.result)
+        imgs.src = this.result;
+      }
+      fr.onprogress = function (e) {
+        console.log(e.loaded)
+        console.log(e.loaded / itemFile.size * 100 + '%')
+      }
+    }
+
+    // 目标物体 dragover  drop
+    box.ondragover = function (e) {
+      e.preventDefault();
+      this.style.background = 'red'
+    }
+    box.ondrop = function (e) {
+      this.style.background = ''
+    }
+
+
+  </script>
+
+</body>
+
+</html>
