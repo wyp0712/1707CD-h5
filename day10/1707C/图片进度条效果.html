@@ -59,6 +59,7 @@
         var fr = new FileReader();
 
         fr.readAsDataURL(item);
+        
         // 文件上传的生命周期
         fr.onabort = function () {
           console.log('监听中止')
@@ -66,17 +67,20 @@
         fr.onerror = function () {
           console.log('监听error')
         }
+        
         fr.onload = function () {
           console.log('过程: load')
           var imgStr = `<div><img src=${this.result}> <span>${item.name}</span> </div>`
           left.innerHTML += imgStr;
         }
+
         fr.onloadend = function () {
           console.log('结束: end')
         }
         fr.onloadstart = function () {
           console.log('开始: start')
         }
+        
         fr.onprogress = function (e) {
           console.log('进程: progress')
           // 进度条  e.loaded 加载进度  item.size 文件总的大小
