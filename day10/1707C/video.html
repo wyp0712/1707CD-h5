@@ -69,7 +69,7 @@
       height: 25px;
       background: lightblue;
       position: absolute;
-      bottom: 0;
+      bottom: 80%;
     }
 
     .music-process .bg {
@@ -85,7 +85,7 @@
     }
 
     .video {
-      display: none;
+      /* display: none; */
     }
   </style>
 </head>
@@ -106,9 +106,9 @@
   <div class="wrap">
     <div class="container">
 
-      <div class="avator">
+      <!-- <div class="avator">
         <img class="avator-img" src="./img/icon1.jpeg" alt="">
-      </div>
+      </div> -->
 
       <div class="music-process">
         <div class="bg">
@@ -179,7 +179,6 @@
 
     // canplay 函数 用来异步加载 视频资源
     video.oncanplay = function () {
-  
       // 总时长
       var totalDuration = parseInt(video.duration);
       console.log(video.duration)
@@ -194,6 +193,8 @@
         // 边界判断
         if (movex <= 0) movex = 0;
         if (movex >= musicProcessWidth - dot.offsetWidth) movex = musicProcessWidth - dot.offsetWidth;
+        
+        
         // 位置赋值
         this.style.transform = `translate(${movex}px)`;
         // 给video 赋值
