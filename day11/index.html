@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #myCanvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+    img {
+      width: 120px;
+      height: 120px;
+    }
+    #video {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <img id="imgs" src="../2E4FE90DBF57ECADCC3CFC0A27937436.png" alt="">
+
+
+  <video  id="video" src="./RPReplay_Final1565678372.MP4" ></video>
+
+  <button id="btn">点击全屏幕</button>
+  <button id="exit">点击全屏幕</button>
+
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <script>
+    var btn = document.querySelector('#btn')
+    var exit = document.querySelector('#exit')
+    var video = document.querySelector('#video')
+    btn.onclick = function() {
+      video.requestFullscreen();
+    }
+    // exit.onclick = function() {
+    //   video.exitFullscreen();
+    // }
+    /*
+ 
+     canvas 画布 300 * 150 默认宽高
+     笔： js
+     点  线  面  3D;
+     如果要给canvas 设置宽高，用行内属性设置。 或者用js设置，不要用css设置
+ 
+    */
+
+    var myCanvas = document.getElementById('myCanvas');
+    var api = myCanvas.getContext('2d'); // 画布控制权；
+
+    // 方法  属性  （绘制用方法， 样式用属性）
+
+    // 点 线
+    //  api.moveTo(0, 0);
+    //  api.lineTo(500, 500);
+    //  api.stroke(); // 描边
+
+    //  api.moveTo(0, 500);
+    //  api.lineTo(500, 0);
+    //  api.stroke(); // 描边
+
+    // 面 三角形  矩形  圆
+    //  api.save() // 保存画布状态 
+    //  api.beginPath(); // 开始绘制路径
+    //  api.moveTo(240, 100);
+    //  api.lineTo(400, 400)
+    //  api.lineTo(100, 400)
+    //  api.closePath() // 结束路径 闭合路径
+    //  api.strokeStyle = 'red'; // 样式 属性
+    //  api.lineWidth = '30';
+    //  api.fillStyle = 'red';
+    //  api.fill() // 填充
+    //  api.stroke()
+    //  api.restore(); // 恢复画布状态
+
+
+
+    // 圆： 圆心 x,y r 起始弧度 结束弧度 true; // Math.PI  代表180度  Math.PI / 180
+    //  api.save() // 保存画布状态 
+    //  api.beginPath();
+    //  api.arc(249,249, 200, 0, Math.PI * 2) 
+    //  api.lineWidth = '40';   // 线宽
+    //  api.stroke()
+    //  api.restore(); // 恢复画布状态
+
+
+    // 在同一个画布上 当有多个图形的时候，使用 api.save()  api.restore()
+
+  
+
+
+    // 矩形
+
+    // api.save()
+    // // x, y width height
+    // api.fillRect(100, 100, 300, 300);
+    // api.restore(); // 恢复画布状态
+
+    // 渐变色  使用渐变，设置fillStyle或strokeStyle的值为 渐变，然后绘制形状，如矩形，文本，或一条线。
+
+    // 创建渐变 x,y x1,y1; 线性渐变
+    // var grd = api.createLinearGradient(0, 0, 200, 0);
+    // grd.addColorStop(0, "red");  // 0 - 1
+    // grd.addColorStop(0.5, "navy");  // 0 - 1
+    // grd.addColorStop(1, "blue");
+    // // 填充渐变
+    // api.font = '50px sans-serif';
+    // //  'start | left | center | right |end';
+    // api.textAlign = 'center';
+    // //  'top | hanging | middle | alphabetic | ideographic | bottom';
+    // api.textBaseline = "middle"
+    // api.strokeStyle = grd;
+    //  api.fillText('hello world', 200, 200) // 实心文字
+    // api.strokeText('hello world', 200, 200)
+
+
+    /*
+      渐变：
+      1. 创建渐变  api.createLinearGradient(0, 0, 200, 0);
+      2. 设置渐变颜色 　addColorStop
+      3. 设置fillStyle或strokeStyle的值为 渐变，然后绘制形状
+    */
+
+    // var imgs = document.getElementById('imgs');
+    // console.log(imgs)
+    // api.drawImage(imgs, 100, 100);
+
+    
+
+
+
+
+    
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

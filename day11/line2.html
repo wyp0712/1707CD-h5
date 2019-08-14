@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #myCanvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="myCanvas" width="" height=""></canvas>
+  <script>
+    /* 
+     宽高：
+       行内属性设置 
+       js设置
+     折线图
+    */
+    var myCanvas = document.getElementById('myCanvas');
+    myCanvas.width = 500;
+    myCanvas.height = 500;
+    var api = myCanvas.getContext('2d');
+
+    // 坐标系
+
+    api.beginPath();
+    api.translate(50, 450);  // 0 0  50, 450 
+    api.moveTo(0, 0);
+    api.lineTo(0, -400)
+    api.moveTo(0, 0);
+    api.lineTo(400, 0);
+    api.stroke()
+
+    // 刻度
+    for (var i = 0; i < 5; i++) {
+      api.beginPath()
+      api.moveTo(i * 100, 0)
+      api.lineTo(i * 100, -10)
+      api.stroke()
+
+      api.beginPath()
+      api.moveTo(0, -i * 100) // 
+      api.lineTo(10, -i * 100)  // 
+      api.stroke()
+      // 
+      createText(i * 100, i * 100, 0, 20, 'center', 'top')
+      createText(i == 0 ? i = '' : i * 100, 0, -i * 100, 20, 'right', 'middle')
+    }
+
+    // 文字
+    function createText(text, x, y, fontSize = 20, dirCenter = 'center', dirMid = 'middle') {
+      api.font = `${fontSize}px Arial`
+      api.textAlign = dirCenter;
+      // 'top | hanging | middle | alphabetic | ideographic | bottom';
+      api.textBaseline = dirMid // top ：基线往下；
+      api.fillText(text, x, y);
+    }
+
+    // 随机数
+    function random(max, min) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // num : 点的个数  spans: 点的间隔
+    function createCount(num, spans, max, min) {
+      var arr = [];
+      for (var i = 0; i < num; i++) {
+        arr.push([i * spans, -random(max, min)])
+      }
+      return arr;
+    }
+
+    var list = createCount(15, 30, 400, 300);
+
+    for (var i = 0; i < list.length - 1; i++) {
+      api.beginPath();
+      api.moveTo(list[i][0], list[i][1])
+      // 圆 x, y ,r, 起 结束
+      api.arc(list[i][0], list[i][1], 3, 0, Math.PI * 2);
+      api.fillStyle = 'red'
+      api.fill()
+
+      api.lineTo(list[i + 1][0], list[i + 1][1])
+      api.strokeStyle = 'red';
+      api.stroke()
+
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

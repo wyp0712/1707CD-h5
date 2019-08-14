@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #myCanvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="myCanvas" width="" height=""></canvas>
+  <script>
+    /* 
+     宽高：
+       行内属性设置 
+       js设置
+     折线图
+    */
+    var myCanvas = document.getElementById('myCanvas');
+    myCanvas.width = 500;
+    myCanvas.height = 500;
+    var api = myCanvas.getContext('2d');
+
+    // 坐标系
+
+    api.beginPath();
+    api.translate(50, 450);  // 0 0  50, 450 
+    api.moveTo(0, 0);
+    api.lineTo(0, -400)
+    api.moveTo(0, 0);
+    api.lineTo(400, 0);
+    api.stroke()
+
+    // 刻度
+    for (var i = 0; i < 5; i++) {
+      api.beginPath()
+      api.moveTo(i * 100, 0)
+      api.lineTo(i * 100, -10)
+      api.stroke()
+
+      api.beginPath()
+      api.moveTo(0, -i * 100) // 
+      api.lineTo(10, -i * 100)  // 
+      api.stroke()
+      // 
+      createText(i * 100, i * 100, 0, 20, 'center', 'top')
+      createText(i == 0 ? i = '' : i * 100, 0, -i * 100, 20, 'right', 'middle')
+    }
+
+    // 文字
+    function createText(text, x, y, fontSize = 20, dirCenter = 'center', dirMid = 'middle') {
+      api.font = `${fontSize}px Arial`
+      api.textAlign = dirCenter;
+      // 'top | hanging | middle | alphabetic | ideographic | bottom';
+      api.textBaseline = dirMid // top ：基线往下；
+      api.fillText(text, x, y);
+    }
+
+    // 随机数
+    function random(max, min) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // 颜色随机
+    function randomColor() {
+      return "#" + Math.random().toString(16).slice(2, 8);
+    }
+    console.log(randomColor())
+
+
+    for(var i = 0; i < 6; i++) {
+      api.beginPath()
+      api.fillStyle = randomColor()
+      api.fillRect((i + 1) * 50, 0, 40, -random(400, 300)) // x, y, width, height
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

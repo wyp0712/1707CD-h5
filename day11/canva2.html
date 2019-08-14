@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #myCanvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <img class="img2" src="../49B15F806134326F0D705020D5555D4E.png" alt="">
+
+   <img class=imgs src="../2E4FE90DBF57ECADCC3CFC0A27937436.png" alt="">
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <script>
+    /*
+    canvas 标签 默认：宽高 300 *150
+    可以设置宽高：
+      1. 行内设置宽高
+      2. js设置宽高
+    */
+
+    var myCanvas = document.getElementById('myCanvas');
+    // 画布控制权
+    var api = myCanvas.getContext('2d'); // 2d画布
+
+    // 点 线  面
+    // api.save(); // 保存画布
+    // // 绘制图形用方法（）， 绘制样式用属性 = 
+    // api.beginPath(); // 开始绘制
+    // api.moveTo(100, 100) // 找点
+    // api.lineTo(400, 400); // 连线
+
+    // api.lineWidth = 30;
+    // api.lineCap = "round"  // 'butt | round | square';
+    // api.strokeStyle = 'red'
+    // api.stroke() // 描边
+    // api.restore(); // 恢复画布
+
+
+    // 在同一个画布上，如果要绘制超过一个图形，给每一个图行代码都加 save() restore()
+    // api.save(); // 保存画布状态
+    // api.beginPath(); // 开始绘制
+    // api.moveTo(0, 500)
+    // api.lineTo(500, 0);
+    // api.stroke();
+    // api.restore(); // 恢复画布状态
+
+
+    // 面 矩形  圆
+
+    // api.save();
+    // api.beginPath();
+    // api.fillStyle = 'red'
+    // api.fillRect(100, 100, 300, 150) // x, y width, height 
+    // api.restore()
+
+
+    // api.save()
+    // api.beginPath();
+    // api.moveTo(249, 100);
+    // api.lineTo(400, 400);
+    // api.lineTo(100, 100);
+    // api.closePath() // 闭合路径
+    // api.fillStyle = 'red' 
+    // api.fill() // 填充 
+    // api.stroke()
+    // api.restore()
+
+    // 圆 x,y, r 起始角度 结束角度 true
+
+    api.save()
+    api.beginPath()
+    // 扇形需要加上圆心
+    // api.moveTo(249, 249);
+    // Math.PI = 180deg  Math.PI / 180  false 默认顺时针
+    api.arc(249, 249, 200, 0, Math.PI * 2)
+    api.closePath()
+    api.stroke()
+    api.restore()
+
+
+    api.save()
+    api.beginPath()
+    // 渐变色 1. 创建渐变色 2. 添加颜色 3. 颜色赋值
+
+    // 1. 创建渐变色                // x, y, x1, y1
+    var grad = api.createLinearGradient(0, 0, 200, 0);
+    // 2. 添加颜色
+    grad.addColorStop(0, 'red'); // 0 - 1
+    grad.addColorStop(0.5, 'navy'); // 0 - 1
+    grad.addColorStop(1, 'blue'); // 0 - 1
+    // 文字
+    // 'start | left | center | right |end';
+    api.textAlign = "center"
+    // 'top | hanging | middle | alphabetic | ideographic | bottom';
+    api.textBaseline = "middle"
+    api.font = '50px sans-serif';
+    // 3. 颜色赋值
+    api.strokeStyle = grad;
+    // api.fillText('hello world', 200, 200); // 实心文字
+    api.strokeText('hello world', 200, 200); // 空心文字
+    api.restore()
+
+
+    // drawImage
+    var imgs = document.querySelector('.imgs')
+    var img2 = document.querySelector('.img2')
+  
+    imgs.onload = function(){
+      api.drawImage(imgs, 0, 0);
+      api.drawImage(img2, 150, 150, 100,100);
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
