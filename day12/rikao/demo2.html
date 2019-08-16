@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 500px;
+      height: 300px;
+      border: 1px solid black;
+      border-radius: 10px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+
+    .boximg img {
+      width: 100px;
+      height: 100px;
+    }
+
+    .boximg div {
+      margin: 10px 10px;
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="box">
+    <input type="file" class="inputDom" multiple>
+  </div>
+
+  <div class="boximg">
+
+  </div>
+
+  <script>
+    var boxImg = document.querySelector('.boximg')
+    var inputDom = document.querySelector('.inputDom')
+    inputDom.onchange = function (e) {
+      var itemFile = [...e.target.files]
+      itemFile.forEach(item => {
+        var fr = new FileReader()
+        // 读
+        fr.readAsDataURL(item)
+        // 监听
+        fr.onload = function () {
+          var str = `<div> <img src=${this.result}> </div>`;
+          boxImg.innerHTML += str;
+        }
+      })
+
+    }
+
+
+  </script>
+
+</body>
+
+</html>

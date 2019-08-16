@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <canvas id="myCanvas" width="700" height="700"></canvas>
+
+  <script src="./ajax.js"></script>
+  <script>
+
+    var myCanvas = document.getElementById('myCanvas');
+    var api = myCanvas.getContext('2d');
+
+    var per = 0; // 起始角度
+    var deg = Math.PI / 180;
+    var count = 0;
+    // 更改圆心
+    api.translate(350, 350);
+
+    ajax('./pie.json', function (res) {
+      console.log(res)
+      // 只负责获取总值
+      res.map(item => {
+        count += item.num;
+      })
+      res.forEach(item => {
+        // 计算当前角度
+        var currentDeg = item.num / count * 360 * deg;
+        api.save() 
+        api.beginPath();
+        api.moveTo(0, 0);
+        // x, y, r, 起始角度 结束角度
+        api.arc(0, 0, 200, per , per + currentDeg)
+        api.fillStyle = item.color;
+        api.fill()
+        api.stroke()
+        api.restore()
+
+        // a b  Math.cos() * r  Math.sin() * r
+        var a = Math.cos(per + currentDeg / 2) * 200;
+        var b = Math.sin(per + currentDeg / 2) * 200;
+
+        var a1 = Math.cos(per + currentDeg / 2) * (200 + 30);
+        var b1 = Math.sin(per + currentDeg / 2) * (200 + 30);
+
+        var a2, b2 = b1;
+        a1 > 0 ? a2 = a1 + 30 : a2 = a1 - 30;
+        api.save();
+        api.beginPath();
+        api.moveTo(a, b);
+        api.lineTo(a1, b1);
+        api.lineTo(a2, b2);
+        api.stroke()
+        api.restore();
+
+        api.save()
+        createText(item.name, a2 > 0 ? a2 = a2 + 30 : a2 = a2 - 30, b2);
+        api.restore();
+        
+        per += currentDeg
+      })
+    })
+
+
+    function createText(name, x, y) {
+      api.font = "20px Arial";
+      api.textAlign='center';
+      api.textBaseline = 'middle';
+      api.fillText(name, x, y)
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

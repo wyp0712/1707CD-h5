@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 500px;
+      height: 300px;
+      border: 1px dashed black;
+      margin: 0 auto;
+    }
+    input {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      opacity: 0;
+    }
+    .imgBox div {
+      float: left;
+      margin: 5px 5px;
+    }
+    .imgBox div img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="box">
+    <input type="file" multiple>
+  </div>
+
+  <div class="imgBox">
+
+  </div>
+
+  <script>
+     var imgBox = document.querySelector('.imgBox');
+     var box = document.querySelector('.box');
+     var inputDom = document.querySelector('input');
+     inputDom.onchange = function(e) {
+       // 描述信息
+       var itemFile = [...e.target.files]
+
+       itemFile.forEach(item => {
+         // 上传文件域
+         var fr = new FileReader();
+         // 读
+         fr.readAsDataURL(item)
+         // 监听
+         fr.onload = function() {
+           var imgStr = `<div> <img src=${this.result}> </div>`
+           imgBox.innerHTML += imgStr
+         }  
+       })
+     } 
+    
+
+  
+  
+  </script>
+
+</body>
+
+</html>

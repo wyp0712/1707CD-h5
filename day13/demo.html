@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    .content {
+      width: 500px;
+      height: 300px;
+      border: 1px solid black;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+    }
+
+    #myCanvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="content">
+    谢谢惠顾
+    <canvas id="myCanvas"></canvas>
+  </div>
+  <script>
+
+
+    var content = document.querySelector('.content');
+    var myCanvas = document.getElementById('myCanvas');
+    myCanvas.width = content.offsetWidth;
+    myCanvas.height = content.offsetHeight;
+
+    var api = myCanvas.getContext('2d');
+    api.fillStyle = '#ccc';
+    api.fillRect(0, 0, 500, 300);
+
+    var l = content.offsetLeft,
+      t = content.offsetTop;
+
+    var flag = false;
+
+    content.onmousedown = function (e) {
+      var x = e.pageX - l;
+      var y = e.pageY - t;
+      api.arc(x, y, 15, 0, Math.PI * 2);
+      api.globalCompositeOperation = 'destination-out';
+      api.fill()
+      flag = true;
+    }
+    content.onmousemove = function (e) {
+      if (flag) {
+        var x = e.pageX - l;
+        var y = e.pageY - t;
+        api.arc(x, y, 5, 0, Math.PI * 2);
+        api.globalCompositeOperation = 'destination-out';
+        api.fill()
+      }
+    }
+    content.onmouseup = function() {
+      flag = false;
+    }
+
+
+
+
+
+  </script>
+</body>
+
+</html>

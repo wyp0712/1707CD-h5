@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    video {
+      width: 300px;
+      height: 150px;
+    }
+
+
+    .pro {
+      width: 100%;
+      height: 25px;
+      ;
+      background: lightblue;
+    }
+
+    .pro .bg {
+      width: 0;
+      background: lightgoldenrodyellow;
+      height: 100%;
+    }
+
+    .pro .bg .dot {
+      width: 25px;
+      height: 25px;
+      ;
+      background: lightcoral;
+    }
+  </style>
+</head>
+
+<body>
+
+  <video src="./RPReplay_Final1565678372.MP4" controls></video>
+
+  <marquee behavior="" direction="">hello world</marquee>
+  <div class="pro">
+    <div class="bg">
+      <div class="dot">
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // controls  显示控件
+
+    var video = document.querySelector('video');
+    var pro = document.querySelector('.pro');
+    var bg = document.querySelector('.bg');
+    var dot = document.querySelector('.dot');
+    video.oncanplay = function () {
+      var speed = video.duration / pro.offsetWidth;
+      dot.ontouchmove = function (e) {
+        var movex = e.touches[0].pageX;
+        if (movex < 0) movex = 0;
+        if (movex > pro.offsetWidth - dot.offsetWidth) movex = pro.offsetWidth - dot.offsetWidth;
+        dot.style.transform = `translate(${movex}px)`
+        bg.style.width = `${movex}px`;
+        video.currentTime = movex * speed;
+      }
+    }
+
+  </script>
+
+
+</body>
+
+</html>

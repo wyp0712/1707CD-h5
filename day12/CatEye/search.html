@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <!-- <link rel="stylesheet" href="./style/index.css"> -->
+
+  <link rel="stylesheet" href="./style/search.css">
+  <script src="./lib/flexible.js"></script>
+
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="header">
+      猫眼电影
+    </div>
+    <nav class="nav">
+      <input type="text" class="inputBox"> <span class="close">X</span>
+    </nav>
+    <div class="main">
+      <div class="content">
+        <ul class="content-list">
+          <li>
+            北京爱情故事
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+    //  var arr = ['item1', 'item2', 'item3'];
+
+    //  arr.splice('1', 1)
+    //  console.log(arr, 'arr')
+
+
+    var StroageCatEye = function () {
+
+      this.storage = window.localStorage;
+      this.inputBox = document.querySelector('.inputBox');
+      this.closeBtn = document.querySelector('.close');
+      this.contentList = document.querySelector('.content-list');
+      this.movieArr = [];
+
+      this.init()
+    }
+
+    StroageCatEye.prototype = {
+      init: function () {
+        this.storageFn()
+        this.closeEvent()
+        this.storageFirst()
+
+        this.removeItem();
+
+        this.fuzzySearchEvent() // 模糊搜索
+      },
+
+      //  一进入页面就判断本地存储有没有数据， 有的话，取出来，渲染
+      storageFirst: function () {
+        if (this.storage.movieData) {
+          var movieList = JSON.parse(this.storage.movieData).movie;
+          this.movieArr = movieList
+          this.render(this.movieArr)
+        }
+      },
+
+      // 获取数据
+      getData: function (fn) {
+        ajax('./mock/data.json', (res) => {
+          fn && fn(res)
+        })
+      },
+
+      // input事件 控制按钮显示隐藏
+      storageFn: function () {
+        this.inputBox.oninput = () => {
+          var vals = this.inputBox.value.trim();
+          if (vals) {
+            this.getData((res) => {
+              var list = res.movieList.filter(item => {
+                 return item.nm.includes(vals)
+              })
+              this.render(list, 'search')
+            })
+            this.closeBtn.classList.add('show');
+          } else {
+            this.closeBtn.classList.remove('show');
+          }
+        }
+      },
+
+      // close 事件 存数据 渲染数据
+      closeEvent: function () {
+        this.closeBtn.onclick = () => {
+          var vals = this.inputBox.value.trim();
+          if (vals) {
+            // 当input 有值的时候，让close显示出来
+            this.movieArr.unshift(vals)
+            // 数组去重；去完重之后重新赋值 全局数据
+            this.movieArr = [...new Set(this.movieArr)]
+            var obj = {
+              movie: this.movieArr, // 数组去重
+              cinema: []
+            }
+            // 如果不为空，就往本地存储中存入数据
+            this.storage.setItem('movieData', JSON.stringify(obj))
+            // 存储数据之后清空input框中的值；
+            this.inputBox.value = '';
+            // 渲染数据
+            this.render(this.movieArr)
+          }
+        }
+      },
+      render: function (list, dir) {
+        this.contentList.innerHTML = list.map((item, index) => {
+          return `<li data-index=${index}> ${ dir === 'search'? item.nm : item  } </li>`
+        }).join('')
+      },
+      // 删除历史记录和本地存储同步删除
+      removeItem: function () {
+        this.contentList.addEventListener('click', (e) => {
+          if (e.target.nodeName === 'LI') {
+            // 取出自定义下标
+            var ind = e.target.dataset.index;
+            // e.target.remove() // 删除dom结构用法
+            // console.log(ind, 'ind')
+            this.movieArr.splice(ind, 1);
+            // 删除数组重新渲染数组
+            this.render(this.movieArr)
+            // 删除之后 在存进去
+            this.storage.setItem('movieData', JSON.stringify({
+              movie: this.movieArr,
+              cinema: []
+            }))
+          }
+        })
+      },
+      fuzzySearchEvent: function () {
+          
+      },
+    }
+
+    new StroageCatEye({
+
+    })
+
+
+
+
+
+  </script>
+</body>
+
+</html>

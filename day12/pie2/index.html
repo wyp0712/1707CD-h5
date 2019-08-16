@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #myCanvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  <button class="item">pie</button>
+  <button class="item">line</button>
+  <button class="item">bar</button>
+
+  <script src="./ajax.js"></script>
+  <script>
+
+    var Mypie = function (opt) {
+      this.myCanvas = document.getElementById('myCanvas');
+      this.api = myCanvas.getContext('2d');
+
+      var defaults = {
+        r: 150,
+        type: 'pie'
+      }
+      this.deg = Math.PI / 180;
+      this.per = 0; // 圆的初始角度
+      this.r = 100
+      // 合并参数
+      this.opts = Object.assign({}, defaults, opt) // 浅拷贝 继承  深拷贝: JSON.parse(JSON.stringify())
+      this.init()
+      this.bindEvent()
+    }
+    Mypie.prototype = {
+      init: function (types = 'pie') {
+        this.tatolCountFn()
+        console.log(types, 'type')
+        switch (types) {
+          case 'pie':
+            this.drawPie()
+            break;
+          case 'line':
+            this.coordinateSystem()
+            this.drawLine()
+            break;
+          case 'bar':
+            
+            this.coordinateSystem()
+            this.drawBar()
+            break;
+        }
+      },
+      bindEvent: function () {
+        var btns = document.querySelectorAll('.item');
+        btns.forEach(item => {
+          item.onclick = () => {
+            console.log(item.innerText)
+
+            this.init(item.innerText)
+          }
+        })
+      },
+      coordinateSystem: function () {
+        // 坐标系
+        this.api.beginPath();
+        this.api.translate(50, 450);  // 0 0  50, 450 
+        this.api.moveTo(0, 0);
+        this.api.lineTo(0, -400)
+        this.api.moveTo(0, 0);
+        this.api.lineTo(400, 0);
+        this.api.stroke()
+        // 刻度
+        for (var i = 0; i < 5; i++) {
+          this.api.beginPath()
+          this.api.moveTo(i * 100, 0)
+          this.api.lineTo(i * 100, -10)
+          this.api.stroke()
+          this.api.beginPath()
+          this.api.moveTo(0, -i * 100) // 
+          this.api.lineTo(10, -i * 100)  // 
+          this.api.stroke()
+          // 
+          this.createText(i * 100, i * 100, 0, 20, 'center', 'top')
+          this.createText(i == 0 ? i = '' : i * 100, 0, -i * 100, 20, 'right', 'middle')
+        }
+      },
+      drawPie: function () {
+        this.api.translate(250, 250);
+        this.opts.data.forEach(item => {
+          //2. 计算每一个扇形的当前角度： count / 总数 * 360 * deg
+          var currentDeg = item.count / this.totalCount * 360 * this.deg;
+          this.api.save()
+          this.api.beginPath();
+          this.api.moveTo(0, 0);
+          this.api.arc(0, 0, this.r, this.per, this.per + currentDeg);
+          this.api.fillStyle = item.color;
+          this.api.fill()
+          // this.api.lineWidth = 30;
+          this.api.strokeStyle = item.color;
+          this.api.stroke()
+          this.api.restore()
+          // 第一个点 扇形的中心点：(a, b) (扇形角度的一半的余弦值， 扇形角度一半的正弦值)  a: Math.cos  b: Math.sin
+          var a = Math.cos(this.per + currentDeg / 2) * this.r;
+          var b = Math.sin(this.per + currentDeg / 2) * this.r;
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a, b, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 第二个点  r + 30
+          var a1 = Math.cos(this.per + currentDeg / 2) * (this.r + 30);
+          var b1 = Math.sin(this.per + currentDeg / 2) * (this.r + 30);
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a1, b1, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 第三个点  判断正负  右加  左减
+          var a2, b2 = b1;
+          a1 > 0 ? a2 = a1 + 30 : a2 = a1 - 30;
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a2, b2, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 三个点连线
+          this.api.beginPath();
+          this.api.moveTo(a, b)
+          this.api.lineTo(a1, b1);
+          this.api.lineTo(a2, b2);
+          this.api.strokeStyle = item.color;
+          this.api.stroke()
+
+          this.api.save()
+          // 添加文字
+          this.createText(item.name, a2 > 0 ? a2 += 50 : a2 -= 30, b2);
+          this.api.restore()
+          // 角度累加 
+          this.per += currentDeg
+        })
+      },
+      tatolCountFn: function () {
+        var totalCount = 0;
+        this.opts.data.map(item => {
+          totalCount += item.count;
+          item.color = this.createColor()
+        })
+        this.totalCount = totalCount
+      },
+      // 随机数
+      random: function (max, min) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      },
+      // num : 点的个数  spans: 点的间隔
+      createCount: function (num, spans, max, min) {
+        var arr = [];
+        for (var i = 0; i < num; i++) {
+          arr.push([i * spans, - this.random(max, min)])
+        }
+        return arr;
+      },
+      drawLine: function () {
+        var list = this.createCount(15, 30, 400, 300);
+        for (var i = 0; i < list.length - 1; i++) {
+          this.api.beginPath();
+          this.api.moveTo(list[i][0], list[i][1])
+          // // 圆 x, y ,r, 起 结束
+          this.api.arc(list[i][0], list[i][1], 3, 0, Math.PI * 2);
+          this.api.fillStyle = 'red'
+          this.api.fill()
+          this.api.lineTo(list[i + 1][0], list[i + 1][1])
+          this.api.strokeStyle = 'red';
+          this.api.stroke()
+        }
+      },
+      drawBar: function () {
+        for (var i = 0; i < 6; i++) {
+          this.api.beginPath()
+          this.api.fillStyle = this.createColor()
+          this.api.fillRect((i + 1) * 50, 0, 40, - this.random(400, 300)) // x, y, width, height
+        }
+      },
+      createColor: function () {
+        return "#" + Math.random().toString(16).slice(2, 8)
+      },
+      // name:text x, y  dirCenter: 水平方向 dirMid： 垂直方向
+      createText: function (text, x, y, fontSize, dirCenter, dirMid) {
+        this.api.font = `${fontSize}px Arial`
+        this.api.textAlign = dirCenter;
+        // 'top | hanging | middle | alphabetic | ideographic | bottom';
+        this.api.textBaseline = dirMid // top ：基线往下；
+        this.api.fillText(text, x, y);
+      }
+    }
+
+    ajax('./data.json', function (res) {
+      console.log(res, 'res')
+      new Mypie({
+        data: res,
+        type: 'pie'
+      })
+    })
+
+
+
+
+  </script>
+
+</body>
+
+</html>

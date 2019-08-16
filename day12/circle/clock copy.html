@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>钟表</title>
+  <style>
+    #canvas {
+      border: 1px solid #000;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script>
+    var canvas = document.getElementById('canvas'),
+      api = canvas.getContext('2d'),
+      deg = Math.PI / 180;
+
+    function clock() {
+
+      for (var i = 0; i < 12; i++) {
+        api.save()
+        api.beginPath();
+        api.rotate(i * deg * 6);
+        var index = i;
+        createText(index == 0 ? index = 12 : i, 0, 135);
+        api.restore();
+      }
+
+      api.save()
+      api.beginPath();
+      api.translate(200, 200);
+      api.arc(0, 0, 150, 0, Math.PI * 2)
+      api.stroke()
+      api.restore()
+
+
+
+
+      for (var i = 0; i < 60; i++) {
+        api.save()
+        api.beginPath();
+        api.translate(200, 200);
+        api.rotate(i * deg * 6);
+
+        api.moveTo(0, 140)
+        api.lineTo(0, 150)
+        api.stroke()
+        api.restore();
+      }
+      // 
+      for (var i = 0; i < 12; i++) {
+        api.save()
+        api.beginPath();
+        api.translate(200, 200);
+        api.rotate(i * deg * 30);
+
+        api.moveTo(0, 135)
+        api.lineTo(0, 150)
+        api.strokeStyle = 'brown';
+        api.lineWidth = 2;
+        api.stroke()
+        api.restore();
+      }
+      // 
+      for (var i = 0; i < 4; i++) {
+        api.save()
+        api.beginPath();
+        api.translate(200, 200);
+        api.rotate(i * deg * 90);
+
+        api.moveTo(0, 130)
+        api.lineTo(0, 150)
+        api.strokeStyle = 'red';
+        api.lineWidth = 3;
+        api.stroke()
+        api.restore();
+      }
+
+      function createText(text, x, y) {
+        api.font = '20px Arial';
+        api.textAlign = 'center';
+        api.textBaseline = 'bottom';
+        api.fillText(text, x, y);
+      }
+    }
+
+    createTime()
+    setInterval(createTime, 1000);
+    function createTime() {
+      api.clearRect(0, 0, 400, 400);
+      clock()
+      var today = new Date();
+      var hours = today.getHours();
+      var min = today.getMinutes();
+      var second = today.getSeconds();
+
+      api.save()
+      api.beginPath();
+      api.translate(200, 200);
+      api.rotate(second * deg * 6);
+      api.moveTo(0, 125)
+      api.lineTo(0, -20)
+      api.lineWidth = '2'
+      api.storkeStyle = 'red';
+      api.stroke()
+      api.restore();
+
+
+    }
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

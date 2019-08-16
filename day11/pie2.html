@@ -54,32 +54,24 @@
 
         var a1 = Math.cos(per + currentDeg / 2) * (200 + 30);
         var b1 = Math.sin(per + currentDeg / 2) * (200 + 30);
-
-
+        
         var a2, b2 = b1;
         a1 > 0 ? a2 = a1 + 30 : a2 = a1 - 30;
 
         // 0 90 180
-
         // (a2, b2)
-
         /*
         (a, b)
         (a1, b1)
         (a2, b2)
         */
-
         api.beginPath()
         api.moveTo(a, b)
         api.lineTo(a1, b1);
         api.lineTo(a2, b2);
         api.stroke()
-
-
-
         createText(item.name, a2 > 0 ? a2 = a2 + 30 : a2 = a2 - 30, b2);
-
-
+        
         per += currentDeg
       })
     })

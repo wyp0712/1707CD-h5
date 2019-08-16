@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <canvas id="myCanvas"></canvas>
+  </div>
+  <script>
+    var wrap = document.querySelector('.wrap');
+    var myCanvas = document.querySelector('#myCanvas');
+    // 
+    myCanvas.width = wrap.offsetWidth;
+    myCanvas.height = wrap.offsetHeight;
+    var api = myCanvas.getContext('2d');
+
+    var x = myCanvas.width / 2;
+    var y = myCanvas.height / 4;
+    var r = 100;
+    var deg = Math.PI / 180; // 1deg;
+
+
+
+    var j = 0;
+    var globalID;
+    function animate() {
+      // x, y, width, height;
+      api.clearRect(0, 0, myCanvas.width, myCanvas.height);
+      j++;
+      api.beginPath();
+      api.arc(x, y, r, 0, j * deg);
+      api.lineWidth = 30;
+      api.stroke()
+      var text = ((j / 360) * 100).toFixed(2) + '%'
+      createText(text, x, y)
+      globalID = requestAnimationFrame(animate)
+      if (j >= 360) {
+        cancelAnimationFrame(globalID)
+        console.log(globalID, 'globalID')
+      }
+    }
+    // requestAnimationFrame(animate)
+    function createText(name, x, y) {
+      api.font = '20px Arial';
+      api.textAlign = 'center';
+      api.textBaseline = 'middle'
+      api.fillText(name, x, y);
+    }
+
+
+
+    // api.beginPath();
+    // api.moveTo(100, 200);
+    // api.lineTo(300, 300)
+    // api.lineWidth = 30;
+    // api.lineCap = 'round'
+    // api.stroke()
+
+    api.beginPath();
+    api.moveTo(x, y)
+    api.arc(x, y, 100, 0, deg * 330);
+    api.closePath()
+    api.fillStyle = 'yellow'
+    api.fill()
+    // api.stroke()
+
+  api.beginPath();
+    api.arc(x + 50, y - 50, 10, 0, deg * 360);
+    api.fillStyle = '#fff';
+    api.fill()
+
+    api.beginPath();
+    api.arc(x + 50, y - 50, 5, 0, deg * 360);
+    api.fillStyle = '#000';
+    api.fill()
+
+    for (var i = 0; i < 6; i++) {
+      api.beginPath();
+      api.fillStyle = 'red';
+      api.fillRect(150 + i * 14, 80, 10, 30);
+    }
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

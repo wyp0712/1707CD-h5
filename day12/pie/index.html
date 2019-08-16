@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+  </div>
+
+
+  <script src="./ajax.js"></script>
+  <script>
+
+    var MyPie = function (opt) {
+      var defaults = {
+        type: "pie"
+      }
+      this.myCanvas = document.getElementById('myCanvas');
+      this.api = myCanvas.getContext('2d');
+      this.deg = Math.PI / 180;
+      this.per = 0; // 圆的初始角度
+      this.r = 100
+      // 总数
+      this.totalCount = 0;
+      this.opts = Object.assign({}, defaults, opt)
+      this.init()
+    }
+
+    MyPie.prototype = {
+      init: function () {
+        // 更改圆心坐标
+        this.api.translate(249, 249);
+        this.tatolCountFn()
+
+        switch (this.opts.type) {
+          case 'pie':
+            this.drawPie()
+            break;
+          case 'line':
+            this.drawLine()
+            break;
+          case 'bar':
+            this.drawBar()
+            break;
+
+        }
+
+      },
+      createColor() {
+        return "#" + Math.random().toString(16).slice(2, 8);
+      },
+      drawPie: function () {
+        this.opts.data.forEach(item => {
+          //2. 计算每一个扇形的当前角度： count / 总数 * 360 * deg
+          var currentDeg = item.count / this.totalCount * 360 * this.deg;
+          this.api.save()
+          this.api.beginPath();
+          // this.api.moveTo(0, 0);
+          this.api.arc(0, 0, this.r, this.per, this.per + currentDeg);
+          // this.api.fillStyle = item.color;
+          // this.api.fill()
+          this.api.lineWidth = 30;
+          this.api.strokeStyle = item.color;
+          this.api.stroke()
+          this.api.restore()
+          // 第一个点 扇形的中心点：(a, b) (扇形角度的一半的余弦值， 扇形角度一半的正弦值)  a: Math.cos  b: Math.sin
+          var a = Math.cos(this.per + currentDeg / 2) * this.r;
+          var b = Math.sin(this.per + currentDeg / 2) * this.r;
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a, b, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 第二个点  r + 30
+          var a1 = Math.cos(this.per + currentDeg / 2) * (this.r + 30);
+          var b1 = Math.sin(this.per + currentDeg / 2) * (this.r + 30);
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a1, b1, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 第三个点  判断正负  右加  左减
+          var a2, b2 = b1;
+          a1 > 0 ? a2 = a1 + 30 : a2 = a1 - 30;
+
+          // 辅助线
+          // this.api.beginPath();
+          // this.api.arc(a2, b2, 5, 0, Math.PI * 2);
+          // this.api.stroke()
+
+          // 三个点连线
+          this.api.beginPath();
+          this.api.moveTo(a, b)
+          this.api.lineTo(a1, b1);
+          this.api.lineTo(a2, b2);
+          this.api.strokeStyle = item.color;
+          this.api.stroke()
+
+          this.api.save()
+          // 添加文字
+          this.createText(item.name, a2 > 0 ? a2 += 50 : a2 -= 30, b2);
+          this.api.restore()
+          // 角度累加 
+          this.per += currentDeg
+        })
+      },
+      tatolCountFn: function () {
+        var totalCount = 0;
+        this.opts.data.map(item => {
+          totalCount += item.count;
+          item.color = this.createColor()
+        })
+        this.totalCount = totalCount
+      },
+      // 文字函数
+      createText(name, x, y) {
+        this.api.font = '20px Arial';
+        this.api.textAlign = 'center';
+        this.api.textBaseline = 'middle'
+        this.api.fillText(name, x, y)
+      },
+      drawLine: function () {
+
+      },
+      drawBar: function () {
+
+      }
+    }
+
+    ajax('./data.json', function (res) {
+      new MyPie({
+        data: res,
+        r: 150,
+        type: 'pie'
+      })
+    })
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

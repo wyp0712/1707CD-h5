@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .progress {
+      width: 100%;
+      height: 25px;
+      background: lightblue;
+    }
+
+    .progress .bg {
+      width: 0;
+      background: red;
+    }
+
+    .progress .bg .dot {
+      width: 25px;
+      height: 25px;
+      background: lightpink;
+    }
+
+    video {
+      width: 300px;
+      height: 150px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <video src="./RPReplay_Final1565678372.MP4" controls></video>
+  <marquee behavior="" direction="">hello world</marquee>
+
+  <div class="progress">
+    <div class="bg">
+      <div class="dot"></div>
+    </div>
+  </div>
+
+
+  <script>
+
+    // controls 显示控件；
+    var video = document.querySelector('video');
+    var progress = document.querySelector('.progress');
+    var dot = document.querySelector('.dot');
+    var bg = document.querySelector('.bg');
+    //  var video = document.querySelector('video');
+    video.oncanplay = function () {
+      var speed = video.duration / progress.offsetWidth // 1px s
+      dot.ontouchmove = function (e) {
+        var movex = e.touches[0].pageX;
+        dot.style.transform = `translate(${movex}px)`;
+        bg.style.width = `${movex}px`;
+        video.currentTime = movex * speed;
+      }
+    }
+
+
+
+
+  </script>
+
+</body>
+
+</html>
