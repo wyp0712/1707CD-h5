@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "count": 100,
+    "name": "pie-first",
+    "color": "yellow"
+  },
+  {
+    "id": 1,
+    "count": 200,
+    "name": "pie-second",
+    "color": "red"
+  },
+  {
+    "id": 2,
+    "count": 300,
+    "name": "pie-third",
+    "color": "navy"
+  },
+  {
+    "id": 3,
+    "count": 400,
+    "name": "pie-four",
+    "color": "pink"
+  },
+  {
+    "id": 4,
+    "count": 500,
+    "name": "pie-fifth",
+    "color": "blue"
+  }
+]

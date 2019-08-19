@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style >
+    .box {
+      width: 500px;
+      height: 500px;
+      margin:  0 auto;
+      border:1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border:1px solid black;
+      text-align: center;
+      line-height: 30px;
+      margin-left: 5%;
+      background: lightgreen;
+      /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+      animation: circyeStyle 1s linear infinite alternate;
+    }
+
+    @keyframes circyeStyle {
+      0% {
+
+      }
+      100% {
+        transform: translateY(-150px);
+      }
+    }
+    span:nth-child(1) {}
+    span:nth-child(2) {
+      animation-delay: 300ms;
+    }
+    span:nth-child(3) {
+      animation-delay: 500ms;
+    }
+    span:nth-child(4) {
+      animation-delay: 900ms;
+    }
+  </style>
+</head>
+<body>
+   
+  <div class="box">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+
+</body>
+</html>

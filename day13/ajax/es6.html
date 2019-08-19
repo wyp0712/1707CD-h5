@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <script>
+    /* 1. 对象  解构赋值  key 完全一样 */
+
+    var obj = {
+      page: 2,
+      size: 5
+    }
+    console.log(obj.page, obj.size)
+    // var { page, size } = obj;
+    // console.log(page, size)
+
+    /* 2. const let */
+    //  const 常量    let  变量  都不可以多次声明  都没有变量提升  都有块级作用域
+    // {
+    //   let a = 1;
+    // }
+    // console.log(a, 'a')
+
+    /* 3. Object.keys()  Object.values()  Object.assign() */
+
+    const data = {
+      "name": "zhangsan",
+      "age": "12",
+      "sex": 1
+    }
+
+    console.log(Object.keys(data)) // 返回key的数组
+    console.log(Object.values(data)) // 返回key的数组
+
+
+    /* 4.  reduce  some  filter  */
+    const arr = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 6, 2, 3, 4, 5];
+    // reduce如果有第二个参数，那么reduce的回调函数的第一个参数就等于reduce的第二个参数
+    // var count = arr.reduce((pre, next) => {
+    //    pre.indexOf(next) === -1 && pre.push(next);
+    //    return pre
+    // }, [])
+    // console.log(count, 'count')
+
+    // console.log(Array.from(new Set(arr)))
+
+    /* some 返回一个boolean */
+    const datas = [
+      {
+        user: 'zhangsan',
+        pwd: 123
+      },
+      {
+        user: 'lisi',
+        pwd: 123
+      },
+      {
+        user: 'wangwu',
+        pwd: 123
+      },
+      {
+        user: '4zhangsan',
+        pwd: 123
+      },
+      {
+        user: '5lisi',
+        pwd: 123
+      },
+      {
+        user: '6wangwu',
+        pwd: 123
+      },
+      {
+        user: '7zhangsan',
+        pwd: 123
+      },
+      {
+        user: '8lisi',
+        pwd: 123
+      },
+      {
+        user: '9wangwu',
+        pwd: 123
+      }
+    ]
+
+    const userData = {
+      user: 'lisi',
+      pwd: 123
+    }
+
+    const flag = datas.some(item => {
+      return item.user === userData.user && item.pwd === userData.pwd;
+    })
+    console.log(flag, 'flag')
+    if (flag) {
+      // alert('登陆失败')
+    } else {
+      // alert('success')
+    }
+
+    let {page , size} = obj;
+
+    let pageData = datas.filter((n ,index) =>  index >= (page - 1) * size && index < page * size );
+     
+    console.log(pageData, 'pagData')
+
+
+
+
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

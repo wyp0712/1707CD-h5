@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <img src="https://wyp0712.github.io/git-page-test/img.jpg" alt="">
+
+  <script src="./myAjax.js"></script> 
+  <script>
+    
+    ajax({
+      url: 'https://wyp0712.github.io/git-page-test/img.jpg',
+      type: "get",
+      data: {
+        page: 1,
+        size: 10
+      },
+      success: function(res) {
+        console.log(res)
+      }
+    })
+
+  
+  
+  </script>
+</body>
+</html>

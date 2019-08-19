@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="./css/swiper.css">
+
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-container {
+      width: 100%;
+      height: 200px;
+    }
+
+    .swiper-container .swiper-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-container .swiper-wrapper .swiper-slide {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-container .swiper-wrapper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tabs {
+      width: 100%;
+      height: 45px;
+      display: flex;
+    }
+
+    .tabs .span {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .active {
+      background: red;
+      color: #fff;
+      /* transition:  */
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+
+    <div class="tabs">
+      <div class="span active">1</div>
+      <div class="span">2</div>
+      <div class="span">3</div>
+      <div class="span">4</div>
+      <div class="span">5</div>
+      <div class="span">6</div>
+    </div>
+
+    <div class="swiper-container">
+
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://aecpm.alicdn.com/simba/img/TB14ab1KpXXXXclXFXXSutbFXXX.jpg_q50.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://gw.alicdn.com/imgextra/i4/178/O1CN017gRPUq1DBZ36gZrrz_!!178-0-lubanu.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://aecpm.alicdn.com/simba/img/TB1CWf9KpXXXXbuXpXXSutbFXXX.jpg_q50.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://aecpm.alicdn.com/simba/img/TB14ab1KpXXXXclXFXXSutbFXXX.jpg_q50.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://gw.alicdn.com/imgextra/i3/123/O1CN01iDUxFZ1CmNGYIK9cs_!!123-0-lubanu.jpg" alt="">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://aecpm.alicdn.com/simba/img/TB1CWf9KpXXXXbuXpXXSutbFXXX.jpg_q50.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="swiper-pagination"></div>
+
+      <!-- <div class="swiper-button-prev"></div> -->
+      <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+      <!-- <div class="swiper-button-next"></div> -->
+      <!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
+    </div>
+
+  </div>
+
+
+
+  <script src="./js/swiper.js"></script>
+
+  <script>
+
+    var tabs = document.querySelectorAll('.span');
+    var wrap = document.querySelector('.wrap');
+
+    var mySwiper = new Swiper(".swiper-container", {
+      // autoplay: true,
+      /*autoplay: {
+         delay: 3000,
+         stopOnLastSlide: false,
+         disableOnInteraction: true,
+       },*/
+      // effect: 'coverflow', // fade effect : 'coverflow',
+      // slidesPerView: 3, // 每一页显示几个slide
+      // centeredSlides: true, // 第一个slide是否居中
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets', // fraction  progressbar
+      },
+      // navigation: {
+      //   nextEl: '.swiper-button-next',
+      //   prevEl: '.swiper-button-prev',
+      // }
+
+      on: { // 监听方法
+        // 监听下标
+        slideChange: function () {
+          console.log(this.activeIndex)
+          for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove('active');
+          }
+          tabs[this.activeIndex].classList.add('active');
+        }
+      }
+    })
+
+    tabs.forEach((item, index) => {
+      item.onclick = function () {
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.remove('active');
+        }
+        item.classList.add('active')
+
+        // transition
+        mySwiper.setTransition(1000);
+        mySwiper.setTranslate(wrap.offsetWidth * - index)
+
+      }
+    })
+
+
+
+  </script>
+</body>
+
+</html>

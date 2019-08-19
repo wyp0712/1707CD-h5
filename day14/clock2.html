@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    #myCanvas {
+      border: 1px solid black;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <canvas id="myCanvas"></canvas>
+  </div>
+
+  <script>
+
+    var myCanvas = document.getElementById('myCanvas');
+    var wrap = document.querySelector('.wrap');
+    // 设置canvas宽高
+    myCanvas.width = wrap.offsetWidth;
+    myCanvas.height = wrap.offsetHeight;
+    var api = myCanvas.getContext('2d');
+    // 设置表盘圆心点
+    var x = myCanvas.width / 2, 
+        y = myCanvas.height / 4, deg = Math.PI / 180;
+
+    drawClock() 
+    setInterval(drawClock, 1000 / 360)
+
+    // requestAnimationFrame(drawClock)
+
+    function drawClock() {
+
+      api.clearRect(0, 0, 500, 500);
+      var today = new Date();
+      var min = today.getMinutes();
+      var second = today.getSeconds();
+      var hours = today.getHours();
+
+      hours = hours + min / 60;
+      hours > 12 ? hours = hours - 12 : hours;
+
+      // 外圆； 
+      api.save();
+      api.beginPath();
+      api.arc(x, y, 150, 0, Math.PI * 2);
+      api.stroke()
+      api.restore()
+
+      // 绘制刻度
+      for (var i = 0; i < 60; i++) {
+        api.save();
+        api.beginPath();
+        api.translate(x, y);
+        api.rotate(i * deg * 6);
+        api.moveTo(0, 140);
+        api.lineTo(0, 150);
+        api.stroke()
+        api.restore()
+      }
+
+      for (var i = 0; i < 12; i++) {
+        api.save();
+        api.beginPath();
+        api.translate(x, y);
+        api.rotate(i * deg * 30);
+
+        var index = i;
+        creatText(index == 0 ? index = 12 : i, 0, -115)
+        api.moveTo(0, 130);
+        api.lineTo(0, 150);
+        api.strokeStyle = 'red';
+        api.lineWidth = 2;
+        api.stroke()
+        api.restore()
+      }
+
+      for (var i = 0; i < 4; i++) {
+        api.save();
+        api.beginPath();
+        api.translate(x, y);
+        api.rotate(i * deg * 90);
+        api.moveTo(0, 125);
+        api.lineTo(0, 150);
+        api.strokeStyle = 'navy';
+        api.lineWidth = 3;
+        api.stroke()
+        api.restore()
+      }
+
+      // 秒针
+
+      api.save();
+      api.beginPath();
+      api.translate(x, y);
+      api.rotate(deg * 1 * second);
+      api.moveTo(0, -140);
+      api.lineTo(0, 20);
+      api.lineWidth = 1;
+      api.strokeStyle = 'red'
+      api.stroke()
+      api.restore()
+
+      // 分
+      api.save();
+      api.beginPath();
+      api.translate(x, y);
+      api.rotate(deg * 6 * min);
+      api.moveTo(0, -130);
+      api.lineTo(0, 20);
+      api.lineWidth = 2;
+      api.strokeStyle = 'navy'
+      api.stroke()
+      api.restore()
+
+      // hours
+      api.save();
+      api.beginPath();
+      api.translate(x, y);
+      api.rotate(deg * 30 * hours);
+      api.moveTo(0, -120);
+      api.lineTo(0, 20);
+      api.lineWidth = 3;
+      api.strokeStyle = 'orange'
+      api.stroke()
+      api.restore()
+
+      // requestAnimationFrame(drawClock)
+    }
+
+    // 文字
+    function creatText(text, x, y) {
+      api.font = '20px Arial';
+      api.textAlign = 'center';
+      api.textBaseline = 'middle';
+      api.fillText(text, x, y);
+    }
+
+
+
+  </script>
+
+
+
+
+</body>
+
+</html>

@@ -20,6 +20,7 @@
       context = canvas.getContext('2d'),
       deg = Math.PI / 180;
     context.translate(200, 200);
+
     function dialPlate() { //创建表盘
       context.clearRect(-150, -150, 400, 400); //清除画布
       context.beginPath();
@@ -75,6 +76,7 @@
       context.fill();
       context.closePath();
     }
+    
     function Pointer() { //创建指针
       var nowdate = new Date(),
         hour = nowdate.getHours() % 12,
@@ -121,10 +123,10 @@
     dialPlate();
     Pointer();
     //生硬
-    			setInterval(function(){
-    				dialPlate();
-    				Pointer();
-    			},1000)
+    setInterval(function () {
+      dialPlate();
+      Pointer();
+    }, 1000)
     //比较圆滑
     // setInterval(function () {
     //   dialPlate();

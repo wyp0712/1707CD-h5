@@ -1,0 +1,78 @@
+@import './reset.scss';
+
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+.wrap {
+  @include width;
+  @include height;
+  @include flexDirection;
+}
+
+.header {
+  @include width;
+  @include height(rem(90px));
+  background: red;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  // better-scroll排版
+  overflow: hidden;
+}
+
+.back {
+  width: rem(100px);
+  height: rem(100px);
+  border-radius: 50%;
+  position: fixed;
+  right: 5%;
+  bottom: 15%;
+  text-align: center;
+  line-height: rem(100px);
+  background: lightcoral;
+}
+
+.content {
+  width: 100%;
+  position: relative;
+
+  .top-tip {
+    width: 100%;
+    height: rem(90px);
+    text-align: center;
+    line-height: rem(90px);
+    position: absolute;
+    top:rem(-90px);
+  }
+  .bottom-tip {
+    width: 100%;
+    height: rem(90px);
+    text-align: center;
+    line-height: rem(90px);
+  }
+
+  .con {
+    @include width;
+    .sec {
+      @include width(90%);
+      @include height(rem(400px));
+      background: lightblue;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: rem(100px);
+      line-height: rem(400px);
+      margin-bottom: rem(5px);
+    }
+  }
+
+}
+
+.footer {
+  @include width;
+  @include height(rem(90px));
+  background: red;
+}

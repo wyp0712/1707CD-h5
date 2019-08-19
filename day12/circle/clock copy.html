@@ -22,14 +22,14 @@
 
     function clock() {
 
-      for (var i = 0; i < 12; i++) {
-        api.save()
-        api.beginPath();
-        api.rotate(i * deg * 6);
-        var index = i;
-        createText(index == 0 ? index = 12 : i, 0, 135);
-        api.restore();
-      }
+      // for (var i = 0; i < 12; i++) {
+      //   api.save()
+      //   api.beginPath();
+      //   api.rotate(i * deg * 6);
+      //   var index = i;
+      //   // createText(index == 0 ? index = 12 : i, 0, 135);
+      //   api.restore();
+      // }
 
       api.save()
       api.beginPath();
@@ -37,10 +37,6 @@
       api.arc(0, 0, 150, 0, Math.PI * 2)
       api.stroke()
       api.restore()
-
-
-
-
       for (var i = 0; i < 60; i++) {
         api.save()
         api.beginPath();
@@ -80,13 +76,13 @@
         api.stroke()
         api.restore();
       }
+    }
 
-      function createText(text, x, y) {
-        api.font = '20px Arial';
-        api.textAlign = 'center';
-        api.textBaseline = 'bottom';
-        api.fillText(text, x, y);
-      }
+    function createText(text, x, y) {
+      api.font = '20px Arial';
+      api.textAlign = 'center';
+      api.textBaseline = 'bottom';
+      api.fillText(text, x, y);
     }
 
     createTime()
@@ -99,18 +95,42 @@
       var min = today.getMinutes();
       var second = today.getSeconds();
 
+
       api.save()
       api.beginPath();
+
       api.translate(200, 200);
+      api.lineWidth = '2'
+      api.storkeStyle = 'red';
       api.rotate(second * deg * 6);
       api.moveTo(0, 125)
       api.lineTo(0, -20)
-      api.lineWidth = '2'
-      api.storkeStyle = 'red';
+    
       api.stroke()
       api.restore();
 
+      api.save()
+      api.beginPath();
+      api.translate(200, 200);
+      api.lineWidth = '3'
+      api.storkeStyle = 'navy';
+      api.rotate(min * deg * 6);
+      api.moveTo(0, 120)
+      api.lineTo(0, -20)
+      api.stroke()
+      api.restore();
 
+      api.save()
+      api.beginPath();
+      api.translate(200, 200);
+      api.storkeStyle = 'red';
+      api.lineWidth = '4'
+      api.rotate(hours * 30 * deg);
+      api.moveTo(0, 110)
+      api.lineTo(0, -20)
+
+      api.stroke()
+      api.restore();
     }
 
 

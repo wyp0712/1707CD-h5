@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+
+  <canvas id="myCanvas" style="border:1px solid black" width="500" height="500"></canvas>
+
+
+
+
+
+  <script src="./ajax.js"></script>
+  <script>
+
+    /* 
+     api.translate()
+     1. 先算总数 每一个数据个数相加之和  count
+     2. 每一个数据占的角度     item.value / count * 360 * Math.PI / 180;
+     3. arc
+     4. 画线： 找三个点  
+          第一个点 ：在圆上 每一扇形的中心点
+          第二个点： 在大圆上 每一扇形的中心点
+          第三个点： 分左右两部分  左边是减 右边加   根据圆心 0 0 
+    */
+
+    var myCanvas = document.querySelector('#myCanvas');
+
+    var api = myCanvas.getContext('2d');
+
+    var totalCount = 0;
+    var deg = Math.PI / 180;
+    var per = 0; // 起始角度
+    var r = 150;
+
+    // api.translate(250,250);
+
+    // ajax('./data.json', (res) => {
+    //   // 分开两个去循环
+    //   res.map(item => {
+    //     totalCount += item.count;
+    //   })
+    //   console.log(totalCount, 'totalCount')
+    //   res.forEach(item => {
+    //      //  2. 每一个数据占的角度 
+    //      var currendDeg = item.count /  totalCount * 360 * deg;
+    //     //  3. arc
+    //     api.save();
+    //     api.beginPath();
+
+    //     // api.moveTo(0, 0);
+    //     api.arc(0, 0, r, per, per + currendDeg);
+
+    //     api.strokeStyle = item.color;
+    //     api.lineWidth = 30;
+    //     // api.fillStyle = item.color;
+    //     // api.fill()
+    //     api.stroke()
+    //     api.restore()
+
+
+    //     // 4. 画线： 找三个点  
+    //     //   第一个点 ：在圆上 每一扇形的中心点  
+    //     //   第二个点： 在大圆上 每一扇形的中心点
+    //     //   第三个点： 分左右两部分  左边是减 右边加   根据圆心 0 0 
+
+    //     // (Math.cos() * r ,  Math.sin() * r)
+
+    //     var a = Math.cos(per + currendDeg / 2) * r;
+    //     var b = Math.sin(per + currendDeg / 2) * r;
+
+    //     var a1 = Math.cos(per + currendDeg / 2) * (r + 30);
+    //     var b1 = Math.sin(per + currendDeg / 2) * (r + 30);
+
+    //     var a2, b2 = b1;
+    //     a1 > 0 ? a2 = a1 + 30 : a2 = a1 - 30;
+    //     createText(item.name, a2 > 0 ? a2 + 50 : a2 - 50, b2)
+
+    //     api.save();
+    //     api.beginPath();
+    //     api.moveTo(a, b);
+    //     api.lineTo(a1, b1);
+    //     api.lineTo(a2, b2);
+    //     api.stroke()
+    //     api.restore()
+
+    //     per += currendDeg;
+    //   })
+    // })   
+
+    api.save();
+    createText('hello world', 250, 250, 'kong')
+    api.restore();
+
+
+    function createText(text, x, y, fontDir) {
+      api.font = '50px Arial';
+      api.textAlign = 'center';
+      api.textBaseline = 'middle'
+      fontDir === 'kong' ? api.strokeText(text, x, y) : api.fillText(text, x, y)
+    }
+
+
+    var deg = Math.PI / 180;
+
+    // api.translate(250, 250);
+    // 创建渐变
+    var grd = api.createLinearGradient(0, 0, 50, 0);
+    grd.addColorStop(0, "red");
+    grd.addColorStop(0.5, "yellow");
+    grd.addColorStop(1, "blue");
+
+    api.save();
+    api.beginPath();
+    // false 顺时针  true 逆时针
+    api.arc(250, 250, 150, deg * 60, deg * 120, true);
+    api.lineWidth = 30;
+    api.lineCap = 'round';
+    api.strokeStyle = grd;
+    api.stroke()
+    api.restore();
+
+    api.save();
+    api.beginPath();
+    api.fillStyle = 'yellow';
+    api.fillRect(150, 200, 200, 100)
+    api.restore();
+
+    // 对象的 解构赋值  
+    var obj = {
+      name: "zhangsan",
+      age: 12
+    }
+    console.log(obj.name, obj.age)
+    var { name, age } = obj;  // key值必须保持一致；
+    console.log(name, age, '---------1')
+
+    // var [c, d] = ['item1', 'helloworld2'];
+    // console.log(c, d)
+    // Object.assign()
+    // Object.keys()
+    // Object.values()
+
+    const arr = {
+      "name": "lisi",
+      "age": "32",
+      "sex": 1
+    }
+    // 拿到key值返回数组
+    console.log(Object.keys(arr))
+    // 拿到value值返回数组
+    console.log(Object.values(arr))
+
+    // reduce 
+    const brr = [1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6, 7, 8];
+
+    // 如果有第二参数，那么reduce的回调函数的第一个参数就等于reduce的第二个参数
+    // var count = brr.reduce((pre, next) => {
+    //    pre.indexOf(next) === -1 && pre.push(next);
+    //   return pre;
+    // }, [])
+
+    // var count = brr.reduce((pre, next) => {
+    //   console.log(pre, 'pre')
+    // }, {})
+    // console.log(count, 'cpiunt');
+    // console.log([...new Set(brr)])
+
+    const crr = [
+      {
+        user: "123",
+        pwd: 321
+      },
+      {
+        user: "2shangsan",
+        pwd: 321
+      },
+      {
+        user: "3lisi",
+        pwd: 321
+      },
+      {
+        user: "3-+_123",
+        pwd: 321
+      },
+      {
+        user: "4shangsan",
+        pwd: 321
+      },
+      {
+        user: "5lisi",
+        pwd: 321
+      },
+      {
+        user: 6123,
+        pwd: 321
+      },
+      {
+        user: "7shangsan",
+        pwd: 321
+      },
+      {
+        user: "8lisi",
+        pwd: 321
+      },
+      {
+        user: "9lisi",
+        pwd: 321
+      }
+    ]
+
+    var drr = {
+      user: 'shangsan',
+      pwd: 321
+    }
+
+    // 账号密码匹配功能
+    let { user, pwd } = drr
+    let flag = crr.some(item => {
+      return item.user === user && item.pwd === pwd
+    })
+
+    console.log(flag)
+
+    // filter
+    var { page, size } = {
+      page: 1,
+      size: 5
+    }
+
+    console.log(page, size)
+
+    // 分页   1 2 3 4 5
+    var c = crr.filter((n, index) => index >= (page - 1) * size && index < page * size)
+
+    console.log(c, 'c')
+
+
+    /*
+     filter  // 分页
+     some    // 登陆注册
+     reduce  // 去重
+     Object.keys()  // 数组
+     Object.values() // 数组
+     对象 {} = arr 解构赋值
+     const  常量   都没有变量提升 都不可以多次声明 都有块级作用域
+     let    变量
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
