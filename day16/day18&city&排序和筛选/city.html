@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>城市</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        html, body{
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .city li h3{
+            width: 100%;
+            height: 50px;
+            background: orange;
+            padding-left: 15px;
+            line-height: 50px;
+        }
+        .city li ul li{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+        }
+        .letters{
+            position: absolute;
+            top:50px;
+            right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 城市列表 -->
+        <div class="city">
+            <!-- <li>
+                <h3>A</h3>
+                <ul>
+                    <li>阿坝</li>
+                    <li>阿克苏</li>
+                </ul>
+            </li>
+            <li>
+                <h3>B</h3>
+                <ul>
+                    <li>北京</li>
+                    <li>白城</li>
+                </ul>
+            </li> -->
+        </div>
+        <!-- 字母列表 -->
+        <div class="letters">
+            <!-- <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li> -->
+        </div>
+    </div>
+    <script src="js/ajax.js"></script>
+    <script src="js/bScroll.js"></script>
+    <script>
+        //请求数据
+        ajax({
+            type:"get",
+            url:"./data/city.json",
+            success:function(data){
+                if(data){
+                    render(data);
+                }
+            }
+        });
+
+        function render(data){
+            //字母列表
+            var letters = Object.keys(data); //["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"]
+            var letterHtml = document.querySelector('.letters');
+            var city = document.querySelector('.city');
+            letters.forEach(function(item){
+                //字母列表html
+                letterHtml.innerHTML += `<li>${item}</li>`;
+                //城市列表
+                city.innerHTML += `
+                                    <li id="${item}">
+                                        <h3>${item}</h3>
+                                        <ul>
+                                            ${
+                                                data[item].map(function(list){
+                                                    return `<li>${list.name}</li>`
+                                                }).join('')
+                                            }
+                                        </ul>
+                                    </li>
+                                `;
+            });
+            bindEvent(); //绑定事件
+        }
+
+        function bindEvent(){
+            lettersEvent();
+            cityEvent();
+           
+        }   
+        //点击字母
+        function lettersEvent(){
+            var myScroll = new BScroll('.wrapper',{
+                click:true //必须设置click属性，是true时才派发click事件，默认false
+            });
+            var lis = document.querySelectorAll('.letters li');
+            lis.forEach(function(item){
+                item.onclick=function(){
+                    var id = this.innerHTML; //获取点击的字母
+                    var ele = document.getElementById(id); //根据字母获取到id是改字母的元素
+                    myScroll.scrollToElement (ele,0); //滚动到指定元素
+                }
+            });
+        }
+
+        //点击城市
+        function cityEvent(){
+            var city = document.querySelector('.city');
+            city.onclick  = function(e){
+                if(e.target.nodeName === "LI" && e.target.innerHTML){
+                    //存数据
+                    localStorage.setItem('city', e.target.innerHTML);
+                    location.href='./index.html'; //跳转页面
+                }
+            }
+        }
+    
+    </script>
+</body>
+</html>

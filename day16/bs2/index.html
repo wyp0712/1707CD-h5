@@ -11,7 +11,7 @@
 
   <link rel="stylesheet" href="./font_3gk76ktke3u/iconfont.css">
   <script src="./lib/flexible.js"></script>
-  
+
   <title>Document</title>
 </head>
 
@@ -19,22 +19,20 @@
 
 
   <div class="wrap">
-
-    <header class="header">
-
-    </header>
-
+    <header class="header"></header>
+    <nav class="nav navHeader hide">
+      <span class="nav-active">tab1</span>
+      <span>tab2</span>
+      <span>tab3</span>
+    </nav>
     <main class="main">
       <div class="content">
         <div class="top-tip">
           <span class="iconfont">&#xe68f;</span>
-          <div class="font">下拉刷新</div> 
+          <span class="font">下拉刷新</span>
         </div>
 
-
-
         <div class="con">
-
           <div class="bs-swiper">
             <div class="bs-wrapper">
               <div class="bs-slide">1</div>
@@ -50,6 +48,13 @@
           <div class="sec">3</div>
           <div class="sec">4</div>
           <div class="sec">5</div>
+
+          <nav class="nav navSec">
+            <span class="nav-active">tab1</span>
+            <span>tab2</span>
+            <span>tab3</span>
+          </nav>
+
           <div class="sec">6</div>
           <div class="sec">7</div>
           <div class="sec">8</div>
@@ -61,13 +66,11 @@
           <div class="sec">14</div>
           <div class="sec">15</div>
         </div>
-
         <div class="bottom-tip">
           <span class="iconfont">&#xe68f;</span>
-          <div class="b-font">上拉加载</div> 
         </div>
       </div>
-      
+
 
       <div class="back"></div>
     </main>
@@ -88,6 +91,13 @@
     var con = document.querySelector('.con');
     var font = document.querySelector('.font');
     var bottomfont = document.querySelector('.b-font');
+    var navHeader = document.querySelector('.navHeader');
+
+    var navSec = document.querySelector('.navSec');
+
+    var navHeaderSpans = document.querySelectorAll('.navHeader span');
+
+    var navSecSpans = document.querySelectorAll('.navSec span');
 
     /*
      
@@ -99,11 +109,11 @@
     5. 重新渲染dom
     
     */
-   // bs-scoll-横滚
-     
-   var myBSheng = new BScroll('.bs-swiper', {
-     scrollX: true , // 开启横滚
-   })
+    // bs-scoll-横滚
+
+    var myBSheng = new BScroll('.bs-swiper', {
+      scrollX: true, // 开启横滚
+    })
 
     // 请求数据函数
     function getData(fn) {
@@ -111,7 +121,6 @@
         fn && fn(list)
       })
     }
-
     // 渲染页面函数
     function renderHtml(list, dir) {
       var str = list.map(item => {
@@ -137,7 +146,51 @@
         threshold: 180,// 阀值
       },
       // 开启监听滚动条位置
-      probeType: 2  // 实时开启 
+      probeType: 3  // 实时开启 
+    })
+
+
+    //  吸顶效果
+    myBS.on('scroll', function(pos) {
+      // console.log(navHeader.offsetTop)
+      // console.log(pos, 'pos')
+      console.log(navSec.offsetTop)
+      if (pos.y <= -navSec.offsetTop) {
+        navSec.classList.add('hide')
+        navHeader.classList.remove('hide')
+
+      } else {
+        navSec.classList.remove('hide')
+        navHeader.classList.add('hide')
+      }
+    })
+
+    // nav-sec点击事件
+    navSecSpans.forEach((item, index) => {
+      item.onclick = () => {
+        for(var i = 0; i < navSecSpans.length; i++) {
+          navSecSpans[i].classList.remove('nav-active')
+          navHeaderSpans[i].classList.remove('nav-active');
+        }
+        item.classList.add('nav-active')
+        // 当点击下面的nav的时候，给上面的nav设置一个index
+        navHeader.dataset.index = index;
+        navHeaderSpans[index].classList.add('nav-active');
+      }
+    })
+
+   // nav-header点击事件
+    navHeaderSpans.forEach((item, index) => {
+      item.onclick = () => {
+        for(var i = 0; i < navSecSpans.length; i++) {
+          navSecSpans[i].classList.remove('nav-active')
+          navHeaderSpans[i].classList.remove('nav-active');
+        }
+        item.classList.add('nav-active')
+        // // 当点击上面的nav的时候，给下面的nav设置一个index
+        navHeader.dataset.index = index;
+        navSecSpans[index].classList.add('nav-active');
+      }
     })
 
     // 2. 监听过程 结束下拉
@@ -159,13 +212,11 @@
 
     // 上拉加载
     myBS.on('pullingUp', function () {
-      bottomfont.innerHTML = '正在加载'
       setTimeout(function () {
         getData((list) => {
           renderHtml(list, 'bottom')
           myBS.finishPullUp();
           myBS.refresh()  // 5.重新计算滚动条
-          bottomfont.innerHTML = '上拉加载'
         })
       }, 3000)
     })

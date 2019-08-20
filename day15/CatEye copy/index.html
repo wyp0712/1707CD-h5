@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <link rel="stylesheet" href="./style/index.css">
+  <script src="./lib/flexible.js"></script>
+
+</head>
+<body>
+
+
+  <div class="wrap">
+    <div class="header">
+      猫眼电影
+    </div>
+    <nav class="nav">
+      <span> <a href="floor.html">北京</a> </span>
+      <span class="nav-btn nav-active">正在热映</span>
+      <span class="nav-btn">即将上映</span>
+      <span class="search-btn iconfont">&#xe6e4;</span>
+    </nav>
+    <div class="main">
+      <div class="content">
+        <!--  -->
+        <dl class="content-item">
+          <dt class="left-img"><img
+              src="https://p0.meituan.net/128.180/movie/f75fcb7696d55452e32794b2219700b9840805.jpg" alt=""></dt>
+          <dd class="mid-msg">
+            <div class="title">烈火英雄</div>
+            <div class="pingfen">观众拼9.4</div>
+            <div class="star">主演：样子</div>
+            <div class="cinema">主演：样子</div>
+          </dd>
+          <dd class="right-btn">
+            <span>购票</span>
+          </dd>
+        </dl>
+        <!-- end -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <ul class="item">
+        <li class="iconfont">&#xe654;</li>
+        <li> 电影 </li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe604;</li>
+        <li> 影院 </li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe60e;</li>
+        <li> 我的 </li>
+      </ul>
+    </div>
+
+
+  </div>
+
+
+
+
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+    /*
+      
+      loading: 
+
+    */
+    // function animate(fn) {
+
+    //   fn('list')
+    // }
+
+    // animate(function(res) {
+    //   console.log(res)
+    // })
+
+
+    /*
+     1. 本地存储
+     2. 模糊搜索
+     3. 加载
+     4. floor 
+    */
+
+
+    var CatEye = function (opt) {
+      var defaults = {
+      }
+      this.opts = Object.assign({}, defaults, opt)
+      this.contentEl = document.querySelector(this.opts.contentEl)
+      this.navBtns = document.querySelectorAll(this.opts.navBtn)
+      this.searchBtn = document.querySelector(this.opts.searchBtn)
+      this.main = document.querySelector('.main')
+      this.init()
+    }
+
+    CatEye.prototype = {
+      init: function () {
+        // 已进入页面就请求数据并且渲染数据
+        this.getData((res) => {
+          this.render(res)
+        })
+        // tab
+        this.tabEvent()
+        // search
+        this.searchEvent()
+        
+      },
+      getData: function (fn) {
+        ajax('./mock/data.json', (res) => {
+          // console.log(res, 'res')
+          fn && fn(res)
+        })
+      },
+      render: function (list, index = 0) {
+        // console.log(list, index)
+        var datas = list.movieList.map(item => {
+          if (index == 0 && item.globalReleased) {
+            return `<dl class="content-item">
+                    <dt class="left-img"><img
+                        src="${item.img}" alt=""></dt>
+                    <dd class="mid-msg">
+                      <div class="title">${item.nm}</div>
+                      <div class="pingfen">观众拼${item.sc}</div>
+                      <div class="star">主演：${item.star}</div>
+                      <div class="cinema">${item.showInfo}</div>
+                    </dd>
+                    <dd class="right-btn">
+                        <span class=${item.globalReleased ? "btn-left" : "btn-right"}>${item.globalReleased ? "购票" : "想看"}</span>
+                    </dd>
+                  </dl>`
+          } else if (index == 1 && !item.globalReleased) {
+            return `<dl class="content-item">
+                    <dt class="left-img"><img
+                        src="${item.img}" alt=""></dt>
+                    <dd class="mid-msg">
+                      <div class="title">${item.nm}</div>
+                      <div class="pingfen">观众拼${item.sc}</div>
+                      <div class="star">主演：${item.star}</div>
+                      <div class="cinema">${item.showInfo}</div>
+                    </dd>
+                    <dd class="right-btn">
+                      <span class=${item.globalReleased ? "btn-left" : "btn-right"}>${item.globalReleased ? "购票" : "想看"}</span>
+                    </dd>
+                  </dl>`
+          }
+        }).join('')
+        this.contentEl.innerHTML += datas;
+        this.scrollFn()
+      },
+      tabEvent: function () {
+        this.navBtns.forEach((item, index) => {
+          item.onclick = () => {
+            for (var i = 0; i < this.navBtns.length; i++) {
+              this.navBtns[i].classList.remove('nav-active')
+            }
+            item.classList.add('nav-active')
+            this.getData((list) => {
+              this.render(list, index)
+            })
+          }
+        })
+      },
+      searchEvent: function () {
+        this.searchBtn.onclick = function () {
+          window.location.href = './search.html'
+        }
+      },
+      // 无限加载函数
+      scrollFn: function () {
+        // content内容高度  main.offsetHeight可视区高度   main的scrollTop 
+        var that = this;
+        this.main.addEventListener('scroll',myscroll);
+        function myscroll() {
+          if (that.contentEl.offsetHeight - that.main.offsetHeight - this.scrollTop === 0) {
+            that.main.removeEventListener('scroll', myscroll) 
+            // console.log('到底部了')
+            that.getData((list) => {
+              that.render(list)
+            })
+          }
+        }
+      }
+    }
+
+    new CatEye({
+      contentEl: '.content',
+      navBtn: ".nav-btn",
+      searchBtn: ".search-btn"
+    })
+
+
+
+  </script>
+</body>
+
+</html>

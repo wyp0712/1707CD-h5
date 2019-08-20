@@ -21,6 +21,29 @@
   background: lightcoral;
 }
 
+
+
+.nav {
+  width: 100%;
+  height: rem(80px);
+  display: flex;
+  background: red;
+  span {
+    flex:1;
+    @extend %juzhong;
+
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.nav-active{
+  background: blue;
+  color: #fff;  
+}
+
 .main {
   width: 100%;
   flex:1;
@@ -53,21 +76,24 @@
     position: absolute;
     top: rem(-90px);
     font-size: rem(40px);
-    span {
-      display: inline-block;
-      width: rem(40px);
-      height: rem(40px);
-      text-align: center;
-      line-height: rem(40px);
-      animation: ciycleStyle 1s linear infinite;
-      // animation: name duration timing-function delay iteration-count direction fill-mode;
-    }
-    div {
-      display: inline-block;
-    }
-
     .iconfont {
       font-size: rem(40px);
+      display: block;
+      width: rem(45px);
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
+      margin: 0 auto;
+      animation: ciycleStyle 1s infinite linear;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+    .font {
+
+      display: block;
+      width: 100%;
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
     }
   }
 
@@ -100,6 +126,17 @@
       margin-bottom: rem(5px);
       font-size: rem(100px);
     }
+    .nav {
+      width: 100%;
+      height: rem(80px);
+      display: flex;
+      background: red;
+      span {
+        flex:1;
+        @extend %juzhong;
+
+      }
+    }
   }
 
   .bottom-tip {
@@ -109,20 +146,16 @@
     text-align: center;
     line-height: rem(90px);
     font-size: rem(40px);
-    span {
-      display: inline-block;
-      width: rem(40px);
-      height: rem(40px);
-      text-align: center;
-      line-height: rem(40px);
-      animation: ciycleStyle 1s linear infinite;
-      // animation: name duration timing-function delay iteration-count direction fill-mode;
-    }
-    div {
-      display: inline-block;
-    }
     .iconfont {
       font-size: rem(40px);
+      display: block;
+      width: rem(45px);
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
+      margin: 0 auto;
+      animation: ciycleStyle 1s infinite linear;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
     }
   }
 }

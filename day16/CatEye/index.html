@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <link rel="stylesheet" href="./style/index.css">
+
+  <script src="./lib/flexible.js"></script>
+
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <div class="header">
+      猫眼电影
+    </div>
+    <nav class="nav" data-index="0">
+      <span> <a href="./floor.html" class="address">北京</a> </span>
+      <span class="nav-btn nav-active">正在热映</span>
+      <span class="nav-btn">即将上映</span>
+      <span class="search-btn iconfont">&#xe6e4;</span>
+    </nav>
+    <div class="main">
+      <div class="content">
+        <!-- top-tip -->
+        <div class="top-tip">
+          <span class="iconfont">&#xe68f;</span>
+          <!-- <span class="font"></span> -->
+        </div>
+
+        <div class="movie-con">
+
+        </div>
+
+        <div class="bottom-tip">
+          <span class="iconfont">&#xe68f;</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <ul class="item">
+        <li class="iconfont">&#xe654;</li>
+        <li> 电影 </li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe604;</li>
+        <li> 影院 </li>
+      </ul>
+      <ul class="item">
+        <li class="iconfont">&#xe60e;</li>
+        <li> 我的 </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <script src="./lib/ajax.js"></script>
+  <script src="./lib/bscroll.js"></script>
+  <script>
+
+    /*
+      loading: 
+    */
+    // function animate(fn) {
+
+    //   fn('list')
+    // }
+
+    // animate(function(res) {
+    //   console.log(res)
+    // })
+
+
+    var CatEye = function (opt) {
+      var defaults = {
+      }
+      this.opts = Object.assign({}, defaults, opt)
+      this.contentEl = document.querySelector(this.opts.contentEl)
+      this.navBtns = document.querySelectorAll(this.opts.navBtn)
+      this.searchBtn = document.querySelector(this.opts.searchBtn)
+      this.address = document.querySelector('.address');
+      this.nav = document.querySelector('.nav');
+
+      this.movieCon = document.querySelector('.movie-con');
+
+      this.main = document.querySelector('.main');
+      this.storage = window.localStorage;
+
+
+      this.init()
+    }
+
+    CatEye.prototype = {
+      init: function () {
+        // 已进入页面就请求数据并且渲染数据
+        this.getData((res) => {
+          this.render(res, 0, 'tab')
+        })
+        // tab
+        this.tabEvent()
+        // search
+        this.searchEvent()
+        // 城市跳转功能
+        this.storageFn()
+        // 无限加载功能  
+        // this.scrollEvent()
+        this.flag = true;
+
+        this.myBSFn()
+        this.autoPullDown()
+      },
+      myBSFn: function () {
+        this.myBS = new BScroll('.main', {
+          pullDownRefresh: {
+            threshold: 180,
+            stop: 90
+          },
+          pullUpLoad: {
+            threshold: 180,
+          }
+        })
+
+        this.pullDown()
+        this.pullUp()
+
+      },
+      autoPullDown: function () {
+        this.myBS.autoPullDownRefresh();
+        var ind = this.nav.dataset.index
+        this.getData(list => {
+          this.render(list, ind, 'tab')
+          this.myBS.finishPullDown()
+          this.myBS.refresh()
+        })
+      },
+      pullDown: function () {
+        // 下拉刷新
+        this.myBS.on('pullingDown', () => {
+          // 当前下拉时候，取刚才在点击事件的时候绑定的自定义index
+          var ind = this.nav.dataset.index
+          console.log(ind)
+          setTimeout(() => {
+            this.getData(list => {
+              // console.log(list, 'list')
+              this.render(list, ind, 'tab')
+              this.myBS.finishPullDown()
+              this.myBS.refresh()
+            })
+          }, 3000)
+        })
+      },
+
+      pullUp: function () {
+        // 上拉加载
+        this.myBS.on('pullingUp', () => {
+          // 当前下拉时候，取刚才在点击事件的时候绑定的自定义index
+          var ind = this.nav.dataset.index
+          setTimeout(() => {
+            this.getData(list => {
+              this.render(list, ind, 'anything')
+              this.myBS.finishPullUp()
+              this.myBS.refresh()
+            })
+          }, 3000)
+        })
+      },
+      getData: function (fn) {
+        ajax('./mock/data.json', (res) => {
+          fn && fn(res)
+        })
+      },
+      storageFn: function () {
+        if (this.storage.city) {
+          this.address.innerHTML = this.storage.getItem('city')
+        }
+      },
+      render: function (list, index, dir = 'tab') {
+        // console.log(list, index, 'index')
+        var datas = list.movieList.map(item => {
+          if (index == 0 && item.globalReleased) {
+            console.log(index, 'index---------0')
+            return `<dl class="content-item">
+                    <dt class="left-img"><img
+                        src="${item.img}" alt=""></dt>
+                    <dd class="mid-msg">
+                      <div class="title">${item.nm}</div>
+                      <div class="pingfen">观众拼${item.sc}</div>
+                      <div class="star">主演：${item.star}</div>
+                      <div class="cinema">${item.showInfo}</div>
+                    </dd>
+                    <dd class="right-btn">
+                        <span class=${item.globalReleased ? "btn-left" : "btn-right"}>${item.globalReleased ? "购票" : "想看"}</span>
+                    </dd>
+                  </dl>`
+          } else if (index == 1 && !item.globalReleased) {
+            console.log(index, 'index---------1')
+            return `<dl class="content-item">
+                    <dt class="left-img"><img
+                        src="${item.img}" alt=""></dt>
+                    <dd class="mid-msg">
+                      <div class="title">${item.nm}</div>
+                      <div class="pingfen">观众拼${item.sc}</div>
+                      <div class="star">主演：${item.star}</div>
+                      <div class="cinema">${item.showInfo}</div>
+                    </dd>
+                    <dd class="right-btn">
+                      <span class=${item.globalReleased ? "btn-left" : "btn-right"}>${item.globalReleased ? "购票" : "想看"}</span>
+                    </dd>
+                  </dl>`
+          }
+        }).join('')
+
+        if (dir === 'tab') {
+          this.movieCon.innerHTML = datas;
+        }
+
+        if (dir == 'anything') {
+          this.movieCon.innerHTML += datas;
+        }
+      },
+      tabEvent: function () {
+        this.navBtns.forEach((item, index) => {
+          item.onclick = () => {
+            // 点击tab切换的时候，重新请求数据
+            this.myBS.finishPullUp()
+            this.myBS.finishPullDown()
+            this.autoPullDown()
+            for (var i = 0; i < this.navBtns.length; i++) {
+              this.navBtns[i].classList.remove('nav-active')
+            }
+            // 点击tab的时候，给自定义属性绑定一个index
+            item.parentNode.dataset.index = index;
+            item.classList.add('nav-active')
+            this.getData((list) => {
+              this.render(list, index, 'tab')
+            })
+          }
+        })
+      },
+      searchEvent: function () {
+        this.searchBtn.onclick = function () {
+          window.location.href = './search.html'
+        }
+      },
+      // 原生滚动加载，better-scroll无效
+      scrollEvent: function () {
+        var that = this;
+        // 监听滚动条事件
+        this.main.addEventListener('scroll', myScroll)
+        function myScroll() {
+          console.log(that.contentEl.offsetHeight - that.main.offsetHeight - this.scrollTop)
+          // 内容高度 = 滚动条的滚动距离 + 可视区的高度
+          if (that.contentEl.offsetHeight - that.main.offsetHeight - this.scrollTop === 0) {
+            // 取消监听
+            that.main.removeEventListener('scroll', myScroll)
+            // that.flag = false;
+            console.log('到底部了')
+            that.getData((list) => {
+              that.render(list, 0, 'anything')
+              that.main.addEventListener('scroll', myScroll)
+            })
+          }
+        }
+      }
+    }
+
+    new CatEye({
+      contentEl: '.content',
+      navBtn: ".nav-btn",
+      searchBtn: ".search-btn"
+    })
+
+
+
+  </script>
+</body>
+
+</html>

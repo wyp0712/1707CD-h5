@@ -1,0 +1,203 @@
+@import './reset.scss';
+
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+
+%juzhong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  height: rem(100px);
+  background: #e54847;
+  font-size: rem(36px);
+  color: #fff;
+  display: flex;
+  span {
+    @extend %juzhong;
+    &:nth-child(1) {
+        flex:2;
+    }
+    &:nth-child(2) {
+       flex:8;
+       padding-right: 9%;
+    }
+  }
+
+}
+
+.nav {
+  width: 100%;
+  height: rem(80px);
+  // display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .inputBox {
+    width: 80%;
+    height: 80%;
+    border:1px solid black;
+  }
+  .close {
+    display: inline-block;
+    width: rem(60px);
+    height: rem(60px);
+    border-radius: 50%;
+    border:1px solid black;
+    text-align: center;
+    line-height: rem(60px);
+    display: none;
+  }
+  .show {
+    display: inline-block;
+  }
+
+  // span {
+  //   flex: 1;
+  //   font-size: rem(30px);
+  //   // color: #666;
+  //   @extend %juzhong;
+
+  //   &:nth-child(4) {
+  //     flex: .5;
+  //   }
+  // }
+}
+
+.nav-active{
+  border-bottom: 4px solid #e54847;
+  color:#e54847;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.content {
+  width: 100%;
+  ul {
+    width: 100%;
+    padding: rem(20px);
+    li {
+      width: 100%;
+      height: rem(80px);
+      text-align: left;
+      line-height: rem(80px);
+      text-indent: 2em;
+      @include setBottomBorder(black);
+      background: #eee;
+    }
+  }
+}
+
+// .content-item {
+//   width: 100%;
+//   height: rem(228px);
+//   display: flex;
+//   padding-left: rem(30px);
+//   background-color: #fff;
+
+//   .left-img {
+//     flex: 2;
+//     @extend %juzhong;
+//     img {
+//       width: rem(64px *2);
+//       height: rem(90px *2);
+//     }
+//   }
+
+//   .mid-msg {
+//     flex: 6;
+//     display: flex;
+//     padding: 3%;
+//     flex-direction: column;
+//     @include setBottomBorder;
+
+//     .title {
+//       flex: 1;
+//       @extend %juzuo;
+//       font-size: rem(17px*2);
+//       color: #333;
+//       font-weight: 700;
+//       padding-right: 5px;
+//       flex-shrink: 1;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       white-space: nowrap;
+//     }
+//     .pingfen {
+//       flex: 1;
+//       @extend %juzuo;
+//       font-size: rem(13px*2);
+//       color: #666;
+//     }
+
+//     .star {
+//       flex: 1;
+//       @extend %juzuo;
+//       font-size: rem(13px*2);
+//       color: #666;
+//     }
+
+//     .cinema {
+//       flex: 1;
+//       @extend %juzuo;
+//       font-size: rem(13px*2);
+//       color: #666;
+//     }
+//   }
+
+//   .right-btn {
+//     flex: 2;
+//     @extend %juzhong;
+//     .btn-right {
+//       background: #faaf00;
+//     }
+
+//     span {
+//       display: inline-block;
+//       width: rem(47px *2);
+//       height: rem(27px * 2);
+//       text-align: center;
+//       line-height: rem(27px * 2);
+//       background-color: #f03d37;
+//       color: #fff;
+//       white-space: nowrap;
+//       font-size: rem(24px);
+//       border-radius: 4px;
+//     }
+//   }
+// }
+
+.footer {
+  width: 100%;
+  height: rem(90px);
+  display: flex;
+
+  .item {
+    flex: 1;
+
+    li:nth-child(1) {
+      @extend %juzhong;
+    }
+
+    li:nth-child(2) {
+      @extend %juzhong;
+    }
+  }
+}

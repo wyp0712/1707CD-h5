@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <button data-msg="id">综合排序</button>
+  <button data-msg="pingjia">评价</button>
+  <button data-msg="distance">距离</button>
+
+  <div class="box">
+
+  </div>
+
+
+  <script src="./ajax.js"></script>
+  <script>
+
+
+    var btns = document.querySelectorAll('button');
+    var box = document.querySelector('.box');
+
+    
+    btns.forEach((item, index) => {
+      item.onclick = function () {
+        // huoqu
+        var msg = item.dataset.msg;
+        console.log(msg)
+        sortFn(msg)
+      }
+    });
+
+    function getData(fn) {
+      ajax('./mock/data.json', (list) => {
+        fn && fn(list)
+      })
+    }
+
+    function sortFn(msg) {
+      getData((res) => {
+        res.sort((a, b) => {
+          // return a[msg] - b[msg]
+          if (a[msg] > b[msg]) {
+            return 1
+          } else if (a[msg] < b[msg]) {
+            return -1
+          } else  {
+            return 0
+          }
+        })
+        console.log(res, 'res')
+        renderHtml(res)
+      })
+    }
+
+    function renderHtml(list) {
+      box.innerHTML = list.map(item => {
+        return ` 
+                  <p>${item.id}<p>
+                  <p>${item.name}<p>
+                  <p>${item.pingjia}<p>
+                  <p>${item.distance}<p>
+          
+               `
+      }).join('')
+    }
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+@import './reset.scss';
+
+@function rem($font) {
+  @return $font / 75px * 1rem;
+}
+
+.wrap {
+  @include width;
+  @include height;
+  @include flexDirection;
+}
+
+.header {
+  @include width;
+  @include height(rem(90px));
+  background: red;
+}
+
+
+
+.nav {
+  width: 100%;
+  height: rem(80px);
+  background: lightsalmon;
+  text-align: center;
+  line-height: rem(80px);
+}
+
+.hide {
+  display: none;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+  // better-scroll排版
+  overflow: hidden;
+}
+
+.back {
+  width: rem(100px);
+  height: rem(100px);
+  border-radius: 50%;
+  position: fixed;
+  right: 5%;
+  bottom: 15%;
+  text-align: center;
+  line-height: rem(100px);
+  background: lightcoral;
+}
+
+.content {
+  width: 100%;
+  position: relative;
+
+  .top-tip {
+    width: 100%;
+    height: rem(90px);
+    text-align: center;
+    line-height: rem(90px);
+    position: absolute;
+    top:rem(-90px);
+    .iconfont {
+      font-size: rem(40px);
+      display: block;
+      width: rem(45px);
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
+      margin: 0 auto;
+      animation: ciycleStyle 1s infinite linear;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+    .font {
+
+      display: block;
+      width: 100%;
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
+    }
+  }
+  .bottom-tip {
+    width: 100%;
+    height: rem(90px);
+    text-align: center;
+    line-height: rem(90px);
+    .iconfont {
+      font-size: rem(40px);
+      display: block;
+      width: rem(45px);
+      height: rem(45px);
+      text-align: center;
+      line-height: rem(45px);
+      margin: 0 auto;
+      animation: ciycleStyle 1s infinite linear;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+  }
+
+  .con {
+    @include width;
+    .bs-container {
+      width: 100%;
+      height: rem(240px);
+      @include setBottomBorder;
+      .bs-wrapper{ // 内容盒子
+        width: 500%;
+        height: rem(240px);
+        display: flex;
+        .bs-slide {
+          flex:1;
+          text-align: center;
+          font-size: rem(100px);
+          line-height: rem(240px);
+        }
+      }
+    }
+    .sec {
+      @include width(90%);
+      @include height(rem(400px));
+      background: lightblue;
+      border-radius: 4px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: rem(100px);
+      line-height: rem(400px);
+      margin-bottom: rem(5px);
+    }
+    .nav {
+      width: 100%;
+      height: rem(80px);
+      background: lightsalmon;
+      text-align: center;
+      line-height: rem(80px);
+    }
+  }
+
+}
+
+@keyframes ciycleStyle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.footer {
+  @include width;
+  @include height(rem(90px));
+  background: red;
+}
