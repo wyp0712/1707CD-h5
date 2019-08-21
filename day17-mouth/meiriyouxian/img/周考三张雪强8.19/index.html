@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="./libs/flexible.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <canvas id="myCarvas"></canvas>
+        <span class="top">2019/8/13 星期二</span>
+        <div class="after"></div>
+    </div>
+
+    <script>
+        var myCarvas = document.getElementById('myCarvas');
+        var api = myCarvas.getContext('2d');
+        var after = document.querySelector('.after');
+        myCarvas.width = '660';
+        myCarvas.height = '660';
+        var deg = Math.PI / 180;
+        var r = 300;
+        //绘制文字
+        api.save();
+        api.beginPath();
+        api.translate(100, 100);
+        api.fillRect(0, 0, 300, 200);
+        api.fillStyle = 'pink';
+        api.fill();
+        api.stroke();
+        api.restore();
+
+
+        function clock() {
+            api.clearRect(0, 0, 600, 600);
+            var x = 320,
+                y = 320;
+            var today = new Date();
+            var min = today.getMinutes();
+            var sec = today.getSeconds();
+            var h = today.getHours();
+            var ms = today.getMilliseconds(); //毫秒
+            after.innerHTML = `<span>下午<span><b>${h}:</b><b>${min}:</b><b>${sec}</b>`;
+            console.log(sec, min, h);
+            h = h + min / 60;
+            h > 12 ? h = h - 12 : h = h;
+
+            // console.log(sec, min, h);
+
+            //绘制圆
+            api.save();
+            api.beginPath();
+            api.translate(x, y);
+            api.arc(0, 0, 300, 0, Math.pI * 2);
+            // api.lineWidth = 2;
+            // api.strokeStyle = "rgb(141, 253, 206)";
+            api.strokeStyle = "rgb(131, 214, 247)";
+            api.stroke();
+            api.restore();
+
+            //round();
+
+
+            //60刻度
+            for (var i = 0; i < 60; i++) {
+
+                api.save();
+                api.beginPath();
+                api.translate(x, y);
+                api.rotate(i * 6 * deg);
+                api.moveTo(0, 290);
+                api.lineTo(0, 300);
+                api.strokeStyle = "rgb(131, 214, 247)";
+                api.stroke();
+                api.restore();
+            }
+            //绘制30刻度  数字
+            for (var i = 0; i < 12; i++) {
+                api.save();
+                api.beginPath();
+                api.translate(x, y);
+                api.rotate(i * 30 * deg);
+                var index = i;
+                createText(index === 0 ? index = 12 : i, 0, -260);
+                api.moveTo(0, 280);
+                api.lineTo(0, 300);
+                api.lineWidth = 4;
+                api.strokeStyle = "rgb(131, 214, 247)";
+                api.fill();
+                api.stroke();
+                api.restore();
+
+
+            }
+
+            //秒针
+            api.save();
+            api.beginPath();
+            api.translate(x, y);
+            api.rotate(sec * 6 * deg);
+            api.moveTo(0, 265);
+            api.lineTo(0, -20);
+            api.lineWidth = 2;
+            api.strokeStyle = "rgb(131, 214, 247)";
+            api.stroke();
+            api.restore();
+
+
+            //分针
+            api.save();
+            api.beginPath();
+            api.translate(x, y);
+            api.rotate(min * 6 * deg);
+            api.moveTo(0, -250);
+            api.lineTo(0, -5);
+            api.lineWidth = 2;
+            api.strokeStyle = "rgb(131, 214, 247)";
+            api.fill();
+            api.stroke();
+            api.restore();
+
+            //时针
+            api.save();
+            api.beginPath();
+            api.translate(x, y);
+            api.rotate(h * 30 * deg);
+            api.moveTo(0, -220);
+            api.lineTo(0, -5);
+            api.lineWidth = 3;
+            api.strokeStyle = "rgb(131, 214, 247)";
+            api.fill();
+            api.stroke();
+            api.restore();
+
+            //秒针所走的轨迹
+            api.save();
+            api.beginPath();
+            api.translate(x, y);
+            api.rotate(((ms / 1000 + sec) * 6) * deg);
+            api.arc(0, 0, 275, 0, (ms / 1000 + sec) * 6 * deg)
+            api.lineWidth = 2;
+            api.strokeStyle = "rgb(131, 214, 247)";
+            api.stroke();
+            api.restore();
+
+        }
+
+        //文本
+        function createText(name, x, y) {
+            api.font = '35px Arial';
+            api.textAlign = 'center';
+            api.textBaseline = 'middle';
+            api.fillStyle = "rgb(141, 253, 206)";
+            api.fillText(name, x, y);
+
+        }
+
+        //封装圆环
+        function round() {
+            //绘制圆环
+            api.save();
+            api.beginPath();
+            api.translate(300, 300);
+            api.arc(0, 0, 260, -Math.pI * 90, Math.pI * 90);
+            api.lineWidth = 2;
+            // api.strokeStyle = 'red';
+            api.closePath();
+            api.stroke();
+            api.restore();
+        }
+        setInterval(clock, 1000);
+    </script>
+</body>
+
+</html>

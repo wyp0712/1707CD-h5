@@ -1,0 +1,34 @@
+@import './reset.scss';
+@function rem($front) {
+    @return $front/75px*1rem;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#myCarvas {
+    // border: solid 1px #000;
+    display: block;
+    margin-top: rem(100px);
+    margin-left: rem(40px);
+    background: #000;
+}
+
+.top {
+    position: absolute;
+    top: rem(290px);
+    left: rem(210px);
+    font-size: rem(35px);
+    color: #fff;
+}
+
+.after {
+    position: absolute;
+    top: rem(350px);
+    left: rem(260px);
+    font-size: rem(30px);
+    color: #fff;
+}

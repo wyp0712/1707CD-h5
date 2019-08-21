@@ -1,0 +1,47 @@
+[
+  {
+    "id": 0,
+    "name": "哈密瓜",
+    "price": 10,
+    "totalprice": 0,
+    "count": 0,
+    "img": "",
+    "msg": "限时秒杀"
+  },
+  {
+    "id": 1,
+    "name": "哈密瓜1",
+    "price": 10,
+    "totalprice": 0,
+    "count": 0,
+    "img": "",
+    "msg": "限时秒杀"
+  },
+  {
+    "id": 2,
+    "name": "哈密瓜2",
+    "price": 20,
+    "totalprice": 0,
+    "count": 0,
+    "img": "",
+    "msg": "限时秒杀"
+  },
+  {
+    "id": 3,
+    "name": "哈密瓜3",
+    "price": 20,
+    "totalprice": 0,
+    "count": 0,
+    "img": "",
+    "msg": "限时秒杀"
+  },
+  {
+    "id": 4,
+    "name": "哈密瓜4",
+    "price": 30,
+    "totalprice": 0,
+    "count": 0,
+    "img": "",
+    "msg": "限时秒杀"
+  }
+]

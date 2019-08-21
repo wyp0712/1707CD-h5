@@ -92,7 +92,11 @@
       },
       mybsfn: function() {
         this.myBS = new BScroll('.main', {
-           click:true
+           click:true,
+           probeType: 2
+        })
+        this.myBS.on('scroll', function(pos) {
+          console.log(pos, 'pos')
         })
       },
       getData: function (fn) {
@@ -143,7 +147,10 @@
 
         rightAlpha.forEach((item,index) => {
           item.onclick = () => {
+            console.log(heightArr)
+
             this.myBS.scrollTo(0, -heightArr[index], 700) // x, y, time , timeing-function
+            
             // this.main.scrollTop = heightArr[index];
           }
         })

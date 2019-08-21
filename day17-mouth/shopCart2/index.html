@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .item {
+      line-height: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <ul class="wrap">
+
+
+
+  </ul>
+
+  <div class="totalPrice">
+
+  </div>
+
+
+  <script src="./libs/ajax.js"></script>
+  <script>
+
+
+    // var wrap = document.querySelector('.wrap')
+    // var totalPrice = document.querySelector('.totalPrice')
+
+    // getData()
+    // function getData() {
+    //   ajax('./mock/cart.json', (res) => {
+    //     renderHtml(res)
+    //     bindEvent(res)
+    //   })
+    // }
+    // function renderHtml(list) {
+    //   wrap.innerHTML = list.map(item => {
+    //     return `<li class="item">
+    //               <span>${item.name}</span>
+    //               <span>单价：${item.price}</span>
+    //               <button class="removeItem" data-id=${item.id} >-</button>
+    //               <span class="count">${item.count}</span>
+    //               <button class="addItem" data-id=${item.id}>+</button>
+    //               <span>总价：${item.count * item.price}</span>
+    //               <hr>
+    //             </li>`
+    //   }).join('')
+    // }
+
+    // function bindEvent(res) {
+    //   // +
+    //   wrap.addEventListener('click', function(e) {
+
+    //     var total = 0;
+    //     if (e.target.className === 'addItem') {
+    //       var myId = e.target.dataset.id;
+    //       console.log(myId, 'myId')
+    //       res.map(item => {
+    //         if (item.id == myId) {
+    //           item.count ++;
+    //         }
+    //         total += item.count * item.price
+    //       })
+    //       totalPrice.innerHTML = total
+    //       renderHtml(res)
+    //     }
+    //   })
+
+    //   // -
+    //   wrap.addEventListener('click', function(e) {
+    //     var total = 0;
+    //     if (e.target.className === 'removeItem') {
+    //       var myId = e.target.dataset.id;
+    //       console.log(myId, 'myId')
+    //       res.map(item => {
+    //         if (item.id == myId) {
+    //           if (item.count == 0) {
+    //             alert('不能再少了')
+    //             return;
+    //           }
+    //           item.count --;
+    //         }
+    //         total += item.count * item.price
+    //       })
+    //       totalPrice.innerHTML = total
+    //       renderHtml(res)
+    //     }
+    //   })
+    // }
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

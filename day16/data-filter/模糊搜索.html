@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <input type="text" class="searchBtn">
+
+  <div class="box">
+
+  </div>
+
+  <script src="./ajax.js"></script>
+  <script>
+
+    var searchBtn = document.querySelector('.searchBtn');
+    var box = document.querySelector('.box');
+
+
+    function getData(fn) {
+      ajax('./mock/data.json', (res) => {
+        fn && fn(res)
+      })
+    }
+
+    function renderHtml(list) {
+      box.innerHTML = list.map(item => {
+        return `<span> id: ${item.id} name: ${item.name} 距离：${item.distance} 评价：${item.pingjia}  </span> <hr> `
+      }).join('')
+    }
+
+    searchBtn.oninput = function () {
+      var val = this.value.trim();
+      if (val) {
+        getData(res => {
+         var list = res.filter(item => {
+           return String(item.id).includes(val) || item.name.includes(val) || String(item.pingjia).includes(val) || String(item.distance).includes(val)
+         })
+          renderHtml(list)
+        })
+      }
+    }
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

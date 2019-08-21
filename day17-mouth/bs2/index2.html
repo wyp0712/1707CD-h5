@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="./scss/index1.css">
+  <script src="./lib/flexible.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+
+    <header class="header">
+
+    </header>
+
+    <main class="main">
+
+      <div class="content">
+        <div class="sec">1</div>
+        <div class="sec">2</div>
+        <div class="sec">3</div>
+        <div class="sec">4</div>
+        <div class="sec">5</div>
+      </div>
+      
+      <div class="back"></div>
+    </main>
+
+    <div class="footer">
+
+    </div>
+  </div>
+
+
+  <script src="./lib/bscroll.js"></script>
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+    var back = document.querySelector('.back');
+    var topTip = document.querySelector('.top-tip');
+    var bottomTip = document.querySelector('.bottom-tip');
+    var con = document.querySelector('.con');
+
+    /*
+     
+    下拉刷新功能：
+    1. 开启
+    2. 监听下拉刷新过程 
+    3. 请求数据
+    4. 结束下拉刷新
+    5. 重新渲染dom
+    
+    */
+
+    // 请求数据函数
+    function getData(fn) {
+      ajax('./mock/data.json', (list) => {
+        fn && fn(list)
+      })
+    }
+
+    // 渲染页面函数
+    function renderHtml(list, dir) {
+      var str = list.map(item => {
+        return `<div class=sec>${item.name}</div>`
+      }).join('')
+
+      if (dir === 'top') {
+        con.innerHTML = str;
+      } else if (dir === 'bottom') {
+        con.innerHTML += str;
+      }
+    }
+
+    // 实例化better-scroll
+    var myBS = new BScroll('.main', {
+      // click  滚动条位置 不开启就不能用
+      click: true, // 开启点击事件
+      pullDownRefresh: {//1. 开启下拉刷新
+        threshold: 180, // 阀值
+        stop: 90  // 回弹 停留   
+      },
+      pullUpLoad: { // 开启上拉加载
+        threshold: 180,// 阀值
+      },
+      // 开启监听滚动条位置
+      probeType: 2,  // 实时开启 
+      scrollX: true, // 开启横滚
+    })
+
+    // 2. 监听过程 结束下拉
+    myBS.on('pullingDown', function () {
+      topTip.innerHTML = '正在刷新'
+      setTimeout(function () {
+        //  3. 请求数据
+        getData((list) => {
+          // 渲染数据
+          renderHtml(list, 'top')
+          // 4. 结束下拉
+          myBS.finishPullDown();
+          // 5.重新计算滚动条
+          myBS.refresh()
+          topTip.innerHTML = '下拉刷新'
+        })
+      }, 3000)
+    })
+
+    // 上拉加载
+    myBS.on('pullingUp', function () {
+      bottomTip.innerHTML = '正在加载'
+      setTimeout(function () {
+        getData((list) => {
+          renderHtml(list, 'bottom')
+          myBS.finishPullUp();
+          myBS.refresh()  // 5.重新计算滚动条
+          bottomTip.innerHTML = '上拉加载'
+        })
+      }, 3000)
+    })
+
+    back.onclick = function () {
+      console.log('1')
+      myBS.scrollTo(0, 0, 700) // x, y, time , time-function
+    }
+
+
+    // 监听滚动条
+    myBS.on('scroll', function (pos) {
+      console.log(pos)
+      if (pos.y >= 240) {
+        window.location.href = 'a.html'
+      }
+    })
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

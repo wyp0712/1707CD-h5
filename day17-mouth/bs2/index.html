@@ -154,9 +154,11 @@
     myBS.on('scroll', function(pos) {
       // console.log(navHeader.offsetTop)
       // console.log(pos, 'pos')
+      console.log(navSec.offsetTop)
       if (pos.y <= -navSec.offsetTop) {
         navSec.classList.add('hide')
         navHeader.classList.remove('hide')
+
       } else {
         navSec.classList.remove('hide')
         navHeader.classList.add('hide')
