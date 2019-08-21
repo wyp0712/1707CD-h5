@@ -41,7 +41,8 @@
 
 
         <ul class="shop-item">
-          <a href="./detail.html">
+
+          <a  href="./detail.html">
             <li class="left">
               <img src="./img//0.jpg" alt="">
             </li>
@@ -76,55 +77,64 @@
 
   <script>
 
-
     var content = document.querySelector('.content');
     var storage = window.localStorage;
 
+    getData()
+
     var myBS = new BScroll('.main', {
-      click: true
+       click: true
     })
 
-    getData()
     function getData(fn) {
-      ajax('./mock/data.json', (list) => {
-        //  fn && fn(res)
-        renderHtml(list)
-      })
+      ajax('./mock/data.json', (res) => {
+        renderHtml(res)
+      }) 
     }
 
     function renderHtml(res) {
       content.innerHTML = res.map(item => {
-        return ` <ul class="shop-item" data-item=${item}>
-          <a class="item-list" href="./detail.html?id=${item.id}&home=${item.name}">
-            <li class="left">
-              <img src="${item.img}" alt="">
-            </li>
-            <li class="right">
-              <p>${item.name}</p>
-            </li>
-          </a>
-          <div class="cart">
-              <button>-</button>
-              <span>${item.count}</span>
-              <button>+</button>
-          </div>
-        </ul>`
+        return ` <ul class="shop-item">
+              <a class="list" href="detail.html?id=${item.id}&count=${item.count}">
+                <li class="left">
+                  <img src="${item.img}" alt="">
+                </li>
+                <li class="right">
+                  <p>${item.name}</p>
+                </li>
+              </a>
+
+              <div class="cart">
+                <button>-</button>
+                <span>${item.count}</span>
+                <button>+</button>
+              </div>
+              </ul>`
       })
+
       bindEvent(res)
     }
 
     function bindEvent(res) {
-      var itemList = document.querySelectorAll('.item-list');
-      itemList.forEach((item, index) => {
-        item.onclick = () => {
-          res.map(val => {
-            if (val.id === index) {
-              storage.setItem('list', JSON.stringify(val));
-            }
-          })
-        }
-      })
+      // 利用本地存储实现详情预览
+       var listItem = document.querySelectorAll('.list');
+
+       listItem.forEach((item, index) => {
+         item.onclick = function() {
+           // 遍历数据 然后找到当前点击的这条数据，存在本地存储中；
+            res.map(function(val) {
+               if (val.id === index) {
+                 console.log(val, 'val')
+                 storage.setItem('data', JSON.stringify(val))
+               } 
+            })
+         }
+       })
+
+    
     }
+
+
 
 
 

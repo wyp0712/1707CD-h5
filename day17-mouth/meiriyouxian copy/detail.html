@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1> 详情页面</h1>
+
+  <div class="box">
+
+  </div>
+
+
+
+  <script src="./libs/ajax.js"></script>
+  <script>
+
+    var storage = window.localStorage;
+    var box = document.querySelector('.box')
+    // console.log(window.location.search.replace(/^\?\w+\=/, ''))
+    // var str = '?sex=1&name=123&id=1'; 
+    // JSON.parse()  JSON   字符串 ""
+    /*
+    { 
+      id: 1,
+      name: 123,
+      sex:1
+    }
+    */
+    var str = window.location.search;
+    var myID = JSON.parse(' {"' + str.replace('?', '').replace(/\&/g, '","').replace(/\=/g, '":"') + '" }').id
+    ajax('./mock/data.json', (res) => {
+      res.map(item => {
+        if (item.id == myID) {
+          var str = ` <ul class="shop-item">
+              <a class="list" href="detail.html">
+                <li class="left">
+                  <img src="${item.img}" alt="">
+                </li>
+                <li class="right">
+                  <p>${item.name}</p>
+                </li>
+              </a>
+              <div class="cart">
+                <button>-</button>
+                <span>${item.count}</span>
+                <button>+</button>
+              </div>
+              </ul>`
+          box.innerHTML = str;
+        }
+      })
+    })
+
+
+    // if (storage.data) {
+    //   var item = JSON.parse(storage.data)
+    //   var str = ` <ul class="shop-item">
+    //           <a class="list" href="detail.html">
+    //             <li class="left">
+    //               <img src="${item.img}" alt="">
+    //             </li>
+    //             <li class="right">
+    //               <p>${item.name}</p>
+    //             </li>
+    //           </a>
+
+    //           <div class="cart">
+    //             <button>-</button>
+    //             <span>${item.count}</span>
+    //             <button>+</button>
+    //           </div>
+    //           </ul>`
+
+
+    //           box.innerHTML = str;
+    // }
+
+
+
+  </script>
+
+</body>
+
+</html>

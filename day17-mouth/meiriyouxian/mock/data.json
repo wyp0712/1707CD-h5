@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "name": "西瓜0",
+    "img": "./img/0.jpg",
+    "price": 10,
+    "count": 0
+  },
+  {
+    "id": 1,
+    "name": "西瓜1",
+    "img": "./img/1.jpg",
+    "price": 10,
+    "count": 0
+  },
+  {
+    "id": 2,
+    "name": "西瓜",
+    "img": "./img/2.jpg",
+    "price": 10,
+    "count": 0
+  },
+  {
+    "id": 3,
+    "name": "西瓜3",
+    "img": "./img/3.jpg",
+    "price": 10,
+    "count": 0
+  },
+  {
+    "id": 4,
+    "name": "西瓜4",
+    "img": "./img/4.jpg",
+    "price": 10,
+    "count": 0
+  }
+]

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <h1>详情页面</h1>
+
+  <div class="box">
+
+  </div>
+
+
+
+
+
+  <script src="./libs/ajax.js"></script>
+  <script>
+    // 将字符串转成对象  JSON.parse()    
+    // {
+    //   "id": 1,
+    //   "name": 123,
+    //   sex: 1
+    // }
+    var strs = '?id=1&name=123&sex=1'
+     
+    var str = JSON.parse('{"' + strs.replace('?', '').replace(/\&/g, '","').replace(/\=/g,'":"') + '" }')
+    console.log(str, 'str')
+
+
+    // var strs = '?id=1&name=123&sex=1' 
+    function formate(str) {
+      // var myId = '';
+      // if (str.indexOf('&') != -1) {
+      //   myId = str.split('&')[0].replace(/\?\w+\=/, '')
+      // } else {
+      //   myId = str.split('&').join('').replace(/\?\w+\=/, '')
+      // }
+      // return myId;
+    }
+    // console.log( '"' + strs.replace('?', '').replace(/\&/g, '","').replace(/\=/g, '":"'), 'strs')
+    // console.log(formate(strs))
+
+    var box = document.querySelector('.box')
+    var storage = window.localStorage;
+    /* 第二种方法跳详情页面： 通过a标签带过去每个数据的id值  在详情页面重新利用id请求数据 */
+    // console.log(window.location.search.replace(/\?\w+\=/, ''))
+    var myId = window.location.search.replace(/\?\w+\=/, '');
+    // console.log(myId, 'myId')
+    ajax('./mock/data.json', (res) => {
+      res.map(item => {
+        if (item.id == myId) {
+          var str = `<ul class="shop-item" >
+          <a class="item-list" href="./detail.html?id=${item.id}">
+            <li class="left">
+              <img src="${item.img}" alt="">
+            </li>
+            <li class="right">
+              <p>${item.name}</p>
+            </li>
+          </a>
+          <div class="cart">
+              <button>-</button>
+              <span>${item.count}</span>
+              <button>+</button>
+          </div>
+        </ul>`
+          box.innerHTML = str;
+        }
+      })
+    })
+
+
+
+
+
+    // if (storage.list) {
+    //   var data = JSON.parse(storage.list)
+
+    //   var str = `<ul class="shop-item" >
+    //       <a class="item-list" href="./detail.html?id=${data.id}">
+    //         <li class="left">
+    //           <img src="${data.img}" alt="">
+    //         </li>
+    //         <li class="right">
+    //           <p>${data.name}</p>
+    //         </li>
+    //       </a>
+    //       <div class="cart">
+    //           <button>-</button>
+    //           <span>${data.count}</span>
+    //           <button>+</button>
+    //       </div>
+    //     </ul>`
+    //   box.innerHTML = str;
+    // }
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
