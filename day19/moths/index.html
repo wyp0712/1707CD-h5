@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 500px;
+      height: 300px;
+      background: #ccc;
+      overflow: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <input type="text" class="inputDom"> <button class="btn">增加数据</button>
+
+  <div class="box">
+
+  </div>
+
+  <script src="./libs/ajax.js"></script>
+  <script>
+
+
+    var box = document.querySelector('.box');
+    var btn = document.querySelector('.btn');
+    var inputDom = document.querySelector('.inputDom');
+    var stroage = window.localStorage;
+
+    /*
+      进入页面第一次用ajax请求数据并且渲染，然后存储在本地存储中
+      每次进入页面判断本地存储中是否存在当前数据，如果存储就取出来渲染；
+    */
+
+    getData()
+    // 取数据渲染数据
+    function getData() {
+      if (stroage.data) {
+        var res = JSON.parse(stroage.data)
+        BindEvent(res)
+        renderHtml(res)
+      } else {
+
+        ajax('./mock/data.json', (res) => {
+          BindEvent(res)
+          renderHtml(res)
+        })
+      }
+    }
+
+    // 渲染数据
+    function renderHtml(list) {
+      box.innerHTML = list.map(item => {
+        return `<div>${item.state}</div>`
+      }).join('')
+    }
+
+    // 点击事件
+    function BindEvent(data) {
+      btn.onclick = function () {
+        // 取
+        var vals = inputDom.value.trim();
+        // push到数组中
+        data.push({
+          state: vals
+        })
+
+        // 一旦数据增加了，就存储在本地存储中，
+        stroage.setItem('data', JSON.stringify(data));
+        renderHtml(data)
+        console.log(data)
+      }
+    }
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

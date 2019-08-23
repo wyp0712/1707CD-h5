@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./swiper.css">
+
+  <script src="./flexible.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="swiper-box">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            1
+          </div>
+          <div class="swiper-slide">
+            1
+          </div>
+          <div class="swiper-slide">
+            1
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="nav">
+      <span>tab1</span>
+      <span>tab1</span>
+      <span>tab1</span>
+    </nav>
+
+    <main class="main">
+      <div class="content">
+
+         <div class="sec">1</div>
+         <div class="sec">2</div>
+         <div class="sec">3</div>
+         <div class="sec">4</div>
+         <div class="sec">5</div>
+         <div class="sec">6</div>
+         <div class="sec">7</div>
+         <div class="sec">8</div>
+         <div class="sec">9</div>
+         <div class="sec">10</div>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+
+
+  </div>
+
+
+  <script src="./swiper.js"></script>
+  <script src="./bscroll.js"></script>
+
+  <script>
+
+     var  swiperBox = document.querySelector('.swiper-box');
+      
+     new Swiper('.swiper-container', {
+
+     })
+     var myBS = new BScroll('.main', {
+       click:true,
+       probeType: 2,
+     }) 
+
+
+     myBS.on('scroll', function(pos) {
+       console.log(pos)
+       if (pos.y < 0) {
+        swiperBox.classList.add('swiperHide')
+       } else {
+        swiperBox.classList.remove('swiperHide')
+       }
+     })
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

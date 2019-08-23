@@ -7,8 +7,10 @@ var utils = (function () {
      * */
     formatStr: function (strs) {
       return JSON.parse('{"' + strs.replace('?', '').replace(/\&/g, '","').replace(/\=/g, '":"') + '" }')
-    }
+    },
+
   }
+  
   return utils
 })()
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  
+
+   /* 可视区域必须给高度  高度必须小于内容盒子高度 */
+   .container {
+     width: 100%;
+     height: 100px;
+     border:1px solid black;
+     overflow: hidden;;
+   }
+
+   /* 内容盒子不能高具体的高，让内容撑开 */
+   .wrapper {
+     width: 100%;
+   }
+
+   .slid {
+     width: 90%;
+     height: 300px;
+     background: lightblue;
+     border-radius: 10px;
+     margin: 5px auto;
+   }
+
+   .main {
+     width: 100%;
+     flex:1;
+   }
+  
+  </style>
+</head>
+<body>
+    
+
+
+
+  <!-- 可视区域 -->
+  <div class="container"> 
+    <!-- 内容盒子 -->
+    <div class="wrapper">
+      <!-- 内容 -->
+      <div class="slid">1</div>
+      <div class="slid">1</div>
+      <div class="slid">1</div>
+      <div class="slid">1</div>
+    </div>
+  </div>
+
+
+  <script src="../mouth/lib/bscroll.js"></script>
+  <script>
+
+    
+    
+    new BScroll('.container', {
+
+    })
+  
+  
+  </script>
+</body>
+</html>

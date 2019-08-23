@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script src="./lib/flexible.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <input type="text" class="inputDom"> <button class="addItem">增加数据</button>
+
+  <div class="box">
+
+  </div>
+
+  <div class="con">
+
+  </div>
+
+
+
+  <script src="./lib/ajax.js"></script>
+  <script src="./lib/swiper.js"></script>
+  <script src="./lib/bscroll.js"></script>
+  <script>
+
+
+
+    var myMouth = function () {
+
+      this.inputDom = document.querySelector('.inputDom')
+      this.addItem = document.querySelector('.addItem')
+      this.box = document.querySelector('.box')
+
+      this.storage = window.localStorage;
+
+      this.init()
+    }
+
+    myMouth.prototype = {
+      init: function () {
+        // this.bindEvent()
+        this.getData()
+        this.mySwiper()
+        // this.myBS()
+      },
+      /* 
+        第一次进入页面先走ajax，渲染页面， 并且存储在本地存储中，
+        如果进入页面判断本地存储中有数据，就走本地存储渲染，不走ajax了
+      */
+      getData: function () {
+        if (this.storage.list) {
+          // 本地存储取数据的两种方法： this.storage.list   this.storage.getItem('list')
+          var res = JSON.parse(this.storage.getItem('list'))
+          this.bindEvent(res)
+          this.renderHtml(res)
+        } else {
+          ajax('./mock/list.json', (res) => {
+            this.bindEvent(res)
+            this.renderHtml(res)
+          })
+        }
+      },
+      bindEvent: function (res) {
+        // 点击的时候存储数据
+        this.addItem.onclick = () => {
+          var val = this.inputDom.value.trim();
+          var obj = {
+            // "id": 12,
+            "state": val,
+            "content": "hello world"
+          }
+          // 存储数据
+          res.push(obj)
+          // 渲染数据
+          this.renderHtml(res)
+          // 存在本地存储中，方便下一次进入页面中访问数据
+          this.storage.setItem('list', JSON.stringify(res))
+        }
+      },
+      renderHtml: function (list) {
+        this.box.innerHTML = list.map(val => {
+          return `<div>${val.state}</div>`
+        }).join('')
+      },
+      myBS: function () {
+        this.BS = new BScroll('.main', {
+
+        })
+        this.pullDown()
+        this.pullUp()
+      },
+      pullDown: function () { 
+
+      },
+      pullUp: function () { 
+
+      },
+      mySwiper: function () { 
+        this.mySwiper = new Swiper('.swiper-container', {
+
+        })
+      },
+
+
+    }
+
+    new myMouth()
+
+
+
+
+  </script>
+</body>
+
+</html>

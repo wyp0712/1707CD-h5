@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+
+    html,body {
+      width: 100%;
+      height: 100%;
+    }
+    .wrap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content {
+      width: 100%;
+      height: 80%;
+      background: #000;
+      opacity: .6;
+      transition: all .5s;
+      /* transform: rotateY() */
+    }
+  
+  </style>
+</head>
+<body>
+  
+ 
+  <div class="wrap">
+    <div class="content">
+
+    </div>
+    <button class="btns">点击翻转</button>
+  </div>
+ <script>
+
+   var btns = document.querySelector('.btns');
+   var content = document.querySelector('.content');
+
+  var j = 0; 
+   btns.onclick = function() {
+      j+=10;
+      content.style.transform = `rotateY(${180}deg)`;
+   }
+ 
+ 
+ 
+ </script>
+
+</body>
+</html>

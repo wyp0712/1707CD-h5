@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      width: 100%;
+      height: 40px;
+      overflow: hidden;
+      position: relative;
+      line-height: 40px;
+    }
+
+    .slectDown {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: lightcoral;
+      right: 0;
+      top: 5%;
+      border-radius: 50%;
+    }
+
+    .slideDownBox {
+      width: 100%;
+      height: 200px;
+      background: red;
+      height: 0;
+      overflow: hidden;
+      transition: height .5s;
+    }
+
+    .slideShow{
+      height: 200px;
+    }
+
+    .nav .nav-content {
+      width: 200%;
+      display: flex;
+    }
+
+    .nav .nav-content .nav-slide {
+      width: 20%;
+      height: 100%;
+    }
+
+    .header,
+    .footer {
+      width: 100%;
+      height: 40px;
+      border: 1px solid black;
+    }
+
+    .main {
+      width: 100%;
+      flex: 1;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="wrap">
+    <header class="header">
+      海淀区一日大
+    </header>
+
+    <nav class="nav">
+      <div class="nav-content">
+        <span class="nav-slide">热销爆款1</span>
+        <span class="nav-slide">热销爆款2</span>
+        <span class="nav-slide">热销爆款3</span>
+        <span class="nav-slide">热销爆款4</span>
+        <span class="nav-slide">热销爆款5</span>
+        <span class="nav-slide">热销爆款6</span>
+        <span class="nav-slide">热销爆款7</span>
+        <span class="nav-slide">热销爆款8</span>
+        <span class="nav-slide">热销爆款9</span>
+        <span class="nav-slide">热销爆款</span>
+      </div>
+
+      <div class="slectDown">
+        点击下拉
+      </div>
+    </nav>
+
+    <div class="slideDownBox">
+
+    </div>
+
+
+    <main class="main">
+      <div class="content">
+
+      </div>
+    </main>
+    <footer class="footer"></footer>
+
+
+  </div>
+
+
+
+  <script src="swiper.js"></script>
+  <script src="./bscroll.js"></script>
+  <script>
+
+    var slectDown = document.querySelector('.slectDown');
+    var slideDownBox = document.querySelector('.slideDownBox');
+
+    new BScroll('.nav', {
+      scrollX: true,
+      click:true
+    })
+
+    slectDown.onclick = function() {
+      console.log(1)
+      slideDownBox.classList.toggle('slideShow')
+    }
+
+
+  </script>
+
+</body>
+
+</html>
