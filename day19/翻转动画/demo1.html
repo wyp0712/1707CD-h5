@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main {
+      width: 100%;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .content {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .wrap>.footer {
+      width: 100%;
+      height: 45px;
+      background: lightcoral;
+      display: flex;
+    }
+
+    .wrap>.footer .btn {
+      flex: 1;
+    }
+
+    .content1 {
+      width: 100%;
+      height: 100%;
+      background: red;
+
+      /* 翻转不可见 */
+      backface-visibility: hidden;
+      transition: all 1s;
+      transform: rotateY(180deg);
+    }
+
+    .content2 {
+      width: 100%;
+      height: 100%;
+      background: blue;
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      /* 翻转不可见 */
+      backface-visibility: hidden;
+      transition: all 1s;
+      /* transform: rotateY() */
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="wrap">
+
+    <div class="main">
+      <div class="content">
+        <!-- 第一个内容盒子 -->
+        <div class="content1">
+          <header class="header">fftgtgtgg</header>
+          <main class="main"></main>
+          <footer class="footer"></footer>
+        </div>
+
+        <div class="content2">
+          <header class="header">22222222</header>
+          <main class="main"></main>
+          <footer class="footer"></footer>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="btn">tab1</button>
+      <!-- <button class="btn">tab1</button> -->
+    </div>
+  </div>
+  <script>
+
+    var content1 = document.querySelector('.content1')
+    var content2 = document.querySelector('.content2')
+    var tabs = document.querySelector('.btn')
+
+    var flag = true;
+    tabs.onclick = function () {
+      if (flag) {
+        content2.style.transform = `rotateY(${180}deg)`;
+        content1.style.transform = `rotateY(${0}deg)`;
+      } else {
+        content2.style.transform = `rotateY(${0}deg)`;
+        content1.style.transform = `rotateY(${180}deg)`;
+      }
+      flag = !flag;
+    }
+
+
+
+
+  </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

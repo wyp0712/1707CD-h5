@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./font_3gk76ktke3u/iconfont.css">
+  <link rel="stylesheet" href="./style/index.css">
+  <script src="./lib/flexible.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="wrap">
+    <div class="header"></div>
+    <div class="nav">
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+
+    <div class="main">
+      <div class="content">
+        <div class="top-tip">
+          <span class="iconfont">&#xe68f;</span>
+          <span class="font">下拉刷新</span>
+        </div>
+        <div class="movie-con">
+
+          <div class="sec">1</div>
+          <div class="sec">2</div>
+          <div class="sec">3</div>
+          <div class="sec">4</div>
+          <div class="sec">5</div>
+          <div class="sec">6</div>
+          <div class="sec">7</div>
+          <div class="sec">8</div>
+          <div class="sec">9</div>
+          <div class="sec">10</div>
+        </div>
+
+        <div class="bottom-tip">
+          <span class="iconfont">&#xe68f;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+
+    </div>
+  </div>
+
+
+
+  <script src="./lib/bscroll.js"></script>
+  <script src="./lib/ajax.js"></script>
+  <script>
+
+    // 下拉刷新  上拉加载
+
+    var MyBsFn = function () {
+      // movie-con
+      this.font = document.querySelector('.font');
+      this.movieCon = document.querySelector('.movie-con');
+      this.init()
+    }
+
+    MyBsFn.prototype = {
+      init: function () {
+        // this.getData()
+        this.bindBSEvent()
+      },
+      getData: function (fn) {
+        ajax('./mock/data.json', (res) => {
+          fn && fn(res)
+        })
+      },
+      render: function (list, dir) {
+
+        var str = list.map(item => {
+          return `<div class=sec>${item.name}</div>`
+        }).join('')
+        if (dir === 'top') {
+          this.movieCon.innerHTML = str
+        } else if (dir === 'bottom') {
+          this.movieCon.innerHTML += str
+        }
+      },
+      bindBSEvent: function () {
+        this.myBS = new BScroll('.main', {
+          // 开启下拉 refresh
+          pullDownRefresh: {
+            threshold: 180,
+            stop: 80  // 回弹停留
+          },
+          // 开启上拉
+          pullUpLoad: {
+            threshold: 180,
+          }
+        })
+
+        // 监听下拉
+        this.myBS.on('pullingDown', () => {
+          setTimeout(() => {
+            // ajax
+            this.getData((res) => {
+              console.log(res, 'res')
+              // 渲染数据
+              this.render(res, 'top');
+              this.myBS.finishPullDown() // 结束刷新
+              this.myBS.refresh() // 刷新页面，重新计算滚动条位置
+            })
+          }, 2000)
+        })
+
+        // 上拉加载
+        this.myBS.on('pullingUp', () => {
+          setTimeout(() => {
+            // ajax
+            this.getData((res) => {
+              console.log(res, 'res')
+              // 渲染数据
+              this.render(res, 'bottom');
+              this.myBS.finishPullUp() // 结束刷新
+              this.myBS.refresh() // 刷新页面，重新计算滚动条位置
+            })
+          }, 2000)
+        })
+
+      }
+    }
+
+    new MyBsFn()
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
